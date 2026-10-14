@@ -1,6 +1,6 @@
 # Nightshift — Phasmophobia Fieldbook
 
-A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Suspects, Checks, and Summary; swipe left or right to move between them. Suspects keeps every evidence-compatible ghost visible and ranks matching behavior tells first. Tap a ghost for its field notes, or rule it out manually. Checks lets you record a tell or mark a check as tried without automatically ruling anything out. Summary gathers the current round and shows clue-based leading suspects in one optional view. No account, backend, API key, or build step is needed.
+A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Suspects, Checks, and Summary; swipe left or right to move between them. Suspects keeps every evidence-compatible ghost visible and ranks matching behavior tells first. Tap a ghost for its field notes; a manual rule-out control lives inside the expanded card, and All lets you restore it. Checks lets you record a tell or mark a check as tried without automatically ruling anything out. Summary gathers the current round and shows clue-based leading suspects in one optional view. No account, backend, API key, or build step is needed.
 
 ## Run locally
 
