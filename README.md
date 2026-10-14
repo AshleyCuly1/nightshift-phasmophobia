@@ -1,6 +1,6 @@
 # Nightshift — Phasmophobia Fieldbook
 
-A static, phone-first investigation board for 0–3 evidence runs. The floating bottom bar switches between Investigation, Suspects, and Next steps; swipe left or right to move between them. Tapping a ghost expands its field notes beneath that suspect, with only one open at a time. The star adds a ghost to your shortlist. No account, backend, API key, or build step is needed.
+A static, phone-first investigation board for 0–3 evidence runs. The floating bottom bar switches between Investigation, Suspects, and Next steps; swipe left or right to move between them. Tapping a ghost expands its field notes beneath that suspect, with only one open at a time. The star adds a ghost to your shortlist. Next steps shows evidence checks, quick behavior checks available from the start, and ghost-specific leads as suspects narrow. No account, backend, API key, or build step is needed.
 
 ## Run locally
 

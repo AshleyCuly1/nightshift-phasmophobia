@@ -57,3 +57,11 @@
 .next-steps-head h2{font:600 27px 'Space Grotesk';letter-spacing:-.045em;margin:12px 0 0}
 @media(max-width:760px){.next-steps-head{padding-top:22px}.next-steps-head h2{font-size:28px}.ghost-expand{padding:0 1px 3px}.ghost-expand .detail-top h2{font-size:23px}.ghost-main{grid-template-columns:minmax(0,1fr) 86px}}
 @media(max-width:380px){.ghost-main{grid-column:1;grid-template-columns:minmax(0,1fr)}}
+.next-section{margin:25px 0 30px}
+.next-section>h3{font:700 11px 'Space Grotesk';letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin:0 0 11px}
+.next-section-note{color:var(--muted);font-size:11px;line-height:1.5;margin:0 0 13px}
+.test-card h4{font:600 15px 'Space Grotesk';margin:7px 0}
+.quick-check .split a{color:var(--teal);text-decoration:none}
+.quick-check .split a:hover{text-decoration:underline}
+.quick-jump{border:1px solid #456c61;border-radius:7px;background:#19332b;color:var(--teal);padding:9px 11px;font:700 11px 'Space Grotesk'}
+#quickChecks{scroll-margin-top:18px}
