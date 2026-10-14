@@ -28,8 +28,13 @@
 .behavior-section>p{margin:0 0 17px;color:var(--muted);font-size:11px;line-height:1.45}
 .behavior-result{margin:0 0 17px;padding:10px 12px;border:1px solid #527f6e;border-radius:8px;background:#19332b;color:#d9f2e4;font-size:11px;line-height:1.45}
 .behavior-result[hidden],.tabset button[hidden]{display:none}
+.behavior-review{margin:0 0 16px;padding:10px 12px;border:1px solid #896d49;border-radius:8px;background:#2b261f;color:#f0d8ad;font-size:11px;line-height:1.45}
+.behavior-tier{margin:0 0 20px}
+.behavior-tier>h3{margin:0 0 5px;color:var(--teal);font:700 11px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase}
+.behavior-tier>p{margin:0 0 11px;color:var(--muted);font-size:11px;line-height:1.45}
+.behavior-tier+.behavior-tier{border-top:1px solid var(--line);padding-top:17px}
 .behavior-group{margin:0 0 16px}
-.behavior-group h3{margin:0 0 8px;color:var(--muted);font:700 10px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase}
+.behavior-group h4{margin:0 0 8px;color:var(--muted);font:700 10px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase}
 .behavior-grid{display:grid;grid-template-columns:1fr;gap:6px}
 .behavior-chip{display:grid;grid-template-columns:19px minmax(0,1fr) 12px;align-items:center;gap:7px;min-height:41px;width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text);text-align:left;font:600 11px/1.2 'DM Sans',sans-serif}
 .behavior-chip:hover{border-color:#67867f}

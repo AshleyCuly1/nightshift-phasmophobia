@@ -1,5 +1,5 @@
-// Behavioral observations are soft clues, not evidence or hard exclusions.
-// Mappings are editorial summaries of community mechanics; audit per patch.
+// Only narrowly defined, positively observed unique tells narrow suspects.
+// Other observations rank leads or are neutral notes. Review rules each patch.
 export const OBSERVATIONS = [
   {id:'fast_hunt',group:'Hunt',icon:'rabbit',label:'Very fast hunt',weight:1,leads:['Deildegast','Deogen','Revenant','Thaye','Hantu','Raiju','Moroi','Jinn','Dayan','Gallu','Obambo','Aswang'],tip:'Speed depends on sight, temperature, sanity and nearby equipment.'},
   {id:'slow_hunt',group:'Hunt',icon:'turtle',label:'Very slow hunt',weight:1,leads:['Revenant','Deogen','Thaye','Hantu','Deildegast','Dayan','Gallu','Obambo','The Twins'],tip:'Compare before the ghost has seen a player; many ghosts speed up with sight.'},
@@ -13,18 +13,20 @@ export const OBSERVATIONS = [
   {id:'long_blink',group:'Visual',icon:'eye-off',label:'Long invisible blinks',weight:2,leads:['Phantom'],tip:'A Phantom tends to be invisible for longer during hunts.'},
   {id:'rapid_blink',group:'Visual',icon:'scan-eye',label:'Fast blink / flicker',weight:0,leads:[],tip:'Blink rhythm alone is not a reliable identifier; compare total visible and invisible time.'},
   {id:'visible_blink',group:'Visual',icon:'eye',label:'Mostly visible in hunt',weight:2,leads:['Oni','Deogen'],tip:'Both can be more visible than standard ghosts.'},
-  {id:'shape_shift',group:'Visual',icon:'switch-camera',label:'Model changed in hunt',weight:2,leads:['Obake'],tip:'Look for a brief one-blink model change.'},
-  {id:'hunting_breath',group:'Visual',icon:'snowflake',label:'Freezing breath in hunt',weight:2,leads:['Hantu'],tip:'The Hantu tell depends on the breaker being off.'},
+  {id:'shape_shift',group:'Visual',icon:'switch-camera',label:'Model changed for one hunt blink',kind:'confirmed',fits:['Obake','The Mimic'],leads:['Obake'],tip:'A clear, brief change to another ghost model during a hunt. Obake or a Mimic copying Obake.'},
+  {id:'hunting_breath',group:'Visual',icon:'snowflake',label:'Breath from ghost during hunt',kind:'confirmed',fits:['Hantu','The Mimic'],leads:['Hantu'],tip:'Breath must come from the ghost’s head during a hunt with the breaker off, not from a player in a cold room.'},
+  {id:'phantom_photo',group:'Visual',icon:'switch-camera',label:'Ghost vanished in photo',kind:'confirmed',fits:['Phantom','The Mimic'],leads:['Phantom'],tip:'In a ghost event, the ghost disappears when photographed while the event continues. Check the photo actually captured it.'},
   {id:'breaker_off',group:'Interaction',icon:'power',label:'Breaker turned off',weight:0,leads:[],tip:'A breaker can trip from too many lights; this alone does not identify a ghost.'},
-  {id:'object_burst',group:'Interaction',icon:'sparkles',label:'Several objects thrown',weight:2,leads:['Poltergeist'],tip:'A simultaneous object burst is much stronger than a single throw.'},
+  {id:'object_burst',group:'Interaction',icon:'sparkles',label:'Several object throws',weight:1,leads:['Poltergeist'],tip:'Any ghost can throw objects. Frequent throws are a clue, not a rule-out.'},
+  {id:'multi_throw',group:'Interaction',icon:'sparkles',label:'Several objects thrown at once',kind:'confirmed',fits:['Poltergeist','The Mimic'],leads:['Poltergeist'],tip:'Confirm one simultaneous burst, not several separate throws. Poltergeist or a Mimic copying it.'},
   {id:'twins_pair',group:'Interaction',icon:'repeat-2',label:'Two interactions moments apart',weight:2,leads:['The Twins'],tip:'Listen for two interactions in different spots within about 2 seconds; an occasional pair can happen by chance.'},
   {id:'salt_untouched',group:'Interaction',icon:'scan',label:'Crossed salt untouched',weight:2,leads:['Wraith','Gallu'],tip:'Log this only if you know the ghost crossed the salt. Gallu can avoid it in one state.'},
   {id:'lights_off',group:'Interaction',icon:'lightbulb-off',label:'Instant light switch off',weight:2,leads:['Mare'],tip:'Watch for a very quick switch-off after you turn a light on.'},
   {id:'onryo_fire',group:'Interaction',icon:'flame',label:'Firelight blowout pattern',weight:2,leads:['Onryo'],tip:'Repeated fast blowouts or a hunt following multiple blowouts can point to Onryo; note cooldowns.'},
   {id:'yurei_door',group:'Interaction',icon:'door-closed',label:'Door fully closed outside event',weight:2,leads:['Yurei'],tip:'Check it was a ghost interaction, not a player or event.'},
-  {id:'six_finger',group:'Interaction',icon:'hand',label:'Six-finger UV print',weight:2,leads:['Obake'],tip:'Check prints quickly before they fade.'},
-  {id:'para_scream',group:'Sound',icon:'audio-lines',label:'Parabolic scream',weight:2,leads:['Banshee'],tip:'A distinct scream through the parabolic microphone points toward Banshee.'},
-  {id:'box_breath',group:'Sound',icon:'radio',label:'Heavy Spirit Box breath',weight:2,leads:['Deogen'],tip:'Listen for its distinctive close-range breathing response.'},
+  {id:'six_finger',group:'Interaction',icon:'hand',label:'Six-finger UV handprint',kind:'confirmed',fits:['Obake','The Mimic'],requiresEvidence:'uv',leads:['Obake'],tip:'Count six fingers on a ghost UV handprint. Obake or a Mimic copying Obake; ordinary prints prove neither.'},
+  {id:'para_scream',group:'Sound',icon:'audio-lines',label:'Distinct Banshee scream on parabolic mic',kind:'confirmed',fits:['Banshee','The Mimic'],leads:['Banshee'],tip:'Confirm the unique paranormal scream, not an ordinary ghost sound. No scream on a pass rules out nothing.'},
+  {id:'box_breath',group:'Sound',icon:'radio',label:'Distinct heavy Spirit Box breath',kind:'confirmed',fits:['Deogen','The Mimic'],requiresEvidence:'box',leads:['Deogen'],tip:'Confirm the special close-range Spirit Box response, not normal breathing or a ghost event.'},
   {id:'shy',group:'Activity',icon:'eye-closed',label:'Quiet near players',weight:1,leads:['Shade'],tip:'Random quiet periods happen; repeat the observation.'},
   {id:'aggressive',group:'Activity',icon:'zap',label:'Very active / aggressive',weight:0,leads:[],tip:'Frequent activity can happen by chance and depends on the situation. Look for a more specific tell.'},
   {id:'activity_cycle',group:'Activity',icon:'repeat-2',label:'Activity comes in phases',weight:1,leads:['Obambo','Gallu','Thaye','The Mimic'],tip:'Look for repeated, distinct changes rather than one quiet spell.'}
