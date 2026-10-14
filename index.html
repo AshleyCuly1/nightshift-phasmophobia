@@ -1,5 +1,118 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#0c1219"><meta name="description" content="A fast, detailed Phasmophobia fieldbook for low-evidence ghost hunts."><title>Nightshift — Phasmophobia Fieldbook</title><link rel="stylesheet" href="style.css?v=mobile-clarity-1"></head><body>
-<header class="topbar"><div class="brand"><span class="brand-mark">✳</span><div><strong>NIGHTSHIFT</strong><small>PHASMOPHOBIA FIELDNOTE / v0.19.3</small></div></div><div class="top-actions"><span class="live-dot"></span><span class="session-label">LOCAL SESSION</span><button class="quiet-btn desktop-summary-link" data-view="summary">Summary</button><button id="shareBtn" class="quiet-btn" title="Copy a link with this investigation">↗ <span>Share state</span></button><button id="resetBtn" class="quiet-btn danger" title="Clear investigation" aria-label="Reset investigation"><span class="reset-icon" aria-hidden="true">↺</span><span>Reset</span></button></div></header>
-<main class="shell"><aside class="rail"><div class="rail-head"><div class="eyebrow">01 / INVESTIGATION</div><h1>Follow the evidence<span class="period">.</span></h1><p>Tap once for found, twice for ruled out, again to clear.</p></div><div class="provenance"><strong>DATA STATUS</strong><span>Ghost pages reviewed 14 Oct 2026 against community wiki revisions and official v0.19.1.0 notes. Specific mechanics remain community sourced.</span><a href="https://phasmophobia.fandom.com/wiki/Evidence" target="_blank" rel="noopener">See evidence source ↗</a></div><div class="mode-block"><label for="mode">Evidence given</label><div class="segmented" id="mode" role="group" aria-label="Evidence given"><button data-mode="3">3</button><button data-mode="2">2</button><button data-mode="1">1</button><button data-mode="0">0</button></div></div><div class="section-label"><span>EVIDENCE</span><span>FOUND / RULED OUT</span></div><div id="evidenceList" class="evidence-list"></div><section class="behavior-section"><div class="section-label"><span>OBSERVED BEHAVIORS</span><span id="behaviorCount">0 NOTED</span></div><p>Tap what you noticed. Specific tells move matching ghosts up the Suspects list; broad notes stay in your log.</p><div id="behaviorResult" class="behavior-result" role="status" aria-live="polite" hidden></div><div id="behaviorList"></div></section><div class="rail-note"><span class="note-symbol">i</span><p>On reduced evidence, a missed result only rules out a ghost if that evidence is guaranteed. The Mimic always gives extra Orbs.</p></div><div class="source-link"><span>DATA CHECK</span><a href="https://phasmophobia.fandom.com/wiki/Evidence" target="_blank" rel="noopener">Evidence reference ↗</a></div></aside>
-<section class="workspace"><div class="workspace-head"><div><div class="eyebrow">02 / SUSPECT BOARD</div><h2><span id="count">30</span> <span id="countLabel">possible ghosts</span></h2><p id="summary">Start with a finding, or browse the full fieldbook.</p></div><div class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="Search ghost or tell…" aria-label="Search ghosts"></div></div><div class="filterline"><div class="tabset" role="group" aria-label="Ghost filter"><button class="active" data-filter="possible">Possible <span id="possibleCount">30</span></button><button data-filter="all">All <span id="allCount">30</span></button></div><span class="legend"><i></i> Tap a ghost to expand field notes</span></div><div class="list-header"><span>GHOST / EVIDENCE</span><span>HUNT SPEED</span></div><div id="ghostList" class="ghost-list"></div></section>
-<aside class="inspector" id="inspector" aria-label="Checks"><div class="next-steps-head"><div class="eyebrow">03 / CHECKS</div><h2>What to test<span class="period">.</span></h2></div><div id="testsPanel"></div></aside><section class="summary-view" id="summaryView" aria-label="Investigation summary"><button class="quiet-btn summary-back" data-view="suspects">← Back to board</button><div class="eyebrow">04 / SUMMARY</div><h2>At a glance<span class="period">.</span></h2><div id="summaryPanel"></div></section></main><nav class="mobile-nav" aria-label="Main views"><button data-view="investigation" aria-label="Investigation"><span class="nav-icon">✳</span><span>Investigation</span></button><button data-view="suspects" aria-label="Suspects"><span class="nav-icon">☷</span><span>Suspects <b id="navCount">30</b></span></button><button data-view="notes" aria-label="Checks"><span class="nav-icon">▤</span><span>Checks</span></button><button data-view="summary" aria-label="Summary"><span class="nav-icon">◫</span><span>Summary</span></button></nav><div id="toast" role="status" aria-live="polite"></div><script type="module" src="app.js?v=mobile-clarity-1"></script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#0c1219"><meta name="description" content="A fast, detailed Phasmophobia fieldbook for low-evidence ghost hunts."><title>Nightshift — Phasmophobia Fieldbook</title><link rel="stylesheet" href="style.css?v=lucide-icons-1"></head><body><svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><symbol id="i-ghost" viewBox="0 0 24 24"><path d="M15 10v1" />
+  <path d="M7.528 20.472a1.6 1.6 0 012.277 0l1.057 1.056a1.6 1.6 0 002.276 0l1.057-1.056a1.6 1.6 0 012.277 0l1.114 1.114a1.4 1.4 0 002.414-1V10a8 8 0 00-16 0v10.586a1.4 1.4 0 002.414 1z" />
+  <path d="M9 10v1" /></symbol><symbol id="i-scan-search" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2" />
+  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+  <circle cx="12" cy="12" r="3" />
+  <path d="m16 16-1.9-1.9" /></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="M13 5h8" />
+  <path d="M13 12h8" />
+  <path d="M13 19h8" />
+  <path d="m3 17 2 2 4-4" />
+  <path d="m3 7 2 2 4-4" /></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" /></symbol><symbol id="i-share-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3" />
+  <circle cx="6" cy="12" r="3" />
+  <circle cx="18" cy="19" r="3" />
+  <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+  <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></symbol><symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+  <path d="M3 3v5h5" /></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" />
+  <path d="M19 12H5" /></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14" />
+  <path d="m19 12-7 7-7-7" /></symbol><symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></symbol><symbol id="i-scan-eye" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2" />
+  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+  <circle cx="12" cy="12" r="1" />
+  <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0" /></symbol><symbol id="i-fingerprint" viewBox="0 0 24 24"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
+  <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
+  <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02" />
+  <path d="M2 12a10 10 0 0 1 18-6" />
+  <path d="M2 16h.01" />
+  <path d="M21.8 16c.2-2 .131-5.354 0-6" />
+  <path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2" />
+  <path d="M8.65 22c.21-.66.45-1.32.57-2" />
+  <path d="M9 6.8a6 6 0 0 1 9 5.2v2" /></symbol><symbol id="i-snowflake" viewBox="0 0 24 24"><path d="m10 20-1.25-2.5L6 18" />
+  <path d="M10 4 8.75 6.5 6 6" />
+  <path d="m14 20 1.25-2.5L18 18" />
+  <path d="m14 4 1.25 2.5L18 6" />
+  <path d="m17 21-3-6h-4" />
+  <path d="m17 3-3 6 1.5 3" />
+  <path d="M2 12h6.5L10 9" />
+  <path d="m20 10-1.5 2 1.5 2" />
+  <path d="M22 12h-6.5L14 15" />
+  <path d="m4 10 1.5 2L4 14" />
+  <path d="m7 21 3-6-1.5-3" />
+  <path d="m7 3 3 6h4" /></symbol><symbol id="i-circle-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" />
+  <circle cx="12" cy="12" r="10" /></symbol><symbol id="i-notebook-pen" viewBox="0 0 24 24"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" />
+  <path d="M2 6h4" />
+  <path d="M2 10h4" />
+  <path d="M2 14h4" />
+  <path d="M2 18h4" />
+  <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" /></symbol><symbol id="i-radio" viewBox="0 0 24 24"><path d="M16.247 7.761a6 6 0 0 1 0 8.478" />
+  <path d="M19.075 4.933a10 10 0 0 1 0 14.134" />
+  <path d="M4.925 19.067a10 10 0 0 1 0-14.134" />
+  <path d="M7.753 16.239a6 6 0 0 1 0-8.478" />
+  <circle cx="12" cy="12" r="2" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol><symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" /></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" /></symbol><symbol id="i-rabbit" viewBox="0 0 24 24"><path d="M13 16a3 3 0 0 1 2.24 5" />
+  <path d="M18 12h.01" />
+  <path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3" />
+  <path d="M20 8.54V4a2 2 0 1 0-4 0v3" />
+  <path d="M7.612 12.524a3 3 0 1 0-1.6 4.3" /></symbol><symbol id="i-turtle" viewBox="0 0 24 24"><path d="m12 10 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a8 8 0 1 0-16 0v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3l2-4h4Z" />
+  <path d="M4.82 7.9 8 10" />
+  <path d="M15.18 7.9 12 10" />
+  <path d="M16.93 10H20a2 2 0 0 1 0 4H2" /></symbol><symbol id="i-arrow-left-right" viewBox="0 0 24 24"><path d="M8 3 4 7l4 4" />
+  <path d="M4 7h16" />
+  <path d="m16 21 4-4-4-4" />
+  <path d="M20 17H4" /></symbol><symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4" />
+  <path d="M3.34 19a10 10 0 1 1 17.32 0" /></symbol><symbol id="i-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></symbol><symbol id="i-repeat-2" viewBox="0 0 24 24"><path d="m2 9 3-3 3 3" />
+  <path d="M13 18H7a2 2 0 0 1-2-2V6" />
+  <path d="m22 15-3 3-3-3" />
+  <path d="M11 6h6a2 2 0 0 1 2 2v10" /></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" /></symbol><symbol id="i-alarm-clock" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" />
+  <path d="M12 9v4l2 2" />
+  <path d="M5 3 2 6" />
+  <path d="m22 6-3-3" />
+  <path d="M6.38 18.7 4 21" />
+  <path d="M17.64 18.67 20 21" /></symbol><symbol id="i-volume-x" viewBox="0 0 24 24"><path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z" />
+  <path d="m16.5 14.5 5-5" />
+  <path d="m16.5 9.5 5 5" /></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+  <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+  <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+  <path d="m2 2 20 20" /></symbol><symbol id="i-switch-camera" viewBox="0 0 24 24"><path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" />
+  <path d="M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5" />
+  <circle cx="12" cy="12" r="3" />
+  <path d="m18 22-3-3 3-3" />
+  <path d="m6 2 3 3-3 3" /></symbol><symbol id="i-power" viewBox="0 0 24 24"><path d="M12 2v10" />
+  <path d="M18.4 6.6a9 9 0 1 1-12.77.04" /></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+  <path d="M20 2v4" />
+  <path d="M22 4h-4" />
+  <circle cx="4" cy="20" r="2" /></symbol><symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2" />
+  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+  <path d="M7 21H5a2 2 0 0 1-2-2v-2" /></symbol><symbol id="i-lightbulb-off" viewBox="0 0 24 24"><path d="M16.8 11.2c.8-.9 1.2-2 1.2-3.2a6 6 0 0 0-9.3-5" />
+  <path d="m2 2 20 20" />
+  <path d="M6.3 6.3a4.67 4.67 0 0 0 1.2 5.2c.7.7 1.3 1.5 1.5 2.5" />
+  <path d="M9 18h6" />
+  <path d="M10 22h4" /></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></symbol><symbol id="i-door-closed" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" />
+  <path d="M2 21h20" />
+  <path d="M9 12h.01" /></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" />
+  <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" />
+  <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" />
+  <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" /></symbol><symbol id="i-audio-lines" viewBox="0 0 24 24"><path d="M2 10v3" />
+  <path d="M6 6v11" />
+  <path d="M10 3v18" />
+  <path d="M14 8v7" />
+  <path d="M18 5v13" />
+  <path d="M22 10v3" /></symbol><symbol id="i-eye-closed" viewBox="0 0 24 24"><path d="m15 18-.722-3.25" />
+  <path d="M2 8a10.645 10.645 0 0 0 20 0" />
+  <path d="m20 15-1.726-2.05" />
+  <path d="m4 15 1.726-2.05" />
+  <path d="m9 18 .722-3.25" /></symbol></defs></svg>
+<header class="topbar"><div class="brand"><svg class="icon brand-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-ghost"></use></svg><div><strong>NIGHTSHIFT</strong><small>PHASMOPHOBIA FIELDNOTE / v0.19.4</small></div></div><div class="top-actions"><span class="live-dot"></span><span class="session-label">LOCAL SESSION</span><button class="quiet-btn desktop-summary-link" data-view="summary">Summary</button><button id="shareBtn" class="quiet-btn" title="Copy a link with this investigation"><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-share-2"></use></svg><span>Share state</span></button><button id="resetBtn" class="quiet-btn danger" title="Clear investigation" aria-label="Reset investigation"><svg class="icon reset-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-rotate-ccw"></use></svg><span>Reset</span></button></div></header>
+<main class="shell"><aside class="rail"><div class="rail-head"><div class="eyebrow">01 / INVESTIGATION</div><h1>Follow the evidence<span class="period">.</span></h1><p>Tap once for found, twice for ruled out, again to clear.</p></div><div class="provenance"><strong>DATA STATUS</strong><span>Ghost pages reviewed 14 Oct 2026 against community wiki revisions and official v0.19.1.0 notes. Specific mechanics remain community sourced.</span><a href="https://phasmophobia.fandom.com/wiki/Evidence" target="_blank" rel="noopener">See evidence source ↗</a></div><div class="mode-block"><label for="mode">Evidence given</label><div class="segmented" id="mode" role="group" aria-label="Evidence given"><button data-mode="3">3</button><button data-mode="2">2</button><button data-mode="1">1</button><button data-mode="0">0</button></div></div><div class="section-label"><span>EVIDENCE</span><span>FOUND / RULED OUT</span></div><div id="evidenceList" class="evidence-list"></div><section class="behavior-section"><div class="section-label"><span>OBSERVED BEHAVIORS</span><span id="behaviorCount">0 NOTED</span></div><p>Tap what you noticed. Specific tells move matching ghosts up the Suspects list; broad notes stay in your log.</p><div id="behaviorResult" class="behavior-result" role="status" aria-live="polite" hidden></div><div id="behaviorList"></div></section><div class="rail-note"><svg class="icon note-symbol" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-info"></use></svg><p>On reduced evidence, a missed result only rules out a ghost if that evidence is guaranteed. The Mimic always gives extra Orbs.</p></div><div class="source-link"><span>DATA CHECK</span><a href="https://phasmophobia.fandom.com/wiki/Evidence" target="_blank" rel="noopener">Evidence reference ↗</a></div></aside>
+<section class="workspace"><div class="workspace-head"><div><div class="eyebrow">02 / SUSPECT BOARD</div><h2><span id="count">30</span> <span id="countLabel">possible ghosts</span></h2><p id="summary">Start with a finding, or browse the full fieldbook.</p></div><div class="search-wrap"><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-search"></use></svg><input id="search" type="search" placeholder="Search ghost or tell…" aria-label="Search ghosts"></div></div><div class="filterline"><div class="tabset" role="group" aria-label="Ghost filter"><button class="active" data-filter="possible">Possible <span id="possibleCount">30</span></button><button data-filter="all">All <span id="allCount">30</span></button></div><span class="legend"><i></i> Tap a ghost to expand field notes</span></div><div class="list-header"><span>GHOST / EVIDENCE</span><span>HUNT SPEED</span></div><div id="ghostList" class="ghost-list"></div></section>
+<aside class="inspector" id="inspector" aria-label="Checks"><div class="next-steps-head"><div class="eyebrow">03 / CHECKS</div><h2>What to test<span class="period">.</span></h2></div><div id="testsPanel"></div></aside><section class="summary-view" id="summaryView" aria-label="Investigation summary"><button class="quiet-btn summary-back" data-view="suspects"><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-arrow-left"></use></svg> Back to board</button><div class="eyebrow">04 / SUMMARY</div><h2>At a glance<span class="period">.</span></h2><div id="summaryPanel"></div></section></main><nav class="mobile-nav" aria-label="Main views"><button data-view="investigation" aria-label="Investigation"><svg class="icon nav-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-scan-search"></use></svg><span>Investigation</span></button><button data-view="suspects" aria-label="Suspects"><svg class="icon nav-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-ghost"></use></svg><span>Suspects <b id="navCount">30</b></span></button><button data-view="notes" aria-label="Checks"><svg class="icon nav-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-list-checks"></use></svg><span>Checks</span></button><button data-view="summary" aria-label="Summary"><svg class="icon nav-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-layout-dashboard"></use></svg><span>Summary</span></button></nav><div id="toast" role="status" aria-live="polite"></div><script type="module" src="app.js?v=lucide-icons-1"></script></body></html>

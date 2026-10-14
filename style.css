@@ -131,3 +131,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .detail-exclude{min-height:44px;margin-top:14px;padding:9px 12px;border:1px solid #7b5653;border-radius:7px;background:#302529;color:#f0b3ae;font:700 11px 'Space Grotesk'}
 .detail-exclude:hover{background:#493033}
 @media(max-width:760px){.ghost-main{display:block;min-height:59px}.ghost-row{min-height:83px}.ghost-expand{margin-top:8px}}
+/* Lucide SVGs replace platform-dependent text glyphs. */
+.icon-sprite{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.icon{display:inline-block;width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.brand-icon{width:32px;height:32px;color:var(--teal)}
+.quiet-btn .icon{width:19px;height:19px}
+#resetBtn .reset-icon{display:inline-block;width:25px;height:25px}
+.search-wrap>.icon{width:19px;height:19px}
+.mobile-nav .nav-icon{width:21px;height:21px}
+.evidence .glyph{display:flex;align-items:center;color:var(--muted)}
+.evidence .glyph .icon{width:19px;height:19px}
+.evidence .state .icon{width:17px;height:17px}
+.behavior-icon{display:flex;align-items:center;justify-content:center}
+.behavior-icon .icon{width:18px;height:18px}
+.behavior-check .icon{width:15px;height:15px}
+.rail-note>.icon{width:18px;height:18px;flex:0 0 18px}
+.summary-back>.icon,.quick-jump>.icon{width:16px;height:16px}
