@@ -149,8 +149,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
  .row-stat strong{font-size:11px}
 }
 
-/* Ghost with a flat, outlined water burst from its abdomen. */
-.brand-art{position:relative;display:block;flex:none;width:57px;height:38px}
-.brand-art .brand-icon{position:absolute;left:0;top:3px;width:32px;height:32px;color:var(--teal)}
-.brand-splash{position:absolute;left:23px;top:12px;width:34px;height:24px;overflow:visible;fill:none;stroke:#94d7ef;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@media(max-width:380px){.brand{gap:7px}.brand strong{font-size:15px;letter-spacing:.1em}.brand-art{width:53px}.brand-art .brand-icon{width:30px;height:30px;top:4px}.brand-splash{left:21px;width:32px}}
+/* One flat line mark: the ghost faces right and spits droplets from its mouth. */
+.brand-art{display:block;flex:none;width:58px;height:38px}
+.brand-symbol{display:block;width:58px;height:38px;fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:380px){.brand{gap:7px}.brand strong{font-size:15px;letter-spacing:.1em}.brand-art,.brand-symbol{width:53px;height:35px}}
