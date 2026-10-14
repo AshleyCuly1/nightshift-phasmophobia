@@ -1,5 +1,5 @@
 import {EVIDENCE,GHOSTS} from './data.js';
-import {OBSERVATIONS} from './observations.js';
+import {OBSERVATIONS} from './observations.js?v=lucide-icons-2';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
