@@ -1,4 +1,4 @@
-# BoostBible — Phasmophobia Fieldbook
+# BUSTBIBLE — Phasmophobia Fieldbook
 
 A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Checks, and Suspects; swipe left or right to move between them. Evidence and clearly observed unique tells narrow Suspects; other behavior clues only rank them. Tap a ghost for its field notes; a manual rule-out control lives inside the expanded card, and All lets you restore it. Checks lets you record an observed result or mark a check as tried without treating a missed tell as exclusion. No account, backend, API key, icon font, or build step is needed.
 

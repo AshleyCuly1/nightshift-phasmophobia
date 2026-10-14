@@ -148,3 +148,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
  .row-stat-label{display:block;margin-bottom:3px;color:var(--muted);font:700 8px 'Space Grotesk';letter-spacing:.1em}
  .row-stat strong{font-size:11px}
 }
+
+/* Ghost and water-splash brand mark. */
+.brand-art{display:flex;align-items:center;flex:none;width:54px;height:38px}
+.brand-art .brand-icon{width:32px;height:32px;flex:none;color:var(--teal)}
+.brand-splash{width:31px;height:32px;margin-left:-9px;overflow:visible;fill:#57c8f2;stroke:#b9f1ff;stroke-width:1.1;stroke-linejoin:round;filter:drop-shadow(0 2px 3px #1385bd55)}
+.brand-splash .splash-shine{fill:none;stroke:#edffff;stroke-width:1.6;stroke-linecap:round}
+@media(max-width:380px){.brand{gap:7px}.brand strong{font-size:15px;letter-spacing:.1em}.brand-art{width:49px}.brand-art .brand-icon{width:30px;height:30px}.brand-splash{width:28px;height:29px}}

@@ -1,6 +1,6 @@
 # Ghost data review
 
-Reviewed 14 October 2026. BoostBible's 30 ghost records were compared with the linked community wiki revisions for evidence, speed, hunt threshold, and identifying tells. The latest official [v0.19.1.0 patch notes](https://kineticgames.co.uk/news/phasmophobia-v01910-patch-notes) and [v0.19.0.0 notes](https://kineticgames.co.uk/news/phasmophobia-v01900-quality-of-life-part-2) were checked for recent changes. This is a source review, not independent in-game testing or official confirmation of every mechanic. The wiki pages can contain unresolved bug reports and may change after the revisions below.
+Reviewed 14 October 2026. BUSTBIBLE's 30 ghost records were compared with the linked community wiki revisions for evidence, speed, hunt threshold, and identifying tells. The latest official [v0.19.1.0 patch notes](https://kineticgames.co.uk/news/phasmophobia-v01910-patch-notes) and [v0.19.0.0 notes](https://kineticgames.co.uk/news/phasmophobia-v01900-quality-of-life-part-2) were checked for recent changes. This is a source review, not independent in-game testing or official confirmation of every mechanic. The wiki pages can contain unresolved bug reports and may change after the revisions below.
 
 Corrections from this pass:
 
