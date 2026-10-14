@@ -1,6 +1,6 @@
 # Nightshift — Phasmophobia Fieldbook
 
-A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Suspects, Checks, and Summary; swipe left or right to move between them. Suspects keeps every evidence-compatible ghost visible and ranks matching behavior tells first. Tap a ghost for its field notes, or use the star to shortlist it. Checks lets you record a tell or mark a check as tried without automatically ruling anything out. Summary gathers the current round in one optional view. No account, backend, API key, or build step is needed.
+A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Suspects, Checks, and Summary; swipe left or right to move between them. Suspects keeps every evidence-compatible ghost visible and ranks matching behavior tells first. Tap a ghost for its field notes, or rule it out manually. Checks lets you record a tell or mark a check as tried without automatically ruling anything out. Summary gathers the current round and shows clue-based leading suspects in one optional view. No account, backend, API key, or build step is needed.
 
 ## Run locally
 
@@ -19,7 +19,7 @@ Open `http://localhost:8080`.
 3. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
 4. GitHub shows the live site URL on the same Pages settings screen after deployment. It will look like `https://YOUR-USERNAME.github.io/nightshift-phasmophobia/` if you use that repository name.
 
-The app saves investigation state in browser local storage. **Share state** copies a URL containing current evidence, observed behaviors, tried checks, picks, and eliminations. This is a snapshot, not live sync. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
+The app saves investigation state in browser local storage. **Share state** copies a URL containing current evidence, observed behaviors, tried checks and eliminations. This is a snapshot, not live sync. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
 
 ## Data and rules
 
