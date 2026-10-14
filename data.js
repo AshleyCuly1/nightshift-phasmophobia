@@ -14,7 +14,39 @@ export const EVIDENCE = [
 // These are source revisions, not official confirmation of every mechanic.
 const SOURCE_REVISIONS={"Aswang":24628, "Banshee":25048, "Dayan":24365, "Deildegast":24662, "Demon":24442, "Deogen":24658, "Gallu":24413, "Goryo":25019, "Hantu":24456, "Jinn":24354, "Kormos":25047, "Mare":25022, "Moroi":24626, "Myling":25034, "Obake":24341, "Obambo":24274, "Oni":24610, "Onryo":24595, "Phantom":25024, "Poltergeist":24435, "Raiju":24235, "Revenant":23424, "Shade":23207, "Spirit":23120, "Thaye":23537, "The Mimic":25056, "The Twins":25016, "Wraith":25069, "Yokai":23421, "Yurei":24593};
 const KNOWN_ISSUES={Gallu:'The community wiki reports that non-hosts may see incorrect salt visuals after incense; state changes still occur.',Phantom:'The community wiki reports some video forms may still show the Phantom despite its photo tell.','The Twins':'The community wiki reports that the fast twin may spawn at the current location instead of its distant interaction.',Yurei:'The community wiki notes some doors are not linked to rooms for its ability.',Banshee:'The community wiki notes target and post-kill sight bugs.'};
-const g=(name,evidence,speed,threshold,tell,test,forced=[],blink='Standard',note='')=>({name,evidence:evidence.split(' '),speed,threshold,tell,test,forced,blink,note,sourceRevision:SOURCE_REVISIONS[name],sourceUrl:`https://phasmophobia.fandom.com/wiki/${encodeURIComponent(name.replaceAll(' ','_'))}`,reviewedAt:'2026-10-14',reviewedPatch:'v0.19.1.0',knownIssue:KNOWN_ISSUES[name]||''});
+const ABILITIES={
+ Aswang:'If it reaches a player properly hidden in an official hiding spot, its hunt ends. It may head to that spot at the start of its next hunt.',
+ Banshee:'Chooses one player as its target and uses that player’s sanity for hunt eligibility. It can make a distinctive parabolic scream.',
+ Dayan:'A nearby player’s movement changes its hunt threshold and speed: moving raises both; standing still lowers both.',
+ Deildegast:'Starts hunts very fast. Moving different objects before a hunt progressively lowers its next starting speed.',
+ Demon:'Can trigger a hunt above its usual sanity threshold. It has a shorter hunt cooldown and a larger crucifix range.',
+ Deogen:'Always knows where players are during hunts. It moves quickly from far away, then slows sharply near a player.',
+ Gallu:'Crucifixes, salt and incense can change its state, affecting its hunt speed and hunt threshold.',
+ Goryo:'Its D.O.T.S. silhouette appears on camera while no player is in its room. It rarely roams far from that room.',
+ Hantu:'Its hunt speed changes with temperature: faster in cold rooms and slower in warm ones. It shows freezing breath during hunts when the breaker is off.',
+ Jinn:'With the breaker on, it can burst toward a visible player at a distance. It cannot switch off the breaker directly.',
+ Kormos:'Detects player footsteps during hunts despite poor sight. Sprinting near it outside a hunt can raise its hunt threshold.',
+ Mare:'Can immediately turn off a light a player switches on. Its hunt threshold is higher in darkness and lower in a lit room.',
+ Moroi:'A Spirit Box or parabolic response can curse a player’s sanity. Its hunt speed rises as team sanity falls.',
+ Myling:'Its hunt footsteps become audible only at a shorter distance than those of most ghosts.',
+ Obake:'Can leave unusual UV prints, including six fingers, and briefly change its model during a hunt.',
+ Obambo:'Alternates between calm and aggressive states, changing its hunt threshold and speed. Aggressive hunts are shorter.',
+ Oni:'Stays visible longer between hunt blinks and cannot perform the air-ball ghost event.',
+ Onryo:'Nearby flames can block a hunt. After enough ghost-caused flame blowouts, it may try to hunt early.',
+ Phantom:'A ghost photo makes it vanish from the image while the event continues. It also has longer invisible gaps during hunts.',
+ Poltergeist:'Can throw several nearby objects at once and throws more frequently during hunts.',
+ Raiju:'Nearby powered electronics can raise its hunt threshold and make it faster during a hunt.',
+ Revenant:'Moves slowly until it detects a player, then accelerates dramatically.',
+ Shade:'Cannot start a hunt while a player is in its room. Its normal hunt threshold is lower than most ghosts.',
+ Spirit:'Incense prevents it from hunting for 180 seconds, longer than the usual 90 seconds.',
+ Thaye:'Ages while players spend time nearby. Its hunt threshold, hunt speed and activity fall as it ages.',
+ 'The Mimic':'Copies another ghost’s traits and can change what it mimics. It always produces extra Ghost Orbs, even at zero evidence.',
+ 'The Twins':'Can interact in two different places almost at once. Its hunts can use one of two base speeds.',
+ Wraith:'Can teleport to a player outside hunts and never disturbs salt.',
+ Yokai:'Talking near it can enable earlier hunts. During a hunt, it detects voices and electronics only at short range.',
+ Yurei:'Can smoothly close an open door in its room and drain nearby players’ sanity. A hard door slam is not this ability.'
+};
+const g=(name,evidence,speed,threshold,tell,test,forced=[],blink='Standard',note='')=>({name,evidence:evidence.split(' '),speed,threshold,ability:ABILITIES[name],tell,test,forced,blink,note,sourceRevision:SOURCE_REVISIONS[name],sourceUrl:`https://phasmophobia.fandom.com/wiki/${encodeURIComponent(name.replaceAll(' ','_'))}`,reviewedAt:'2026-10-14',reviewedPatch:'v0.19.1.0',knownIssue:KNOWN_ISSUES[name]||''});
 export const GHOSTS = [
  g('Aswang','dots freeze writing','1.53 m/s; fast sight acceleration','50%','Accelerates unusually quickly after spotting a player; special hiding-place behavior.','During a hunt, listen for footsteps to accelerate sharply once it sees a player.'),
  g('Banshee','dots orbs uv','1.7 m/s','50% target sanity','Fixates on one player; may give a distinctive parabolic microphone scream.','Sweep with a parabolic microphone for its distinctive scream; across hunts, watch whether it keeps pursuing the same player.'),

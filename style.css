@@ -169,3 +169,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .ghost-row-exclude.active{border-color:#5c9f82;background:#1c352f;color:var(--teal)}
 @media(max-width:760px){.ghost-main{padding-right:0}.ghost-summary{display:block;padding-right:48px}.ghost-row-exclude{width:44px;height:44px}}
 @media(max-width:380px){.brand{gap:7px}.brand strong{font-size:15px;letter-spacing:.1em}.brand-art{width:54px}.brand-art .brand-icon{width:30px;height:30px;top:4px}.brand-splash{left:22px;width:30px;height:30px;top:6px}}
+.provenance{display:block;padding:0;background:transparent;border:0;color:var(--muted);margin:14px 0 0}
+.provenance summary{cursor:pointer;font:600 10px 'Space Grotesk';letter-spacing:.04em;color:var(--muted)}
+.provenance p{margin:8px 0 0;font-size:11px;line-height:1.45}
+.behavior-tier>h3{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
+.behavior-tier>h3 span{color:var(--muted);font:500 10px 'DM Sans',sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap}
+.ability-section h3{color:var(--teal)}
