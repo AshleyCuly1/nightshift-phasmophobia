@@ -43,8 +43,10 @@
 @media(max-width:760px){.behavior-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.behavior-section{margin-top:22px;padding-top:20px}.behavior-chip{min-height:46px}.tabset{gap:12px}.tabset button{white-space:nowrap;font-size:11px}}
 @media(max-width:350px){.behavior-grid{grid-template-columns:1fr}}
 /* Suspect field notes open in place; the third view is for next steps. */
-.ghost-main{width:100%}
-.accordion-caret{float:right;padding-left:5px;color:var(--teal);font:700 18px/14px 'Space Grotesk'}
+.ghost-row{cursor:pointer}
+.ghost-row:hover{border-color:#587c70}
+.ghost-main{grid-column:1/3;display:grid;grid-template-columns:minmax(0,1fr) 130px;align-items:center;gap:4px;width:100%;min-height:45px}
+.ghost-summary{min-width:0}
 .ghost-row.expanded{border-color:#79b299;background:#192b2b}
 .ghost-expand{grid-column:1/-1;align-self:stretch;min-width:0;margin-top:8px;padding:0 3px 3px;border-top:1px solid #405a52}
 .ghost-expand .detail-top{padding-top:16px}
@@ -53,4 +55,5 @@
 .ghost-expand .detail-section:last-child{padding-bottom:4px}
 .next-steps-head{padding-top:29px}
 .next-steps-head h2{font:600 27px 'Space Grotesk';letter-spacing:-.045em;margin:12px 0 0}
-@media(max-width:760px){.next-steps-head{padding-top:22px}.next-steps-head h2{font-size:28px}.ghost-expand{padding:0 1px 3px}.ghost-expand .detail-top h2{font-size:23px}}
+@media(max-width:760px){.next-steps-head{padding-top:22px}.next-steps-head h2{font-size:28px}.ghost-expand{padding:0 1px 3px}.ghost-expand .detail-top h2{font-size:23px}.ghost-main{grid-template-columns:minmax(0,1fr) 86px}}
+@media(max-width:380px){.ghost-main{grid-column:1;grid-template-columns:minmax(0,1fr)}}
