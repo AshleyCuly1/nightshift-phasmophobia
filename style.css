@@ -77,8 +77,6 @@
 .test-card h4{font:600 15px 'Space Grotesk';margin:7px 0}
 .quick-check .split a{color:var(--teal);text-decoration:none}
 .quick-check .split a:hover{text-decoration:underline}
-.quick-jump{border:1px solid #456c61;border-radius:7px;background:#19332b;color:var(--teal);padding:9px 11px;font:700 11px 'Space Grotesk'}
-#quickChecks{scroll-margin-top:18px}
 /* Round flow: readable mobile cards and check results. */
 .reset-icon{display:inline-block;font:700 25px/1 'Space Grotesk'}
 .quiet-btn .reset-icon{display:inline-block}
@@ -107,7 +105,6 @@
  .row-actions{grid-column:2;grid-row:1;gap:6px}
  .row-actions button{width:44px;height:44px;font-size:18px}
  .ghost-expand{grid-row:2}
- .quick-jump{min-height:44px;font-size:12px}
 }
 /* Full-width suspect rows; manual elimination lives in expanded notes. */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -134,7 +131,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .behavior-icon .icon{width:18px;height:18px}
 .behavior-check .icon{width:15px;height:15px}
 .rail-note>.icon{width:18px;height:18px;flex:0 0 18px}
-.quick-jump>.icon{width:16px;height:16px}
 /* Evidence-mode guidance and compact hunt columns. */
 .mode-hint{margin:10px 0 4px;color:#becbc9;font-size:11px;line-height:1.4}
 .mode-explanation{margin:0;color:var(--muted);font-size:11px;line-height:1.45}
