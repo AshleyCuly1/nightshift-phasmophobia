@@ -1,0 +1,25 @@
+// Behavioral observations are soft clues, not evidence or hard exclusions.
+// Mappings are editorial summaries of community mechanics; audit per patch.
+export const OBSERVATIONS = [
+  {id:'fast_hunt',group:'Hunt',icon:'↗',label:'Very fast hunt',weight:1,leads:['Deildegast','Deogen','Revenant','Thaye','Hantu','Raiju','Moroi','Jinn','Dayan','Gallu','Obambo','Aswang'],tip:'Speed depends on sight, temperature, sanity and nearby equipment.'},
+  {id:'slow_hunt',group:'Hunt',icon:'↘',label:'Very slow hunt',weight:1,leads:['Revenant','Deogen','Thaye','Hantu','Deildegast','Dayan','Gallu','Obambo','The Twins'],tip:'Compare before the ghost has seen a player; many ghosts speed up with sight.'},
+  {id:'speed_jump',group:'Hunt',icon:'⇄',label:'Abrupt speed change',weight:2,leads:['Revenant','Jinn','Raiju','Dayan','Obambo','Gallu','The Twins','Deogen'],tip:'Note what changed: sight, distance, equipment or time.'},
+  {id:'sight_accel',group:'Hunt',icon:'◎',label:'Speeds up on sight',weight:0,leads:[],tip:'Most ghosts do this; record it, but it is weak on its own.'},
+  {id:'early_hunt',group:'Hunt',icon:'!',label:'Hunted early',weight:1,leads:['Demon','Thaye','Mare','Yokai','Raiju','Onryo','Gallu','Obambo','Dayan'],tip:'Sanity estimates and conditions matter; this is not a hard ID.'},
+  {id:'quiet_hunt',group:'Hunt',icon:'◌',label:'Quiet footsteps',weight:2,leads:['Myling'],tip:'Compare footstep audibility with electronic interference.'},
+  {id:'long_blink',group:'Visual',icon:'◐',label:'Long invisible blinks',weight:2,leads:['Phantom'],tip:'A Phantom tends to be invisible for longer during hunts.'},
+  {id:'rapid_blink',group:'Visual',icon:'◍',label:'Fast blink / flicker',weight:0,leads:[],tip:'Blink rhythm alone is not a reliable identifier; compare total visible and invisible time.'},
+  {id:'visible_blink',group:'Visual',icon:'●',label:'Mostly visible in hunt',weight:2,leads:['Oni','Deogen'],tip:'Both can be more visible than standard ghosts.'},
+  {id:'shape_shift',group:'Visual',icon:'♧',label:'Model changed in hunt',weight:2,leads:['Obake'],tip:'Look for a brief one-blink model change.'},
+  {id:'hunting_breath',group:'Visual',icon:'❄',label:'Freezing breath in hunt',weight:2,leads:['Hantu'],tip:'The Hantu tell depends on the breaker being off.'},
+  {id:'breaker_off',group:'Interaction',icon:'⌁',label:'Breaker turned off',weight:0,leads:[],tip:'A breaker can trip from too many lights; this alone does not identify a ghost.'},
+  {id:'object_burst',group:'Interaction',icon:'✦',label:'Several objects thrown',weight:2,leads:['Poltergeist'],tip:'A simultaneous object burst is much stronger than a single throw.'},
+  {id:'salt_untouched',group:'Interaction',icon:'▤',label:'Crossed salt untouched',weight:2,leads:['Wraith','Gallu'],tip:'Log this only if you know the ghost crossed the salt. Gallu can avoid it in one state.'},
+  {id:'lights_off',group:'Interaction',icon:'☼',label:'Instant light switch off',weight:2,leads:['Mare'],tip:'Watch for a very quick switch-off after you turn a light on.'},
+  {id:'six_finger',group:'Interaction',icon:'✋',label:'Six-finger UV print',weight:2,leads:['Obake'],tip:'Check prints quickly before they fade.'},
+  {id:'para_scream',group:'Sound',icon:'◖',label:'Parabolic scream',weight:2,leads:['Banshee'],tip:'A distinct scream through the parabolic microphone points toward Banshee.'},
+  {id:'box_breath',group:'Sound',icon:'◉',label:'Heavy Spirit Box breath',weight:2,leads:['Deogen'],tip:'Listen for its distinctive close-range breathing response.'},
+  {id:'shy',group:'Activity',icon:'◔',label:'Quiet near players',weight:1,leads:['Shade'],tip:'Random quiet periods happen; repeat the observation.'},
+  {id:'aggressive',group:'Activity',icon:'⚡',label:'Very active / aggressive',weight:0,leads:[],tip:'Frequent activity can happen by chance and depends on the situation. Look for a more specific tell.'},
+  {id:'activity_cycle',group:'Activity',icon:'↺',label:'Activity comes in phases',weight:1,leads:['Obambo','Gallu','Thaye','The Mimic'],tip:'Look for repeated, distinct changes rather than one quiet spell.'}
+];
