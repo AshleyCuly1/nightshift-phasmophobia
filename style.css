@@ -65,3 +65,49 @@
 .quick-check .split a:hover{text-decoration:underline}
 .quick-jump{border:1px solid #456c61;border-radius:7px;background:#19332b;color:var(--teal);padding:9px 11px;font:700 11px 'Space Grotesk'}
 #quickChecks{scroll-margin-top:18px}
+/* Round flow: readable mobile cards, check results and an optional summary view. */
+.reset-icon{display:inline-block;font:700 25px/1 'Space Grotesk'}
+.quiet-btn .reset-icon{display:inline-block}
+#resetBtn,#shareBtn{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.speed-label{display:none}
+.issue-note{display:block;margin-top:9px;color:var(--orange)}
+.check-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+.check-actions button{min-height:44px;border:1px solid #40524f;border-radius:7px;background:#1b2a32;color:var(--text);font:700 11px 'Space Grotesk'}
+.check-actions .check-seen-btn.active{background:#245141;border-color:#72b38e;color:var(--teal)}
+.check-actions .check-tried-btn.active{background:#373529;border-color:#a7915c;color:#f2d8a4}
+.summary-view{display:none}
+.desktop-summary-link{font-weight:700}
+.summary-back{margin-bottom:24px}
+@media(min-width:761px){body.view-summary .shell{display:block}.view-summary .shell>.rail,.view-summary .shell>.workspace,.view-summary .shell>.inspector{display:none}.view-summary .shell>.summary-view{display:block;max-width:720px;margin:auto;padding:32px 24px 80px}}
+.summary-view h2{font:600 28px 'Space Grotesk';letter-spacing:-.045em;margin:12px 0 21px}
+.summary-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.summary-metrics>div{display:grid;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:13px 8px;text-align:center}
+.summary-metrics strong{font:600 25px 'Space Grotesk';color:var(--teal)}
+.summary-metrics span{font:700 10px 'Space Grotesk';color:var(--muted)}
+.summary-mode,.summary-note{color:var(--muted);line-height:1.5;font-size:12px}
+.summary-mode{margin:14px 0 24px}
+.summary-group{border-top:1px solid var(--line);padding:16px 0}
+.summary-group h3{font:700 10px 'Space Grotesk';letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.summary-chips{display:flex;flex-wrap:wrap;gap:6px}
+.summary-chip{background:#254338;border:1px solid #47715c;border-radius:6px;color:#d7f2e3;padding:7px 9px;font-size:11px}
+.summary-empty{color:var(--muted);font-size:12px}
+@media(max-width:760px){
+ .desktop-summary-link,.summary-back{display:none}
+ .mobile-nav{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .mobile-nav button{font-size:9px}
+ .shell>.summary-view{display:none}
+ body.view-summary .shell>.summary-view{display:block;min-height:calc(100dvh - 70px);padding:23px 16px 116px}
+ .list-header{display:none}
+ .ghost-list{margin-top:13px}
+ .ghost-row{grid-template-columns:minmax(0,1fr) auto;gap:8px;min-height:83px;padding:10px 11px}
+ .ghost-main{grid-column:1;display:block;min-height:59px}
+ .ghost-name{font-size:16px}
+ .ghost-evidence{gap:5px;margin-top:5px}
+ .e-tag{font-size:10px;padding:4px 6px}
+ .ghost-row .speed{display:block;font-size:12px;line-height:1.25;margin-top:8px;color:#bdced0}
+ .speed-label{display:inline;color:var(--muted);font:700 9px 'Space Grotesk';letter-spacing:.08em}
+ .row-actions{grid-column:2;grid-row:1;gap:6px}
+ .row-actions button{width:44px;height:44px;font-size:18px}
+ .ghost-expand{grid-row:2}
+ .quick-jump{min-height:44px;font-size:12px}
+}

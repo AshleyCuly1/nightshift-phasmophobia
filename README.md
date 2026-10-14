@@ -1,6 +1,6 @@
 # Nightshift — Phasmophobia Fieldbook
 
-A static, phone-first investigation board for 0–3 evidence runs. The floating bottom bar switches between Investigation, Suspects, and Next steps; swipe left or right to move between them. Tapping a ghost expands its field notes beneath that suspect, with only one open at a time. The star adds a ghost to your shortlist. Next steps shows evidence checks, quick behavior checks available from the start, and ghost-specific leads as suspects narrow. No account, backend, API key, or build step is needed.
+A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Suspects, Checks, and Summary; swipe left or right to move between them. Suspects keeps every evidence-compatible ghost visible and ranks matching behavior tells first. Tap a ghost for its field notes, or use the star to shortlist it. Checks lets you record a tell or mark a check as tried without automatically ruling anything out. Summary gathers the current round in one optional view. No account, backend, API key, or build step is needed.
 
 ## Run locally
 
@@ -19,16 +19,16 @@ Open `http://localhost:8080`.
 3. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
 4. GitHub shows the live site URL on the same Pages settings screen after deployment. It will look like `https://YOUR-USERNAME.github.io/nightshift-phasmophobia/` if you use that repository name.
 
-The app saves investigation state in browser local storage. **Share state** copies a URL containing current evidence, observed behaviors, picks, and eliminations. This is a snapshot, not live sync. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
+The app saves investigation state in browser local storage. **Share state** copies a URL containing current evidence, observed behaviors, tried checks, picks, and eliminations. This is a snapshot, not live sync. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
 
 ## Data and rules
 
-`data.js` is the editable source for evidence, speeds, tells, hunt thresholds, and proposed tests. `observations.js` defines selectable hunt, visual, interaction, sound, and activity notes. Specific tells open a **Fits** suspect view showing evidence-compatible ghosts mapped to every selected specific tell, plus The Mimic because it can imitate other ghosts. This view is a soft focus list: **Possible** still shows every ghost compatible with the evidence. Broad reports such as a breaker turning off or general aggression are logged without narrowing suspects. `app.js` contains filtering and test ranking. The roster currently covers 30 ghosts, including Deildegast (added in v0.18). The evidence combinations were checked against the [Phasmophobia Wiki evidence table](https://phasmophobia.fandom.com/wiki/Evidence), with Deildegast's addition confirmed by [Kinetic Games v0.18 patch notes](https://kineticgames.co.uk/news/phasmophobia-v0-18-0-0-patch-notes). The behavior, speed, sanity, blink, observation mappings, and test summaries are **draft community-sourced notes, not a complete per-ghost patch audit**. They should be checked against the current game before treating exact numbers or edge cases as confirmed. The [Phasmophobia Wiki identification guide](https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts) is a useful starting point. Original summaries and UI; no other GitHub tools were used as design references.
+`data.js` holds evidence, speeds, tells, hunt thresholds, and tests. `observations.js` holds selectable behavior clues. Specific tells rank matching ghosts higher in the single Suspects list; broad notes are logged without changing order. No behavior note automatically eliminates a ghost. `app.js` handles filtering and check results. The roster covers 30 ghosts, including Deildegast. Ghost pages were reviewed against dated Phasmophobia Wiki revisions on 14 October 2026 and recent official v0.19.1.0 patch notes. See [DATA_AUDIT.md](DATA_AUDIT.md) for the revision ledger, corrections, and limits. Mechanics remain community sourced rather than independently confirmed by gameplay. Original summaries and UI; no other GitHub tools were used as design references.
 
 The reduced-evidence filter only treats a *negative* check as conclusive for guaranteed evidence. The Mimic’s extra Orbs always remain testable, including in zero-evidence games. Negative evidence marks are only as reliable as the in-game test conditions.
 
 ## Next improvements
 
-- Audit every behavioral entry against a dated ghost-specific source and the latest game patch, especially precise speed, sanity, and forced-evidence values. Add source/version fields to each data record.
+- Recheck the source revisions and conditional mechanics after future game patches, with in-game verification for edge cases.
 - Add a collaborative session service if your group needs live shared state.
 - Add map guides only after deciding on image rights and a maintainable map data source.

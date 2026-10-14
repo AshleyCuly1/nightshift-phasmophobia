@@ -10,10 +10,14 @@ export const EVIDENCE = [
 // Evidence transcribed from the Phasmophobia Wiki evidence table, with Deildegast
 // checked against Kinetic's v0.18 announcement and later game references.
 // forced: evidence guaranteed when at least one normal evidence is provided.
-const g=(name,evidence,speed,threshold,tell,test,forced=[],blink='Standard',note='')=>({name,evidence:evidence.split(' '),speed,threshold,tell,test,forced,blink,note});
+// Community wiki pages reviewed on 2026-10-14 against the latest official patch notes, v0.19.1.0.
+// These are source revisions, not official confirmation of every mechanic.
+const SOURCE_REVISIONS={"Aswang":24628, "Banshee":25048, "Dayan":24365, "Deildegast":24662, "Demon":24442, "Deogen":24658, "Gallu":24413, "Goryo":25019, "Hantu":24456, "Jinn":24354, "Kormos":25047, "Mare":25022, "Moroi":24626, "Myling":25034, "Obake":24341, "Obambo":24274, "Oni":24610, "Onryo":24595, "Phantom":25024, "Poltergeist":24435, "Raiju":24235, "Revenant":23424, "Shade":23207, "Spirit":23120, "Thaye":23537, "The Mimic":25056, "The Twins":25016, "Wraith":25069, "Yokai":23421, "Yurei":24593};
+const KNOWN_ISSUES={Gallu:'The community wiki reports that non-hosts may see incorrect salt visuals after incense; state changes still occur.',Phantom:'The community wiki reports some video forms may still show the Phantom despite its photo tell.','The Twins':'The community wiki reports that the fast twin may spawn at the current location instead of its distant interaction.',Yurei:'The community wiki notes some doors are not linked to rooms for its ability.',Banshee:'The community wiki notes target and post-kill sight bugs.'};
+const g=(name,evidence,speed,threshold,tell,test,forced=[],blink='Standard',note='')=>({name,evidence:evidence.split(' '),speed,threshold,tell,test,forced,blink,note,sourceRevision:SOURCE_REVISIONS[name],sourceUrl:`https://phasmophobia.fandom.com/wiki/${encodeURIComponent(name.replaceAll(' ','_'))}`,reviewedAt:'2026-10-14',reviewedPatch:'v0.19.1.0',knownIssue:KNOWN_ISSUES[name]||''});
 export const GHOSTS = [
- g('Aswang','dots freeze writing','Starts slower; rapid sight acceleration','50%','Accelerates unusually quickly after spotting a player; special hiding-place behavior.','Listen to footsteps before and after sustained line of sight.'),
- g('Banshee','dots orbs uv','1.7 m/s','Target based','Fixates on one player; may give a distinctive parabolic microphone scream.','Try a parabolic microphone, then compare who it targets during hunts.'),
+ g('Aswang','dots freeze writing','1.53 m/s; fast sight acceleration','50%','Accelerates unusually quickly after spotting a player; special hiding-place behavior.','Listen to footsteps before and after sustained line of sight.'),
+ g('Banshee','dots orbs uv','1.7 m/s','50% target sanity','Fixates on one player; may give a distinctive parabolic microphone scream.','Try a parabolic microphone, then compare who it targets during hunts.'),
  g('Dayan','emf orbs box','1.2 / 2.25 m/s near player','45–65%','Within 10 m, standing still slows it; moving speeds it up.','From a safe spot, compare footsteps while a nearby player moves and stops.'),
  g('Deildegast','emf dots writing','3.0 → 0.4 m/s','50%','Starts very fast; moving different objects before a hunt lowers its speed.','Move several distinct props, then compare the next hunt’s footsteps.'),
  g('Demon','uv freeze writing','1.7 m/s','70% or ability','Can hunt at high sanity; has a shorter hunt cooldown and larger crucifix range.','Track hunt timing or place a crucifix beyond its normal range.'),
@@ -22,7 +26,7 @@ export const GHOSTS = [
  g('Goryo','emf dots uv','1.7 m/s','50%','D.O.T.S. silhouette appears on camera while nobody is in its room; rarely roams far.','Watch D.O.T.S. from outside the room through a video camera.',['dots']),
  g('Hantu','orbs uv freeze','1.4–2.7 m/s by temperature','50%','Faster in cold rooms; emits freezing breath in hunts when breaker is off.','Compare footsteps across warm and cold rooms; watch for breath with breaker off.',['freeze']),
  g('Jinn','emf uv freeze','1.7 m/s; burst to 2.5','50%','With breaker on, can rush a distant player it sees; cannot turn breaker off directly.','Compare distant line-of-sight speed with breaker on versus off.'),
- g('Kormos','orbs box uv','1.7 m/s','50%','Hears movement well during hunts; close-range sight behavior differs.','Compare reactions to footsteps from cover, and avoid assuming a quiet voice test is conclusive.'),
+ g('Kormos','orbs box uv','1.7 m/s; sound-path boost','50% / 70% if sprinting nearby','Nearly blind in hunts; detects player footsteps and can hunt earlier if someone sprints nearby.','Compare reactions to footsteps from cover, and avoid assuming a quiet voice test is conclusive.'),
  g('Mare','orbs writing box','1.7 m/s','40% lit / 60% dark','Hunts earlier in darkness; can immediately turn off a light you switch on.','Turn on a nearby light repeatedly and watch for an instant switch-off.'),
  g('Moroi','writing freeze box','1.5–2.25 m/s by sanity','50%','Gets faster as sanity falls; Spirit Box or parabolic response can curse sanity.','Check whether hunt speed rises as team sanity drops.',['box']),
  g('Myling','emf uv writing','1.7 m/s','50%','Footsteps become audible at a shorter range than for most ghosts.','Compare footstep audibility to electronic interference during a hunt.'),
