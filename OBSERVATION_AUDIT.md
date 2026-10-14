@@ -1,6 +1,6 @@
 # Observation coverage review
 
-Reviewed 14 October 2026 against the linked Phasmophobia Wiki ghost pages, [hunt mechanics](https://phasmophobia.fandom.com/wiki/Hunt), [incense timing](https://phasmophobia.fandom.com/wiki/Incense), and [identification guide](https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts). The app now has 48 selectable observations across the 30 ghosts in its roster. This is a source review, not independent gameplay verification. Game patches, difficulty settings, cursed hunts, chance, and The Mimic can change how reliable a sighting is.
+Reviewed 14 October 2026 against the linked Phasmophobia Wiki ghost pages, [hunt mechanics](https://phasmophobia.fandom.com/wiki/Hunt), [incense timing](https://phasmophobia.fandom.com/wiki/Incense), and [identification guide](https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts). The app now has 49 selectable observations across the 30 ghosts in its roster. This is a source review, not independent gameplay verification. Game patches, difficulty settings, cursed hunts, chance, and The Mimic can change how reliable a sighting is.
 
 **How the app uses them:** A positive, narrowly defined confirmed tell can narrow Suspects. A probabilistic or conditional clue can only change their order. A broad note changes neither. Failing to see a behavior never excludes a ghost. Evidence-linked observations do not apply in zero-evidence mode.
 
@@ -17,7 +17,7 @@ Reviewed 14 October 2026 against the linked Phasmophobia Wiki ghost pages, [hunt
 | Hantu | Faster in cold rooms; breath from the hunting ghost with breaker off | [Hantu](https://phasmophobia.fandom.com/wiki/Hantu) |
 | Jinn | Distant sight burst with breaker on | [Jinn](https://phasmophobia.fandom.com/wiki/Jinn) |
 | Kormos | Follows footsteps but overlooks a still player at a distance | [Kormos](https://phasmophobia.fandom.com/wiki/Kormos) |
-| Mare | Immediately turns off a newly switched-on light | [Mare](https://phasmophobia.fandom.com/wiki/Mare) |
+| Mare | Immediately turns off a newly switched-on light; a ghost switching an ordinary room light on rules Mare out | [Mare](https://phasmophobia.fandom.com/wiki/Mare) |
 | Moroi | Sanity drain after a response; base speed rises as sanity falls | [Moroi](https://phasmophobia.fandom.com/wiki/Moroi) |
 | Myling | Hunt footsteps audible only at short range | [Myling](https://phasmophobia.fandom.com/wiki/Myling) |
 | Obake | Six-finger UV print; one-blink model change | [Obake](https://phasmophobia.fandom.com/wiki/Obake) |
