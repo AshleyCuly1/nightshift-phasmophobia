@@ -1,4 +1,4 @@
-import {EVIDENCE,GHOSTS} from './data.js?v=door-check-2';
+import {EVIDENCE,GHOSTS} from './data.js?v=deogen-copy-1';
 import {OBSERVATIONS} from './observations.js?v=door-check-2';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
