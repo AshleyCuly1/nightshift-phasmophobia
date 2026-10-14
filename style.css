@@ -53,7 +53,6 @@
 .behavior-ghosts{color:#aabdc0;font:500 10px/1.35 'DM Sans',sans-serif;overflow-wrap:anywhere}
 .behavior-chip.active .behavior-ghosts{color:#b8d9c8}
 .behavior-ghost-name.in-play{color:#fff;font-weight:700}
-.behavior-ghost-name.out-of-play{color:#788b91}
 .ghost-label-toggle{display:none}
 .behavior-icon{color:var(--teal);font:700 16px/1 'Space Grotesk';text-align:center}
 .behavior-check{color:var(--teal);font-weight:700;text-align:right}
@@ -63,7 +62,6 @@
 .behavior-match{border-radius:3px;background:#315446;color:var(--teal);padding:3px 5px;font:700 9px 'Space Grotesk'}
 @media(max-width:760px){.behavior-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.behavior-section{margin-top:22px;padding-top:20px}.behavior-chip{min-height:46px}.tabset{gap:12px}.tabset button{white-space:nowrap;font-size:11px}}
 @media(max-width:760px){
- body.show-ghost-labels .behavior-grid{grid-template-columns:minmax(0,1fr)}
  .shell>.rail{padding-bottom:170px}
  .ghost-label-toggle{position:fixed;z-index:39;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 13px;border:1px solid #628d78;border-radius:99px;background:#21362fef;color:#e5f7eb;box-shadow:0 7px 25px #0009;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font:700 11px 'Space Grotesk',sans-serif}
  .ghost-label-toggle[aria-pressed="true"]{background:var(--teal);color:#10231b}
@@ -71,7 +69,6 @@
  body:not(.view-investigation) .ghost-label-toggle{display:none}
  body.view-investigation #toast{bottom:calc(138px + env(safe-area-inset-bottom))}
 }
-@media(max-width:350px){.behavior-grid{grid-template-columns:1fr}}
 /* Suspect field notes open in place; the third view is for next steps. */
 .ghost-row{cursor:pointer}
 .ghost-row:hover{border-color:#587c70}
