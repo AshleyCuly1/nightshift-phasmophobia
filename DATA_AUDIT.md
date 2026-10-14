@@ -8,7 +8,7 @@ Corrections from this pass:
 - Banshee: clarified that its 50% hunt threshold uses its target's sanity.
 - Kormos: added the reported 70% threshold when a player sprints in its room and its movement-based hunt detection.
 - Added dated source revision and patch context to every ghost card. Five cards also carry specific wiki-reported issue notes.
-- Yurei door check clarified after a false positive: an ordinary slow interior-door close is a neutral note. The distinct [exit-door behavior](https://phasmophobia.fandom.com/wiki/Exit_Door) requires a front exit door to close outside a hunt or ghost event; [The Mimic](https://phasmophobia.fandom.com/wiki/The_Mimic) can copy Yurei's ability. Ghost Writing plus D.O.T.S. excludes both under the documented evidence combinations.
+- Yurei door check clarified after a false positive: an ordinary interior-door close, regardless of speed, is not a diagnostic option. The distinct [exit-door behavior](https://phasmophobia.fandom.com/wiki/Exit_Door) requires a front exit door to close outside a hunt or ghost event; [The Mimic](https://phasmophobia.fandom.com/wiki/The_Mimic) can copy Yurei's ability. Ghost Writing plus D.O.T.S. excludes both under the documented evidence combinations.
 
 | Ghost | Reviewed wiki revision | Wiki edit date (UTC) |
 |---|---:|---|

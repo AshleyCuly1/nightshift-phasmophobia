@@ -1,13 +1,14 @@
-import {EVIDENCE,GHOSTS} from './data.js?v=door-check-1';
-import {OBSERVATIONS} from './observations.js?v=door-check-1';
+import {EVIDENCE,GHOSTS} from './data.js?v=door-check-2';
+import {OBSERVATIONS} from './observations.js?v=door-check-2';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
-const defaults=()=>({mode:2,gender:'unknown',evidence:{},observed:[],reviewTells:[],reviewMechanics:[],rulesVersion:3,checkTried:[],excluded:[],expanded:null,filter:'possible',view:'investigation'});
+const defaults=()=>({mode:2,gender:'unknown',evidence:{},observed:[],reviewTells:[],reviewMechanics:[],rulesVersion:4,checkTried:[],excluded:[],expanded:null,filter:'possible',view:'investigation'});
 let state=defaults();
 try{const saved=localStorage.getItem('nightshift-v1');if(saved)state={...state,...JSON.parse(saved)};if(location.hash.startsWith('#s=')){const shared=JSON.parse(decodeURIComponent(location.hash.slice(3)));state={...defaults(),...shared,view:state.view};if(!Object.hasOwn(shared,'rulesVersion'))state.rulesVersion=0;}}catch{}
 if((state.rulesVersion||0)<2){const hardIds=new Set(OBSERVATIONS.filter(o=>o.kind==='confirmed').map(o=>o.id));state.reviewTells=(Array.isArray(state.observed)?state.observed:[]).filter(id=>hardIds.has(id));state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>!hardIds.has(id));state.rulesVersion=2;}
 if(state.rulesVersion<3){const ambiguous=['yurei_door','onryo_fire'];state.reviewMechanics=(Array.isArray(state.observed)?state.observed:[]).filter(id=>ambiguous.includes(id));state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>!ambiguous.includes(id));state.rulesVersion=3;}
+if(state.rulesVersion<4){state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>id!=='yurei_door');state.reviewMechanics=(Array.isArray(state.reviewMechanics)?state.reviewMechanics:[]).filter(id=>id!=='yurei_door');state.rulesVersion=4;}
 if(!['unknown','male','female'].includes(state.gender))state.gender='unknown';
 if(!Array.isArray(state.reviewMechanics))state.reviewMechanics=[];
 if(['fits','starred'].includes(state.filter))state.filter='possible';
@@ -15,7 +16,7 @@ if(state.view==='summary')state.view='suspects';
 delete state.starred;
 if(!Array.isArray(state.checkTried))state.checkTried=[];
 state.checkTried=state.checkTried.filter(id=>id!=='door_watch');
-const persist=()=>{state.rulesVersion=3;localStorage.setItem('nightshift-v1',JSON.stringify(state));};
+const persist=()=>{state.rulesVersion=4;localStorage.setItem('nightshift-v1',JSON.stringify(state));};
 const views=['investigation','notes','suspects'];
 const mobile=()=>matchMedia('(max-width: 760px)').matches;
 const pageTrack=$('.shell');
@@ -86,7 +87,7 @@ const QUICK_CHECKS=[
  {id:'salt_motion',observation:'salt_untouched',name:'Pair salt with a motion sensor',phase:'While gathering evidence',ghosts:['Wraith','Gallu'],description:'If the sensor confirms a crossing but the salt stays untouched, consider Wraith or an enraged Gallu. A Gallu may enter that state after salt, incense or a crucifix.',signal:'Wraith / Gallu clue',source:'Salt'},
  {id:'object_pile',observation:'multi_throw',name:'Set out a few loose objects',phase:'While gathering evidence',ghosts:['Poltergeist'],description:'Spread small piles around the ghost room. Mark “Saw it” only if several items fly in one simultaneous burst, not separate throws.',signal:'Poltergeist / Mimic tell',source:'Poltergeist'},
  {id:'firelight',observation:'onryo_fire',name:'Count firelight blowouts',phase:'While gathering evidence',ghosts:['Onryo'],description:'Count three ghost-caused flame blowouts, then watch for a hunt attempt. It may be delayed or blocked by another flame, a crucifix, setup phase, hunt cooldown or incense. Do not mark “Saw it” for blowouts alone; any ghost can do those.',signal:'Onryo clue',source:'Onryo'},
- {id:'exit_door_watch',observation:'yurei_exit',name:'Watch the front exit door',phase:'While gathering evidence',ghosts:['Yurei','The Mimic'],description:'If the ghost is near an entrance, watch an open exit door. Mark “Saw it” only if it closes with no hunt or ghost event. A slow interior-door close alone does not count; a missed close rules out nothing.',signal:'Yurei / Mimic tell',source:'Exit_Door'},
+ {id:'exit_door_watch',observation:'yurei_exit',name:'Watch the front exit door',phase:'While gathering evidence',ghosts:['Yurei','The Mimic'],description:'If the ghost is near an entrance, watch an open exit door. Mark “Saw it” only if it closes with no hunt or ghost event. A room door closing does not count, regardless of speed; a missed exit-door close rules out nothing.',signal:'Yurei / Mimic tell',source:'Exit_Door'},
  {id:'rev_steps',observation:'revenant_roam',name:'Listen to roaming footsteps',phase:'During a hunt',ghosts:['Revenant'],description:'From a safe hiding spot, listen for unusually slow roaming steps. A Revenant becomes dramatically faster after detecting a player.',signal:'Revenant clue',source:'Revenant'},
  {id:'raiju_power',observation:'raiju_electronics',name:'Compare electronics and speed',phase:'During a hunt',ghosts:['Raiju'],description:'With a safe hiding route, compare footsteps near active electronics with an area where devices are off. Raiju can speed up near powered gear.',signal:'Raiju clue',source:'Raiju'},
  {id:'gallu_state',observation:'gallu_states',name:'Compare Gallu states',phase:'During a hunt',ghosts:['Gallu'],description:'After a confirmed salt, incense or crucifix interaction, listen for a faster hunt and watch whether another salt pile stays untouched. Compare again after the next hunt.',signal:'Gallu clue',source:'Gallu'}
@@ -110,7 +111,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){
  if(b.dataset.select){toggleGhost(b.dataset.select);return;}
  if(b.dataset.exclude){const n=b.dataset.exclude;state.excluded=state.excluded.includes(n)?state.excluded.filter(x=>x!==n):[...state.excluded,n];render();return;}
  if(b.id==='resetBtn'){state=defaults();$('#search').value='';history.replaceState(null,'',location.pathname+location.search);render();toast('Investigation reset');return;}
- if(b.id==='shareBtn'){const share={mode:state.mode,gender:state.gender,evidence:state.evidence,observed:state.observed,rulesVersion:3,checkTried:state.checkTried,excluded:state.excluded,expanded:state.expanded,filter:state.filter};const url=location.origin+location.pathname+'#s='+encodeURIComponent(JSON.stringify(share));navigator.clipboard.writeText(url).then(()=>toast('Investigation link copied')).catch(()=>toast('Unable to copy link'));return;}
+ if(b.id==='shareBtn'){const share={mode:state.mode,gender:state.gender,evidence:state.evidence,observed:state.observed,rulesVersion:4,checkTried:state.checkTried,excluded:state.excluded,expanded:state.expanded,filter:state.filter};const url=location.origin+location.pathname+'#s='+encodeURIComponent(JSON.stringify(share));navigator.clipboard.writeText(url).then(()=>toast('Investigation link copied')).catch(()=>toast('Unable to copy link'));return;}
  if(b.dataset.view){switchView(b.dataset.view);return;}
 });
 pageTrack.addEventListener('scroll',()=>{if(!mobile())return;cancelAnimationFrame(scrollFrame);scrollFrame=requestAnimationFrame(updateNavPosition);clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{const view=views[Math.max(0,Math.min(views.length-1,Math.round(pageTrack.scrollLeft/pageTrack.clientWidth)))];if(state.view!==view){state.view=view;persist();}updateNavPosition();},160);},{passive:true});
