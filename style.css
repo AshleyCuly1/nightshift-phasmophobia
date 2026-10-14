@@ -52,6 +52,8 @@
 .behavior-copy{display:flex;min-width:0;flex-direction:column;gap:4px}
 .behavior-ghosts{color:#aabdc0;font:500 10px/1.35 'DM Sans',sans-serif;overflow-wrap:anywhere}
 .behavior-chip.active .behavior-ghosts{color:#b8d9c8}
+.behavior-ghost-name.in-play{color:#fff;font-weight:700}
+.behavior-ghost-name.out-of-play{color:#788b91}
 .ghost-label-toggle{display:none}
 .behavior-icon{color:var(--teal);font:700 16px/1 'Space Grotesk';text-align:center}
 .behavior-check{color:var(--teal);font-weight:700;text-align:right}
