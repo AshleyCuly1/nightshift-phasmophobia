@@ -1,6 +1,6 @@
 # BUSTBIBLE — Phasmophobia Fieldbook
 
-A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Checks, and Suspects; swipe left or right to move between them. Evidence and clearly observed unique tells narrow Suspects; other behavior clues only rank them. Tap a ghost for its field notes; a manual rule-out control lives inside the expanded card, and All lets you restore it. Checks lets you record an observed result or mark a check as tried without treating a missed tell as exclusion. No account, backend, API key, icon font, or build step is needed.
+A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Checks, and Suspects; swipe left or right to move between them. Evidence and clearly observed unique tells narrow Suspects; other behavior clues only rank them. A certain male ghost rules out Banshee and Dayan; female does not exclude other types. Tap a ghost for its field notes or cross it off directly from its row; All lets you restore it. Checks lets you record an observed result or mark a check as tried without treating a missed tell as exclusion. No account, backend, API key, icon font, or build step is needed.
 
 ## Run locally
 
@@ -19,7 +19,7 @@ Open `http://localhost:8080`.
 3. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
 4. GitHub shows the live site URL on the same Pages settings screen after deployment. It will look like `https://YOUR-USERNAME.github.io/nightshift-phasmophobia/` if you use that repository name.
 
-The app saves investigation state in browser local storage. **Share state** copies a URL containing current evidence, observed behaviors, tried checks and eliminations. This is a snapshot, not live sync. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
+The app saves investigation state in browser local storage. **Share state** copies a URL containing current gender selection, evidence, observed behaviors, tried checks and eliminations. This is a snapshot, not live sync. **Tried, no tell** records an attempt, clears **Saw it** for that check, and does not rule out any ghost. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
 
 ## Data and rules
 

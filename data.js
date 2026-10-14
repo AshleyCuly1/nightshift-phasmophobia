@@ -45,5 +45,5 @@ export const GHOSTS = [
  g('The Twins','emf freeze box','1.5 / 1.9 m/s','50%','Can make two interactions in separate areas within 1–2 seconds; hunts use either a slower or faster base speed.','Listen for two interactions in different spots almost together; across hunts, compare for 1.5 versus 1.9 m/s base footsteps.'),
  g('Wraith','emf dots box','1.7 m/s','50%','Never disturbs salt; can teleport to a player and leave EMF.','Place salt across its path; if it walks through without disturbing the pile, suspect Wraith.'),
  g('Yokai','dots orbs box','1.7 m/s','50% / 80%','Talking nearby can trigger an early hunt; hunt detection range is short.','Talking nearby may trigger an unusually early hunt; from safe cover, notice if it fails to detect voices or electronics beyond a short range.'),
- g('Yurei','dots orbs freeze','1.7 m/s','50%','Can shut a door fully outside an event/hunt and drain sanity; incense confines it.','Watch for a door to shut completely without a ghost event or hunt; that distinctive door close supports Yurei.')
+ g('Yurei','dots orbs freeze','1.7 m/s','50%','Its ability can close a door smoothly and quietly while draining nearby sanity. A hard slam can happen with any ghost.','Watch for a smooth, quiet full door close without a ghost event or hunt. A sudden slam is not a Yurei tell.')
 ];
