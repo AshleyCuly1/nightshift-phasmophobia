@@ -25,7 +25,7 @@ The app saves investigation state in browser local storage. **Share state** copi
 
 `data.js` holds evidence, speeds, tells, hunt thresholds, and tests. `observations.js` holds selectable behavior clues. Specific tells rank matching ghosts higher in the single Suspects list; broad notes are logged without changing order. No behavior note automatically eliminates a ghost. `app.js` handles filtering and check results. The roster covers 30 ghosts, including Deildegast. Ghost pages were reviewed against dated Phasmophobia Wiki revisions on 14 October 2026 and recent official v0.19.1.0 patch notes. See [DATA_AUDIT.md](DATA_AUDIT.md) for the revision ledger, corrections, and limits. Mechanics remain community sourced rather than independently confirmed by gameplay. Original summaries and UI; no other GitHub tools were used as design references.
 
-The reduced-evidence filter only treats a *negative* check as conclusive for guaranteed evidence. The Mimic’s extra Orbs always remain testable, including in zero-evidence games. Negative evidence marks are only as reliable as the in-game test conditions.
+**Evidence given** matches the in-game difficulty setting, not the number of clues found so far. Three evidence enables all normal types; one or two can hide some. In reduced-evidence games, a negative check only excludes a ghost when that evidence is guaranteed: Deogen Spirit Box, Goryo D.O.T.S., Hantu Freezing, Moroi Spirit Box, or Obake Ultraviolet. At zero evidence, no normal type appears. The Mimic’s extra Orbs remain testable in every mode, including zero. Negative marks are only as reliable as the in-game test conditions.
 
 ## Next improvements
 
