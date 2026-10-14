@@ -19,7 +19,7 @@ Open `http://localhost:8080`.
 3. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
 4. GitHub shows the live site URL on the same Pages settings screen after deployment. It will look like `https://YOUR-USERNAME.github.io/nightshift-phasmophobia/` if you use that repository name.
 
-The app saves investigation state in browser local storage. **Share state** copies a URL containing current gender selection, evidence, observed behaviors, tried checks and eliminations. This is a snapshot, not live sync. **Tried, no tell** records an attempt, clears **Saw it** for that check, and does not rule out any ghost. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
+The app saves investigation state in browser local storage. If confirmed evidence exceeds the selected evidence mode and a higher mode fits, the app raises the mode and shows a notice; The Mimic's extra Ghost Orbs remain an exception. **Share state** copies a URL containing current gender selection, evidence, observed behaviors, tried checks and eliminations. This is a snapshot, not live sync. **Tried, no tell** records an attempt, clears **Saw it** for that check, and does not rule out any ghost. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
 
 ## Data and rules
 

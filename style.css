@@ -185,3 +185,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .behavior-tier>h3{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
 .behavior-tier>h3 span{color:var(--muted);font:500 10px 'DM Sans',sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap}
 .ability-section h3{color:var(--teal)}
+/* Found evidence stays obvious in both collapsed rows and expanded notes. */
+.ghost-evidence .e-tag.match,.detail-evidence .e-tag.match{background:var(--teal);color:#10221b;box-shadow:0 0 0 1px var(--teal);font-weight:800}
