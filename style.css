@@ -49,6 +49,10 @@
 .behavior-chip{display:grid;grid-template-columns:19px minmax(0,1fr) 12px;align-items:center;gap:7px;min-height:41px;width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text);text-align:left;font:600 11px/1.2 'DM Sans',sans-serif}
 .behavior-chip:hover{border-color:#67867f}
 .behavior-chip.active{border-color:#5c9f82;background:#1c352f;color:#e4f5eb}
+.behavior-copy{display:flex;min-width:0;flex-direction:column;gap:4px}
+.behavior-ghosts{color:#aabdc0;font:500 10px/1.35 'DM Sans',sans-serif;overflow-wrap:anywhere}
+.behavior-chip.active .behavior-ghosts{color:#b8d9c8}
+.ghost-label-toggle{display:none}
 .behavior-icon{color:var(--teal);font:700 16px/1 'Space Grotesk';text-align:center}
 .behavior-check{color:var(--teal);font-weight:700;text-align:right}
 .behavior-guidance{margin-top:19px;padding:13px;border:1px solid #456c61;border-radius:9px;background:#172c29}
@@ -56,6 +60,15 @@
 .behavior-guidance p{margin:9px 0 0;color:#d0eadb;font-size:11px;line-height:1.45}
 .behavior-match{border-radius:3px;background:#315446;color:var(--teal);padding:3px 5px;font:700 9px 'Space Grotesk'}
 @media(max-width:760px){.behavior-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.behavior-section{margin-top:22px;padding-top:20px}.behavior-chip{min-height:46px}.tabset{gap:12px}.tabset button{white-space:nowrap;font-size:11px}}
+@media(max-width:760px){
+ body.show-ghost-labels .behavior-grid{grid-template-columns:minmax(0,1fr)}
+ .shell>.rail{padding-bottom:170px}
+ .ghost-label-toggle{position:fixed;z-index:39;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 13px;border:1px solid #628d78;border-radius:99px;background:#21362fef;color:#e5f7eb;box-shadow:0 7px 25px #0009;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font:700 11px 'Space Grotesk',sans-serif}
+ .ghost-label-toggle[aria-pressed="true"]{background:var(--teal);color:#10231b}
+ .ghost-label-toggle .icon{width:17px;height:17px}
+ body:not(.view-investigation) .ghost-label-toggle{display:none}
+ body.view-investigation #toast{bottom:calc(138px + env(safe-area-inset-bottom))}
+}
 @media(max-width:350px){.behavior-grid{grid-template-columns:1fr}}
 /* Suspect field notes open in place; the third view is for next steps. */
 .ghost-row{cursor:pointer}

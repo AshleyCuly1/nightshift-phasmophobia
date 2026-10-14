@@ -3,9 +3,9 @@ import {OBSERVATIONS} from './observations.js?v=mare-light-1';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
-const defaults=()=>({mode:2,gender:'unknown',evidence:{},observed:[],reviewTells:[],reviewMechanics:[],rulesVersion:4,checkTried:[],excluded:[],expanded:null,filter:'possible',view:'investigation'});
+const defaults=()=>({mode:2,gender:'unknown',evidence:{},observed:[],reviewTells:[],reviewMechanics:[],rulesVersion:4,checkTried:[],excluded:[],expanded:null,filter:'possible',view:'investigation',showGhostLabels:false});
 let state=defaults();
-try{const saved=localStorage.getItem('nightshift-v1');if(saved)state={...state,...JSON.parse(saved)};if(location.hash.startsWith('#s=')){const shared=JSON.parse(decodeURIComponent(location.hash.slice(3)));state={...defaults(),...shared,view:state.view};if(!Object.hasOwn(shared,'rulesVersion'))state.rulesVersion=0;}}catch{}
+try{const saved=localStorage.getItem('nightshift-v1');if(saved)state={...state,...JSON.parse(saved)};if(location.hash.startsWith('#s=')){const shared=JSON.parse(decodeURIComponent(location.hash.slice(3)));state={...defaults(),...shared,view:state.view,showGhostLabels:state.showGhostLabels};if(!Object.hasOwn(shared,'rulesVersion'))state.rulesVersion=0;}}catch{}
 if((state.rulesVersion||0)<2){const hardIds=new Set(OBSERVATIONS.filter(o=>o.kind==='confirmed').map(o=>o.id));state.reviewTells=(Array.isArray(state.observed)?state.observed:[]).filter(id=>hardIds.has(id));state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>!hardIds.has(id));state.rulesVersion=2;}
 if(state.rulesVersion<3){const ambiguous=['yurei_door','onryo_fire'];state.reviewMechanics=(Array.isArray(state.observed)?state.observed:[]).filter(id=>ambiguous.includes(id));state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>!ambiguous.includes(id));state.rulesVersion=3;}
 if(state.rulesVersion<4){state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>id!=='yurei_door');state.reviewMechanics=(Array.isArray(state.reviewMechanics)?state.reviewMechanics:[]).filter(id=>id!=='yurei_door');state.rulesVersion=4;}
@@ -15,6 +15,7 @@ if(['fits','starred'].includes(state.filter))state.filter='possible';
 if(state.view==='summary')state.view='suspects';
 delete state.starred;
 if(!Array.isArray(state.checkTried))state.checkTried=[];
+state.showGhostLabels=state.showGhostLabels===true;
 state.checkTried=state.checkTried.filter(id=>id!=='door_watch');
 const persist=()=>{state.rulesVersion=4;localStorage.setItem('nightshift-v1',JSON.stringify(state));};
 const views=['investigation','notes','suspects'];
@@ -69,7 +70,9 @@ function renderObservations(){
   else if(selected.length&&!unavailable.length)message='Logged as a note. Broad behaviors do not rule ghosts out or change their order.';
   result.textContent=(reviewMechanics.length?'Older door/firelight notes were cleared because those labels were ambiguous. Re-select them only if you observed the specific condition below. ':'')+(review.length?`${review.length} older tell${review.length===1?'':'s'} need confirmation; tap below if you clearly observed them. `:'')+message+(unavailable.length?' Evidence-linked observations cannot occur at zero normal evidence.':'');
  }
- const chip=o=>`<button class="behavior-chip ${selected.includes(o)?'active':''}" data-observation="${o.id}" aria-pressed="${selected.includes(o)}" title="${o.tip}"><span class="behavior-icon">${icon(o.icon)}</span><span>${o.label}</span><span class="behavior-check">${selected.includes(o)?icon('check'):''}</span></button>`;
+ const ghostNames=o=>o.excludes?.length?`Rules out: ${o.excludes.join(', ')}`:o.fits?.length?`Narrows to: ${o.fits.join(', ')}`:o.leads.length?`Points to: ${o.leads.join(', ')}`:'General note · no specific ghost';
+ const chip=o=>`<button class="behavior-chip ${selected.includes(o)?'active':''}" data-observation="${o.id}" aria-pressed="${selected.includes(o)}" title="${o.tip}"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span><span class="behavior-check">${selected.includes(o)?icon('check'):''}</span></button>`;
+ const labelsToggle=$('#ghostLabelsToggle');labelsToggle.setAttribute('aria-pressed',state.showGhostLabels);labelsToggle.setAttribute('aria-label',state.showGhostLabels?'Hide ghost labels':'Show ghost labels');labelsToggle.querySelector('span').textContent=state.showGhostLabels?'Hide ghosts':'Show ghosts';document.body.classList.toggle('show-ghost-labels',state.showGhostLabels);
  const groups=[...new Set(OBSERVATIONS.filter(o=>o.kind!=='confirmed').map(o=>o.group))];
  $('#behaviorList').innerHTML=`${review.length?`<p class="behavior-review">Previously noted: ${review.map(o=>o.label).join(' · ')}. Select a tell again only if the exact event was observed.</p>`:''}<div class="behavior-tier"><h3>Confirmed tells <span>narrow suspects</span></h3><div class="behavior-grid">${OBSERVATIONS.filter(o=>o.kind==='confirmed').map(chip).join('')}</div></div><div class="behavior-tier"><h3>Clues & notes <span>rank only</span></h3>${groups.map(group=>`<div class="behavior-group"><h4>${group}</h4><div class="behavior-grid">${OBSERVATIONS.filter(o=>o.kind!=='confirmed'&&o.group===group).map(chip).join('')}</div></div>`).join('')}</div>`+(selected.length?`<div class="behavior-guidance"><strong>INTERPRETATION</strong>${selected.map(o=>{const source=o.leads.length===1?GHOSTS.find(g=>g.name===o.leads[0])?.sourceUrl:'https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts';return `<p><b>${o.label}:</b> ${o.tip} <a href="${source}" target="_blank" rel="noopener">Community source ↗</a> · reviewed 14 Oct 2026 · patch v0.19.1.0</p>`}).join('')}</div>`:'');
 }
@@ -118,6 +121,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){
  if(b.dataset.checkSeen){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkSeen);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.observed=state.observed.includes(check.observation)?state.observed.filter(x=>x!==check.observation):[...state.observed,check.observation];state.reviewTells=state.reviewTells.filter(x=>x!==check.observation);state.checkTried=state.checkTried.filter(x=>x!==check.id);render();return;}
  if(b.dataset.checkTried){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkTried);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.checkTried=state.checkTried.includes(check.id)?state.checkTried.filter(x=>x!==check.id):[...state.checkTried,check.id];state.observed=state.observed.filter(x=>x!==check.observation);render();return;}
  if(b.dataset.observation){const key=b.dataset.observation;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==key);state.observed=Array.isArray(state.observed)?state.observed:[];state.observed=state.observed.includes(key)?state.observed.filter(x=>x!==key):[...state.observed,key];state.reviewTells=state.reviewTells.filter(x=>x!==key);render();return;}
+ if(b.id==='ghostLabelsToggle'){state.showGhostLabels=!state.showGhostLabels;renderObservations();persist();return;}
  if(b.dataset.evidence){const key=b.dataset.evidence;state.evidence[key]=state.evidence[key]===1?-1:state.evidence[key]===-1?0:1;render();return;}
  if(b.dataset.mode){state.mode=Number(b.dataset.mode);render();return;}
  if(b.dataset.gender){state.gender=b.dataset.gender;render();return;}

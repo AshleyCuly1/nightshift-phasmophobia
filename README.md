@@ -1,6 +1,6 @@
 # BUSTBIBLE — Phasmophobia Fieldbook
 
-A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Checks, and Suspects; swipe left or right to move between them. Evidence and clearly observed unique tells narrow Suspects; other behavior clues only rank them. A certain male ghost rules out Banshee and Dayan; female does not exclude other types. Tap a ghost for its field notes or cross it off directly from its row; All lets you restore it. Checks lets you record an observed result or mark a check as tried without treating a missed tell as exclusion. No account, backend, API key, icon font, or build step is needed.
+A static, phone-first investigation board for 0–3 evidence runs. The bottom bar switches between Investigation, Checks, and Suspects; swipe left or right to move between them. On phones, the floating Show ghosts button reveals which ghosts each observation points to or rules out, then hides those labels again. Evidence and clearly observed unique tells narrow Suspects; other behavior clues only rank them. A certain male ghost rules out Banshee and Dayan; female does not exclude other types. Tap a ghost for its field notes or cross it off directly from its row; All lets you restore it. Checks lets you record an observed result or mark a check as tried without treating a missed tell as exclusion. No account, backend, API key, icon font, or build step is needed.
 
 ## Run locally
 
