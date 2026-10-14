@@ -17,6 +17,7 @@ export const OBSERVATIONS = [
   {id:'hunting_breath',group:'Visual',icon:'snowflake',label:'Freezing breath in hunt',weight:2,leads:['Hantu'],tip:'The Hantu tell depends on the breaker being off.'},
   {id:'breaker_off',group:'Interaction',icon:'power',label:'Breaker turned off',weight:0,leads:[],tip:'A breaker can trip from too many lights; this alone does not identify a ghost.'},
   {id:'object_burst',group:'Interaction',icon:'sparkles',label:'Several objects thrown',weight:2,leads:['Poltergeist'],tip:'A simultaneous object burst is much stronger than a single throw.'},
+  {id:'twins_pair',group:'Interaction',icon:'repeat-2',label:'Two interactions moments apart',weight:2,leads:['The Twins'],tip:'Listen for two interactions in different spots within about 2 seconds; an occasional pair can happen by chance.'},
   {id:'salt_untouched',group:'Interaction',icon:'scan',label:'Crossed salt untouched',weight:2,leads:['Wraith','Gallu'],tip:'Log this only if you know the ghost crossed the salt. Gallu can avoid it in one state.'},
   {id:'lights_off',group:'Interaction',icon:'lightbulb-off',label:'Instant light switch off',weight:2,leads:['Mare'],tip:'Watch for a very quick switch-off after you turn a light on.'},
   {id:'onryo_fire',group:'Interaction',icon:'flame',label:'Firelight blowout pattern',weight:2,leads:['Onryo'],tip:'Repeated fast blowouts or a hunt following multiple blowouts can point to Onryo; note cooldowns.'},
