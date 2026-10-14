@@ -1,5 +1,5 @@
-import {EVIDENCE,GHOSTS} from './data.js?v=abilities-1';
-import {OBSERVATIONS} from './observations.js?v=gender-checks-1';
+import {EVIDENCE,GHOSTS} from './data.js?v=door-check-1';
+import {OBSERVATIONS} from './observations.js?v=door-check-1';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
@@ -14,6 +14,7 @@ if(['fits','starred'].includes(state.filter))state.filter='possible';
 if(state.view==='summary')state.view='suspects';
 delete state.starred;
 if(!Array.isArray(state.checkTried))state.checkTried=[];
+state.checkTried=state.checkTried.filter(id=>id!=='door_watch');
 const persist=()=>{state.rulesVersion=3;localStorage.setItem('nightshift-v1',JSON.stringify(state));};
 const views=['investigation','notes','suspects'];
 const mobile=()=>matchMedia('(max-width: 760px)').matches;
@@ -85,7 +86,7 @@ const QUICK_CHECKS=[
  {id:'salt_motion',observation:'salt_untouched',name:'Pair salt with a motion sensor',phase:'While gathering evidence',ghosts:['Wraith','Gallu'],description:'If the sensor confirms a crossing but the salt stays untouched, consider Wraith or an enraged Gallu. A Gallu may enter that state after salt, incense or a crucifix.',signal:'Wraith / Gallu clue',source:'Salt'},
  {id:'object_pile',observation:'multi_throw',name:'Set out a few loose objects',phase:'While gathering evidence',ghosts:['Poltergeist'],description:'Spread small piles around the ghost room. Mark “Saw it” only if several items fly in one simultaneous burst, not separate throws.',signal:'Poltergeist / Mimic tell',source:'Poltergeist'},
  {id:'firelight',observation:'onryo_fire',name:'Count firelight blowouts',phase:'While gathering evidence',ghosts:['Onryo'],description:'Count three ghost-caused flame blowouts, then watch for a hunt attempt. It may be delayed or blocked by another flame, a crucifix, setup phase, hunt cooldown or incense. Do not mark “Saw it” for blowouts alone; any ghost can do those.',signal:'Onryo clue',source:'Onryo'},
- {id:'door_watch',observation:'yurei_door',name:'Watch for a smooth door close',phase:'While gathering evidence',ghosts:['Yurei'],description:'Watch an open door close fully, smoothly and quietly, with no creak, ghost event or hunt. A sudden slam can happen with any ghost. A ghost event is a scare where the ghost appears, sings or stages a fake chase. If unsure, leave this unmarked.',signal:'Yurei clue',source:'Yurei'},
+ {id:'exit_door_watch',observation:'yurei_exit',name:'Watch the front exit door',phase:'While gathering evidence',ghosts:['Yurei','The Mimic'],description:'If the ghost is near an entrance, watch an open exit door. Mark “Saw it” only if it closes with no hunt or ghost event. A slow interior-door close alone does not count; a missed close rules out nothing.',signal:'Yurei / Mimic tell',source:'Exit_Door'},
  {id:'rev_steps',observation:'revenant_roam',name:'Listen to roaming footsteps',phase:'During a hunt',ghosts:['Revenant'],description:'From a safe hiding spot, listen for unusually slow roaming steps. A Revenant becomes dramatically faster after detecting a player.',signal:'Revenant clue',source:'Revenant'},
  {id:'raiju_power',observation:'raiju_electronics',name:'Compare electronics and speed',phase:'During a hunt',ghosts:['Raiju'],description:'With a safe hiding route, compare footsteps near active electronics with an area where devices are off. Raiju can speed up near powered gear.',signal:'Raiju clue',source:'Raiju'},
  {id:'gallu_state',observation:'gallu_states',name:'Compare Gallu states',phase:'During a hunt',ghosts:['Gallu'],description:'After a confirmed salt, incense or crucifix interaction, listen for a faster hunt and watch whether another salt pile stays untouched. Compare again after the next hunt.',signal:'Gallu clue',source:'Gallu'}

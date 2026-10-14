@@ -44,7 +44,7 @@ const ABILITIES={
  'The Twins':'Can interact in two different places almost at once. Its hunts can use one of two base speeds.',
  Wraith:'Can teleport to a player outside hunts and never disturbs salt.',
  Yokai:'Talking near it can enable earlier hunts. During a hunt, it detects voices and electronics only at short range.',
- Yurei:'Can smoothly close an open door in its room and drain nearby players’ sanity. A hard door slam is not this ability.'
+ Yurei:'Can close an open door in its room and drain nearby players’ sanity. This can include the front exit door outside a hunt or ghost event; an interior door closing slowly alone is not a reliable ID.'
 };
 const g=(name,evidence,speed,threshold,tell,test,forced=[],blink='Standard',note='')=>({name,evidence:evidence.split(' '),speed,threshold,ability:ABILITIES[name],tell,test,forced,blink,note,sourceRevision:SOURCE_REVISIONS[name],sourceUrl:`https://phasmophobia.fandom.com/wiki/${encodeURIComponent(name.replaceAll(' ','_'))}`,reviewedAt:'2026-10-14',reviewedPatch:'v0.19.1.0',knownIssue:KNOWN_ISSUES[name]||''});
 export const GHOSTS = [
@@ -77,5 +77,5 @@ export const GHOSTS = [
  g('The Twins','emf freeze box','1.5 / 1.9 m/s','50%','Can make two interactions in separate areas within 1–2 seconds; hunts use either a slower or faster base speed.','Listen for two interactions in different spots almost together; across hunts, compare for 1.5 versus 1.9 m/s base footsteps.'),
  g('Wraith','emf dots box','1.7 m/s','50%','Never disturbs salt; can teleport to a player and leave EMF.','Place salt across its path; if it walks through without disturbing the pile, suspect Wraith.'),
  g('Yokai','dots orbs box','1.7 m/s','50% / 80%','Talking nearby can trigger an early hunt; hunt detection range is short.','Talking nearby may trigger an unusually early hunt; from safe cover, notice if it fails to detect voices or electronics beyond a short range.'),
- g('Yurei','dots orbs freeze','1.7 m/s','50%','Its ability can close a door smoothly and quietly while draining nearby sanity. A hard slam can happen with any ghost.','Watch for a smooth, quiet full door close without a ghost event or hunt. A sudden slam is not a Yurei tell.')
+ g('Yurei','dots orbs freeze','1.7 m/s','50%','Can close the front exit door outside a hunt or ghost event; a Mimic copying Yurei can do this too. A slow interior-door close alone proves neither.','When the ghost is near an entrance, watch an open front exit door. A close with no hunt or ghost event points to Yurei or a Mimic copying it; a missed close rules out nothing.')
 ];
