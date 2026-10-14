@@ -14,9 +14,10 @@ Open `http://localhost:8080`.
 
 ## Put it on GitHub Pages
 
-1. Create a GitHub repository and push this directory as the repository root.
-2. In **Settings → Pages**, choose **GitHub Actions** as the source.
-3. The included workflow publishes the static files on pushes to `main`.
+1. Create a **public** GitHub repository, such as `nightshift-phasmophobia`.
+2. Upload the files in this folder to the repository root, including `index.html`, `app.js`, `data.js`, `observations.js`, and `style.css`. Upload the files themselves, not the ZIP archive or an enclosing folder.
+3. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
+4. GitHub shows the live site URL on the same Pages settings screen after deployment. It will look like `https://YOUR-USERNAME.github.io/nightshift-phasmophobia/` if you use that repository name.
 
 The app saves investigation state in browser local storage. **Share state** copies a URL containing current evidence, observed behaviors, picks, and eliminations. This is a snapshot, not live sync. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
 
