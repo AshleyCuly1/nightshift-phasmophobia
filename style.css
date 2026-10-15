@@ -166,7 +166,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* Gender is a narrow rule: only a certain male ghost excludes female-only types. */
 .gender-block{margin:-9px 0 24px}
 .gender-block label{display:block;margin-bottom:9px;font:700 11px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase}
-.gender-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+.gender-options{grid-template-columns:repeat(2,minmax(0,1fr))}
 .gender-block p{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
 .gender-block a{color:var(--teal);text-decoration:none}
 @media(max-width:760px){.gender-block{margin:17px 0 22px}.gender-options button{min-height:42px}.gender-block p{font-size:10px}}
@@ -212,3 +212,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .behavior-chip.not-relevant,.firelight-card.not-relevant{opacity:.27;filter:saturate(.35);transition:opacity .15s ease}
 .behavior-chip:disabled{cursor:not-allowed}
 .behavior-chip:disabled:hover{border-color:var(--line)}
+
+.observation-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.observation-tag{display:inline-flex;align-items:center;min-height:26px;padding:5px 9px;border:1px solid #42685a;border-radius:6px;background:#1c352f;color:#d9efe2;font:600 11px/1.25 'DM Sans',sans-serif}
