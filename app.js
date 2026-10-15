@@ -32,7 +32,7 @@ const navIndicator=$('.nav-indicator');
 let scrollTimer;
 let scrollFrame;
 function activeNav(index){const view=views[index];document.body.classList.remove(...views.map(v=>'view-'+v));document.body.classList.add('view-'+view);navButtons.forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false')});}
-function updateNavPosition(){if(!mobile())return;const progress=Math.max(0,Math.min(views.length-1,pageTrack.scrollLeft/pageTrack.clientWidth));const first=Math.floor(progress),last=Math.min(views.length-1,first+1),fraction=progress-first;const a=navButtons[first],b=navButtons[last];navIndicator.style.width=`${a.offsetWidth+(b.offsetWidth-a.offsetWidth)*fraction}px`;navIndicator.style.transform=`translate3d(${a.offsetLeft+(b.offsetLeft-a.offsetLeft)*fraction}px,0,0)`;activeNav(Math.round(progress));}
+function updateNavPosition(){if(!mobile())return;const progress=Math.max(0,Math.min(views.length-1,pageTrack.scrollLeft/(pageTrack.clientWidth||1)));navIndicator.style.transform=`translate3d(calc(${progress*100}% + ${progress*4}px),0,0)`;activeNav(Math.round(progress));}
 function renderView(){const view=views.includes(state.view)?state.view:'investigation';state.view=view;activeNav(views.indexOf(view));if(mobile()){pageTrack.scrollTo({left:views.indexOf(view)*pageTrack.clientWidth,behavior:'instant'});updateNavPosition();}}
 function switchView(view){if(!views.includes(view))return;state.view=view;persist();if(mobile())pageTrack.scrollTo({left:views.indexOf(view)*pageTrack.clientWidth,behavior:'smooth'});else activeNav(views.indexOf(view));}
 const found=()=>Object.keys(state.evidence).filter(k=>state.evidence[k]===1);
