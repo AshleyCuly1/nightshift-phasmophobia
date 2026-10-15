@@ -224,6 +224,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
  .shell>.rail,.shell>.workspace{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
  .shell>.inspector{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
  .mobile-nav{left:calc(16px + env(safe-area-inset-left,0px));right:calc(16px + env(safe-area-inset-right,0px));bottom:var(--mobile-nav-bottom)}
+ .mobile-nav .nav-suspects-backdrop{left:auto;right:5px;width:calc((100% - 18px)/3);transform:none}
  .ghost-label-toggle{right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(78px + var(--mobile-nav-bottom))}
  #toast{bottom:calc(79px + var(--mobile-nav-bottom))}
  body.view-investigation #toast{bottom:calc(139px + var(--mobile-nav-bottom))}
