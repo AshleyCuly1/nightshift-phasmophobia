@@ -195,7 +195,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .observation-group-meta{display:flex;align-items:center;gap:7px;color:var(--muted);white-space:nowrap;font:600 10px 'DM Sans',sans-serif}
 .observation-group-meta .icon{width:15px;height:15px}
 .observation-group-body{padding:0 8px 9px}
-.behavior-tip{color:#c8d9d4;font:500 10px/1.35 'DM Sans',sans-serif}
+.observation-scope{display:flex;gap:4px;width:max-content;margin:0 0 12px;padding:3px;border:1px solid var(--line);border-radius:8px;background:#1c2932}
+.observation-scope[hidden]{display:none}
+.observation-scope button{min-height:34px;padding:0 13px;border:0;border-radius:6px;background:transparent;color:var(--muted);font:700 11px 'Space Grotesk',sans-serif}
+.observation-scope button.active{background:var(--teal);color:#10221b}
 .firelight-card{min-width:0;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);font:600 11px/1.2 'DM Sans',sans-serif}
 .firelight-card.active{border-color:#5c9f82;background:#1c352f}
 .firelight-heading{display:flex;align-items:center;gap:7px;min-height:26px}
