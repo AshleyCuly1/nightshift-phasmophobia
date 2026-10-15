@@ -215,3 +215,15 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
 .observation-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .observation-tag{display:inline-flex;align-items:center;min-height:26px;padding:5px 9px;border:1px solid #42685a;border-radius:6px;background:#1c352f;color:#d9efe2;font:600 11px/1.25 'DM Sans',sans-serif}
+@media(max-width:760px){
+ .topbar{height:calc(70px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);padding-left:calc(15px + env(safe-area-inset-left,0px));padding-right:calc(15px + env(safe-area-inset-right,0px))}
+ .shell{height:calc(100dvh - 70px - env(safe-area-inset-top,0px))}
+ .shell>.rail,.shell>.inspector{padding-left:calc(16px + env(safe-area-inset-left,0px));padding-right:calc(16px + env(safe-area-inset-right,0px))}
+ .shell>.workspace{padding-left:calc(14px + env(safe-area-inset-left,0px));padding-right:calc(14px + env(safe-area-inset-right,0px))}
+ .shell>.rail,.shell>.workspace{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+ .shell>.inspector{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+ .mobile-nav{left:calc(16px + env(safe-area-inset-left,0px));right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+ .ghost-label-toggle{right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(91px + env(safe-area-inset-bottom,0px))}
+ #toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+ body.view-investigation #toast{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+}

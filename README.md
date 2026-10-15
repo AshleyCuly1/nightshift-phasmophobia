@@ -15,11 +15,15 @@ Open `http://localhost:8080`.
 ## Put it on GitHub Pages
 
 1. Create a **public** GitHub repository, such as `nightshift-phasmophobia`.
-2. Upload the files in this folder to the repository root, including `index.html`, `app.js`, `data.js`, `observations.js`, and `style.css`. Upload the files themselves, not the ZIP archive or an enclosing folder.
+2. Upload the files in this folder to the repository root, including `index.html`, the JavaScript and CSS files, `manifest.webmanifest`, and the app icons. Upload the files themselves, not the ZIP archive or an enclosing folder.
 3. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
 4. GitHub shows the live site URL on the same Pages settings screen after deployment. It will look like `https://YOUR-USERNAME.github.io/nightshift-phasmophobia/` if you use that repository name.
 
 The app saves investigation state in browser local storage. If confirmed findings exceed the selected evidence mode, the app keeps your chosen game setting, shows the matching ghosts, and warns you to check the setting or findings. The Mimic's extra Ghost Orbs remain an exception. **Share state** copies a URL containing gender when selected, evidence, observed behaviors, firelight blowout count, tried checks and eliminations. This is a snapshot, not live sync. **Tried, no tell** records an attempt, clears **Saw it** for that check, and does not rule out any ghost. Login is deliberately unnecessary for the first version; adding Google or Discord sign-in would require a backend and user data storage.
+
+## Install on a phone
+
+On iPhone, open the Pages link in Safari, choose Share → Add to Home Screen, and enable Open as Web App. On Android, open it in Chrome and choose Install from the browser menu. The installed icon uses the same ghost and spray mark as the site header. The app remains the hosted website; no offline cache or app store package is used. GitHub Pages may cache the entry page for up to ten minutes, so a newly deployed version is not guaranteed to appear on the very next launch. An existing iPhone home screen icon may need to be removed and added again to pick up the new artwork.
 
 ## Data and rules
 

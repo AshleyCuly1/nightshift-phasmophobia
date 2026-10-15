@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#101922"/>
+  <g transform="translate(88 142) scale(6)" fill="none">
+    <svg x="0" y="3" width="32" height="32" viewBox="0 0 24 24" stroke="#a5e7c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 10v1"/>
+      <path d="M7.528 20.472a1.6 1.6 0 012.277 0l1.057 1.056a1.6 1.6 0 002.276 0l1.057-1.056a1.6 1.6 0 012.277 0l1.114 1.114a1.4 1.4 0 002.414-1V10a8 8 0 00-16 0v10.586a1.4 1.4 0 002.414 1z"/>
+      <path d="M9 10v1"/>
+    </svg>
+    <svg x="24" y="5" width="32" height="32" viewBox="0 0 32 32" fill="#a5e7c6">
+      <defs><path id="drop" d="M0-4C2.5-1.5 5 0 5 3a5 5 0 0 1-10 0c0-3 2.5-4.5 5-7Z"/></defs>
+      <use href="#drop" transform="translate(13 10) rotate(-135) scale(.65)"/>
+      <use href="#drop" transform="translate(19 16) rotate(-90) scale(.75)"/>
+      <use href="#drop" transform="translate(13 22) rotate(-45) scale(.65)"/>
+    </svg>
+  </g>
+</svg>
