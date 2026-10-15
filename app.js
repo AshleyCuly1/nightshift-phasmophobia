@@ -78,6 +78,20 @@ const OBSERVATION_GROUPS=[
  {id:'hunt',title:'Other hunt clues',ids:['kormos_footsteps','demon_incense','spirit_incense','yokai_range','banshee_target','mimic_shift','early_hunt','quiet_hunt']},
  {id:'activity',title:'General activity',ids:['shy','aggressive','activity_cycle']}
 ];
+function observationRelevant(o,pool,selected=false){
+ if(!pool.length||filteringMode()===0&&o.requiresEvidence)return false;
+ if(pool.length===GHOSTS.length)return true;
+ const names=new Set(pool.map(g=>g.name));
+ return (o.fits?.some(name=>names.has(name))&&(selected||pool.some(g=>!o.fits.includes(g.name))))||o.excludes?.some(name=>names.has(name))||o.leads.some(name=>names.has(name))||(o.id==='fire_blowout'&&names.has('Onryo'));
+}
+function clearIrrelevantObservations(){
+ if(state.showAllObservations)return;
+ const evidencePool=evidencePossible();
+ state.observed=state.observed.filter(id=>{const o=OBSERVATIONS.find(item=>item.id===id);return o&& (o.kind!=='confirmed'||observationRelevant(o,evidencePool,true));});
+ const pool=possible();
+ state.observed=state.observed.filter(id=>{const o=OBSERVATIONS.find(item=>item.id===id);return o&&(o.kind==='confirmed'||observationRelevant(o,pool,true));});
+ if(!state.observed.includes('fire_blowout'))state.fireBlowouts=0;
+}
 function renderObservations(){
  const selected=selectedObservations(),tells=confirmedTells(),clues=diagnosticObservations(),pool=possible(),matches=behaviorMatches(pool),review=OBSERVATIONS.filter(o=>state.reviewTells?.includes(o.id)),reviewMechanics=state.reviewMechanics||[],result=$('#behaviorResult');
  $('#behaviorCount').textContent=`${selected.length} NOTED`;
@@ -94,14 +108,14 @@ function renderObservations(){
   result.textContent=parts.join(' ');
  }
  const activeGhosts=new Set(pool.map(g=>g.name));
- const narrowed=pool.length>0&&pool.length<GHOSTS.length;
- const relevant=o=>selected.includes(o)||(o.fits?.some(name=>activeGhosts.has(name))&&pool.some(g=>!o.fits.includes(g.name)))||o.excludes?.some(name=>activeGhosts.has(name))||o.leads.some(name=>activeGhosts.has(name))||(o.id==='fire_blowout'&&activeGhosts.has('Onryo'));
- const dimmed=o=>narrowed&&!state.showAllObservations&&!relevant(o);
+ const narrowed=pool.length<GHOSTS.length;
+ const inactive=o=>!state.showAllObservations&&!observationRelevant(o,selected.includes(o)&&o.kind==='confirmed'?evidencePossible():pool,selected.includes(o));
+ const dimmed=o=>narrowed&&!state.showAllObservations&&inactive(o);
  const scope=$('#observationScope');scope.hidden=!narrowed;
  scope.querySelectorAll('[data-observation-scope]').forEach(b=>{const active=(b.dataset.observationScope==='all')===state.showAllObservations;b.classList.toggle('active',active);b.setAttribute('aria-pressed',active)});
  const names=ghosts=>ghosts.map(name=>`<span class="behavior-ghost-name${activeGhosts.has(name)?' in-play':''}">${name}</span>`).join(', ');
  const ghostNames=o=>o.excludes?.length?`Rules out: ${names(o.excludes)}`:o.fits?.length?`Narrows to: ${names(o.fits)}`:o.leads.length?names(o.leads):'General note · no specific ghost';
- const chip=o=>o.id==='fire_blowout'?`<div class="firelight-card ${state.fireBlowouts?'active':''} ${dimmed(o)?'not-relevant':''}"><div class="firelight-heading"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span></div><div class="firelight-counter" role="group" aria-label="Ghost-caused firelight blowouts"><button data-fire-minus aria-label="Remove one firelight blowout" ${state.fireBlowouts===0?'disabled':''}>−</button><strong>${state.fireBlowouts} / 3+</strong><button data-fire-plus aria-label="Record one firelight blowout" ${state.fireBlowouts===9?'disabled':''}>+</button></div>${state.fireBlowouts>=3?'<small class="firelight-followup">Three or more: watch for a hunt attempt, then mark the Onryo clue below if it happens.</small>':''}</div>`:`<button class="behavior-chip ${selected.includes(o)?'active':''} ${dimmed(o)?'not-relevant':''}" data-observation="${o.id}" aria-pressed="${selected.includes(o)}" title="${o.tip}"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span><span class="behavior-check">${selected.includes(o)?icon('check'):''}</span></button>`;
+ const chip=o=>o.id==='fire_blowout'?`<div class="firelight-card ${state.fireBlowouts?'active':''} ${inactive(o)?'is-inactive':''} ${dimmed(o)?'not-relevant':''}"><div class="firelight-heading"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span></div><div class="firelight-counter" role="group" aria-label="Ghost-caused firelight blowouts"><button data-fire-minus aria-label="Remove one firelight blowout" ${state.fireBlowouts===0||inactive(o)?'disabled':''}>−</button><strong>${state.fireBlowouts} / 3+</strong><button data-fire-plus aria-label="Record one firelight blowout" ${state.fireBlowouts===9||inactive(o)?'disabled':''}>+</button></div>${state.fireBlowouts>=3?'<small class="firelight-followup">Three or more: watch for a hunt attempt, then mark the Onryo clue below if it happens.</small>':''}</div>`:`<button class="behavior-chip ${selected.includes(o)?'active':''} ${inactive(o)?'is-inactive':''} ${dimmed(o)?'not-relevant':''}" data-observation="${o.id}" aria-pressed="${selected.includes(o)}" ${inactive(o)?'disabled':''} title="${o.tip}"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span><span class="behavior-check">${selected.includes(o)?icon('check'):''}</span></button>`;
  const labelsToggle=$('#ghostLabelsToggle');labelsToggle.setAttribute('aria-pressed',state.showGhostLabels);labelsToggle.setAttribute('aria-label',state.showGhostLabels?'Hide ghost labels':'Show ghost labels');labelsToggle.querySelector('span').textContent=state.showGhostLabels?'Hide ghosts':'Show ghosts';document.body.classList.toggle('show-ghost-labels',state.showGhostLabels);
  $('#behaviorList').innerHTML=`${review.length?`<p class="behavior-review">Previously noted: ${review.map(o=>o.label).join(' · ')}. Select a tell again only if the exact event was observed.</p>`:''}${OBSERVATION_GROUPS.map(group=>{const items=group.ids.map(id=>OBSERVATIONS.find(o=>o.id===id)).filter(Boolean),open=state.openObservationGroups.includes(group.id),count=items.filter(o=>selected.includes(o)).length;return `<section class="observation-group"><button class="observation-group-toggle" data-observation-group="${group.id}" aria-expanded="${open}" aria-controls="observation-group-${group.id}"><span>${group.title}</span><span class="observation-group-meta">${count?`${count} noted`:''} ${icon(open?'minus':'arrow-down')}</span></button><div class="observation-group-body" id="observation-group-${group.id}" ${open?'':'hidden'}><div class="behavior-grid">${items.map(chip).join('')}</div></div></section>`}).join('')}${selected.length?`<details class="behavior-guidance"><summary>Sources & detailed notes</summary>${selected.map(o=>{const source=o.source||(o.leads.length===1?GHOSTS.find(g=>g.name===o.leads[0])?.sourceUrl:'https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts');return `<p><b>${o.label}:</b> ${o.tip} <a href="${source}" target="_blank" rel="noopener">Community source ↗</a></p>`}).join('')}</details>`:''}`;
 }
@@ -145,13 +159,13 @@ function renderTests(){
  const leadsHtml=leads.length?`<section class="next-section"><h3>Other leads</h3>${leads.map(lead=>`<article class="test-card"><span class="rank">${lead.name.toUpperCase()}</span><h4>Test for ${lead.name}</h4><p>${lead.description}</p></article>`).join('')}</section>`:'';
  $('#testsPanel').innerHTML=`<p class="test-intro">Next checks for ${pool.length} possible ghost${pool.length===1?'':'s'}. Logged findings leave this list; a missed tell does not rule a ghost out.</p>${quickHtml}${leadsHtml}${!quickHtml&&!leadsHtml?'<div class="empty">No more targeted checks. Review your findings or show all observations in Investigation.</div>':''}`;
 }
-function render(){renderEvidence();renderObservations();renderList();renderTests();renderView();persist();}
+function render(){clearIrrelevantObservations();renderEvidence();renderObservations();renderList();renderTests();renderView();persist();}
 function toast(message){const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2500)}
 function toggleGhost(name){state.expanded=state.expanded===name?null:name;renderList();persist();}
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){const row=e.target.closest('.ghost-row');if(row&&!e.target.closest('a'))toggleGhost(row.dataset.ghost);return;}
  if(b.hasAttribute('data-fire-plus')||b.hasAttribute('data-fire-minus')){state.fireBlowouts=Math.max(0,Math.min(9,state.fireBlowouts+(b.hasAttribute('data-fire-plus')?1:-1)));state.observed=state.fireBlowouts?Array.from(new Set([...state.observed,'fire_blowout'])):state.observed.filter(id=>id!=='fire_blowout');render();return;}
  if(b.dataset.observationGroup){const id=b.dataset.observationGroup;state.openObservationGroups=state.openObservationGroups.includes(id)?state.openObservationGroups.filter(x=>x!==id):[...state.openObservationGroups,id];renderObservations();persist();return;}
- if(b.dataset.observationScope){state.showAllObservations=b.dataset.observationScope==='all';renderObservations();persist();return;}
+ if(b.dataset.observationScope){state.showAllObservations=b.dataset.observationScope==='all';render();return;}
  if(b.dataset.checkSeen){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkSeen);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.observed=state.observed.includes(check.observation)?state.observed.filter(x=>x!==check.observation):[...state.observed,check.observation];state.reviewTells=state.reviewTells.filter(x=>x!==check.observation);state.checkTried=state.checkTried.filter(x=>x!==check.id);render();return;}
  if(b.dataset.checkTried){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkTried);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.checkTried=state.checkTried.includes(check.id)?state.checkTried.filter(x=>x!==check.id):[...state.checkTried,check.id];state.observed=state.observed.filter(x=>x!==check.observation);render();return;}
  if(b.dataset.observation){const key=b.dataset.observation;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==key);state.observed=Array.isArray(state.observed)?state.observed:[];state.observed=state.observed.includes(key)?state.observed.filter(x=>x!==key):[...state.observed,key];state.reviewTells=state.reviewTells.filter(x=>x!==key);render();return;}

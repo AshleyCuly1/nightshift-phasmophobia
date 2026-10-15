@@ -210,4 +210,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .behavior-guidance summary{cursor:pointer;color:var(--teal);font:700 11px 'Space Grotesk',sans-serif}
 .behavior-guidance:not([open]){background:transparent;border-color:var(--line)}
 .behavior-chip.not-relevant,.firelight-card.not-relevant{opacity:.27;filter:saturate(.35);transition:opacity .15s ease}
-.behavior-chip.not-relevant:hover,.behavior-chip.not-relevant:focus-visible,.firelight-card.not-relevant:hover,.firelight-card.not-relevant:focus-within{opacity:.7}
+.behavior-chip:disabled{cursor:not-allowed}
+.behavior-chip:disabled:hover{border-color:var(--line)}
