@@ -23,7 +23,7 @@ The app saves investigation state in browser local storage. If confirmed finding
 
 ## Install on a phone
 
-On iPhone, open the Pages link in Safari, choose Share → Add to Home Screen, and enable Open as Web App. On Android, open it in Chrome and choose Install from the browser menu. The installed icon uses the same ghost and spray mark as the site header. The app remains the hosted website; no offline cache or app store package is used. GitHub Pages may cache the entry page for up to ten minutes, so a newly deployed version is not guaranteed to appear on the very next launch. An existing iPhone home screen icon may need to be removed and added again to pick up the new artwork.
+On iPhone, open the Pages link in Safari, choose Share → Add to Home Screen, and enable Open as Web App. On Android, open it in Chrome and choose Install from the browser menu. The installed icon uses the same ghost and spray mark as the site header. The app remains the hosted website; no offline cache or app store package is used. GitHub Pages may cache the entry page for up to ten minutes, so a newly deployed version is not guaranteed to appear on the very next launch. An existing iPhone home screen icon with the fallback “B” must be deleted and added again to pick up the artwork. Copy the current investigation link before doing so, since installed web-app storage is local to that installation.
 
 ## Data and rules
 
