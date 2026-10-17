@@ -8,7 +8,7 @@ export const SANITY_SOURCES = {
 
 export const EVENT_TYPES = [
   {id:'singing',label:'Singing'},
-  {id:'standing',label:'Standing / red light'},
+  {id:'standing',label:'Standing event'},
   {id:'chasing',label:'Chasing'},
   {id:'mist',label:'Mist form'},
   {id:'appear',label:'Appear'}

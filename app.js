@@ -1,6 +1,6 @@
 import {EVIDENCE,GHOSTS} from './data.js?v=mist-form-1';
 import {OBSERVATIONS} from './observations.js?v=mist-form-1';
-import {EVENT_TYPES,SANITY_SOURCES,sanityProfile} from './sanity.js?v=mist-form-1';
+import {EVENT_TYPES,SANITY_SOURCES,sanityProfile} from './sanity.js?v=standing-event-1';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
@@ -125,7 +125,7 @@ function renderObservations(){
 function sanitySection(g){
  const profile=sanityProfile(g.name);
  const rows=EVENT_TYPES.map(type=>`<div class="sanity-event-row"><span>${type.label}</span><strong class="${profile.eventLoss[type.id]==='Cannot occur'?'unavailable':''}">${profile.eventLoss[type.id]}</strong></div>`).join('');
- return `<section class="detail-section sanity-section"><h3>SANITY</h3><p class="sanity-ability">${profile.ability}</p><div class="sanity-event-heading">GHOST EVENT CONTACT</div><p class="sanity-condition">Loss applies if the event's target touches the ghost or mist and ends that event. Just seeing it, hearing it or a hiss does not cause this instant loss.</p><div class="sanity-events">${rows}</div>${profile.note?`<p class="sanity-exception">${profile.note}</p>`:''}<p class="sanity-sources">Sources: <a href="${SANITY_SOURCES.sanity}" target="_blank" rel="noopener">sanity ↗</a> · <a href="${SANITY_SOURCES.events}" target="_blank" rel="noopener">ghost events ↗</a></p></section>`;
+ return `<section class="detail-section sanity-section"><h3>SANITY</h3><p class="sanity-ability">${profile.ability}</p><div class="sanity-event-heading">GHOST EVENT CONTACT</div><p class="sanity-condition">Loss applies if the event's target touches the ghost or mist and ends that event. Just seeing it, hearing it or a hiss does not cause this instant loss.</p><div class="sanity-events">${rows}</div><p class="sanity-condition">Standing = the ghost appears and stays in one spot. Red lights or shattering lights are variants.</p>${profile.note?`<p class="sanity-exception">${profile.note}</p>`:''}<p class="sanity-sources">Sources: <a href="${SANITY_SOURCES.sanity}" target="_blank" rel="noopener">sanity ↗</a> · <a href="${SANITY_SOURCES.events}" target="_blank" rel="noopener">ghost events ↗</a></p></section>`;
 }
 function renderList(){
  const pool=possible(),tells=confirmedTells(),clues=diagnosticObservations(),q=$('#search').value.trim().toLowerCase();

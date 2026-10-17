@@ -4,7 +4,7 @@ Reviewed 17 October 2026 against the [Phasmophobia Wiki sanity page](https://pha
 
 ## What the app means by event loss
 
-The event's target loses sanity when touching the manifested ghost or mist and thereby ending the event early. Merely seeing an event, hearing a hiss, or watching it end does **not** establish that instant loss. Darkness may still cause passive sanity loss, and separate abilities may apply. The listed event types are ordinary singing, standing (including red light and light breaking), chasing, mist form, and appear. Events forced by cursed possessions have their own costs and are outside this matrix. “Airball” and “mist ball” are community nicknames for mist form.
+The event's target loses sanity when touching the manifested ghost or mist and thereby ending the event early. Merely seeing an event, hearing a hiss, or watching it end does **not** establish that instant loss. Darkness may still cause passive sanity loss, and separate abilities may apply. The listed event types are ordinary singing, standing, chasing, mist form, and appear. A standing event means the ghost manifests and stays in one spot; red lights and shattering lights are possible effects of that same event type. Events forced by cursed possessions have their own costs and are outside this matrix. “Airball” and “mist ball” are community nicknames for mist form.
 
 For most ghosts, each ordinary event type is **−10% on qualifying contact**. The exceptions are:
 
