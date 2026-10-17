@@ -32,6 +32,8 @@ const persist=()=>{state.rulesVersion=5;localStorage.setItem('nightshift-v1',JSO
 const views=['investigation','notes','suspects'];
 const mobile=()=>matchMedia('(max-width: 760px)').matches;
 const pageTrack=$('.shell');
+const investigationPanel=$('.rail');
+const backToEvidence=$('#backToEvidence');
 const navButtons=[...document.querySelectorAll('.mobile-nav [data-view]')];
 const navIndicator=$('.nav-indicator');
 let scrollTimer;
@@ -152,8 +154,8 @@ function renderList(){
 }
 function detailEvidenceTile(id,ghost){
  const evidence=EVIDENCE.find(item=>item.id===id);
- const status=state.evidence[id]===1?'FOUND':state.evidence[id]===-1?'RULED OUT':ghost.forced.includes(id)?'GUARANTEED*':'EVIDENCE';
- return `<div class="detail-evidence-tile ${state.evidence[id]===1?'match':state.evidence[id]===-1?'ruled-out':''} ${ghost.forced.includes(id)?'forced':''}"><span class="detail-evidence-icon">${icon(evidenceIcons[id])}</span><strong>${evidence.name}</strong><small>${status}</small></div>`;
+ const status=state.evidence[id]===1?'FOUND':state.evidence[id]===-1?'RULED OUT':ghost.forced.includes(id)?'GUARANTEED*':'';
+ return `<div class="detail-evidence-tile ${state.evidence[id]===1?'match':state.evidence[id]===-1?'ruled-out':''} ${ghost.forced.includes(id)?'forced':''}"><span class="detail-evidence-icon">${icon(evidenceIcons[id])}</span><strong>${evidence.name}</strong>${status?`<small>${status}</small>`:''}</div>`;
 }
 function ghostDetails(g){const number=String(GHOSTS.indexOf(g)+1).padStart(2,'0');const fitting=selectedObservations().filter(o=>o.kind==='confirmed'?tellAllows(o,g):o.leads.includes(g.name)||(g.name==='The Mimic'&&o.leads.length>0));return `<div class="detail-top"><span class="serial">FILE ${number} / ${GHOSTS.length}</span><h2>${g.name}</h2><div class="sub">${compatible(g)?'Matches current evidence settings':'Conflicts with current evidence settings'}${confirmedTells().length?possible().includes(g)?' · matches confirmed tells':' · conflicts with a confirmed tell':''}${state.excluded.includes(g.name)?' · manually ruled out':''}</div><div class="source-badge">Community wiki reviewed 14 Oct 2026 · patch v0.19.1.0</div></div><div class="hero-stat"><div class="stat"><small>HUNT SPEED</small><strong>${g.speed}</strong></div><div class="stat"><small>HUNT SANITY</small><strong>${g.threshold}</strong></div></div><section class="detail-section evidence-detail-section"><h3>EVIDENCE</h3><div class="detail-evidence">${g.evidence.map(id=>detailEvidenceTile(id,g)).join('')}</div>${g.name==='The Mimic'?`<div class="detail-extra-orbs ${state.evidence.orbs===1?'match':''}">${icon('circle-dot')}<span><strong>Extra Ghost Orbs</strong><small>Always appears, even at zero evidence</small></span></div>`:''}${g.forced.length?'<p class="detail-evidence-note">Guaranteed tiles stay available when the game gives 1 or 2 normal evidence.</p>':''}</section><section class="detail-section ability-section"><h3>ABILITY</h3><p>${g.ability}</p></section>${sanitySection(g)}${fitting.length?`<section class="detail-section"><h3>YOUR OBSERVATIONS</h3><div class="observation-tags">${fitting.map(o=>`<span class="observation-tag">${o.label}</span>`).join('')}</div></section>`:''}<section class="detail-section"><h3>TRY THIS</h3><p>${g.test}</p></section><section class="detail-section"><h3>HUNT BLINK</h3><p>${g.blink} blink visibility. Observe from a safe position; model visibility is affected by the hunt and your viewing conditions.</p></section><section class="detail-section"><h3>SOURCES & ISSUES</h3><p>Mechanics summarized from <a href="${g.sourceUrl}?oldid=${g.sourceRevision}" target="_blank" rel="noopener">community wiki revision ${g.sourceRevision} ↗</a>, reviewed ${g.reviewedAt}. <a href="https://kineticgames.co.uk/news/phasmophobia-v01910-patch-notes" target="_blank" rel="noopener">Official ${g.reviewedPatch} notes ↗</a> were also checked. These sources do not independently confirm every game behavior.${g.knownIssue?`<span class="issue-note">Reported issue: ${g.knownIssue}</span>`:''}</p></section>${g.note?`<section class="detail-section"><h3>FIELD NOTE</h3><p>${g.note}</p></section>`:''}`;}
 const QUICK_CHECKS=[
@@ -200,6 +202,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){
  if(b.dataset.checkTried){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkTried);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.checkTried=state.checkTried.includes(check.id)?state.checkTried.filter(x=>x!==check.id):[...state.checkTried,check.id];state.observed=state.observed.filter(x=>x!==check.observation);render();return;}
  if(b.dataset.observation){const key=b.dataset.observation;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==key);state.observed=Array.isArray(state.observed)?state.observed:[];state.observed=state.observed.includes(key)?state.observed.filter(x=>x!==key):[...state.observed,key];state.reviewTells=state.reviewTells.filter(x=>x!==key);markObservation(b,state.observed.includes(key));scheduleRender();return;}
  if(b.id==='ghostLabelsToggle'){state.showGhostLabels=!state.showGhostLabels;renderObservations();persist();return;}
+ if(b.id==='backToEvidence'){investigationPanel.scrollTo({top:0,behavior:'smooth'});return;}
  if(b.dataset.evidence){const key=b.dataset.evidence;state.evidence[key]=state.evidence[key]===1?-1:state.evidence[key]===-1?0:1;markEvidence(b,state.evidence[key]);scheduleRender();return;}
  if(b.dataset.mode){state.mode=Number(b.dataset.mode);render();return;}
  if(b.dataset.gender){state.gender=state.gender===b.dataset.gender?null:b.dataset.gender;render();return;}
@@ -211,6 +214,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){
  if(b.dataset.view){switchView(b.dataset.view);return;}
 });
 pageTrack.addEventListener('scroll',()=>{if(!mobile())return;cancelAnimationFrame(scrollFrame);scrollFrame=requestAnimationFrame(updateNavPosition);clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{const view=views[Math.max(0,Math.min(views.length-1,Math.round(pageTrack.scrollLeft/pageTrack.clientWidth)))];if(state.view!==view){state.view=view;persist();}updateNavPosition();},160);},{passive:true});
+function updateBackToEvidence(){backToEvidence.hidden=investigationPanel.scrollTop<320;}
+investigationPanel.addEventListener('scroll',updateBackToEvidence,{passive:true});
 window.addEventListener('resize',()=>{if(mobile())renderView();});
 $('#search').addEventListener('input',renderList);
 render();
+updateBackToEvidence();

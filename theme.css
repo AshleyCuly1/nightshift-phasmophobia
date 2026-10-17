@@ -135,19 +135,19 @@ body {
 }
 body {
   background-color: #020704;
-  background-image: radial-gradient(ellipse 90% 60% at 50% -10%, #22492a90, transparent 75%), url("signal-static.svg?v=spectral-terminal-1");
+  background-image: radial-gradient(ellipse 90% 60% at 50% -10%, #22492a90, transparent 75%), url("signal-static.svg?v=spectral-terminal-2");
   background-attachment: fixed;
 }
 .rail, .workspace, .inspector {
   background-color: #041008;
-  background-image: url("signal-static.svg?v=spectral-terminal-1"),
+  background-image: url("signal-static.svg?v=spectral-terminal-2"),
     repeating-linear-gradient(0deg, transparent 0 3px, #0000002d 3px 4px),
     radial-gradient(ellipse at 70% -20%, #1b3e20, transparent 62%),
     linear-gradient(160deg, #07130b, #030806);
   background-blend-mode: normal, normal, normal, normal;
 }
 .topbar {
-  background: linear-gradient(90deg, #051009f5, #07130ded), url("signal-static.svg?v=spectral-terminal-1");
+  background: linear-gradient(90deg, #051009f5, #07130ded), url("signal-static.svg?v=spectral-terminal-2");
   border-bottom-color: #558461;
   box-shadow: 0 5px 28px #000c, inset 0 -1px #a5e99f19;
 }
@@ -285,7 +285,7 @@ body {
 .detail-evidence-tile {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 6px;
   min-width: 0;
@@ -295,6 +295,7 @@ body {
   border-radius: 9px;
   background: #020906;
   box-shadow: inset 0 1px #a4ee9e15;
+  text-align: center;
 }
 .detail-evidence-icon { color: #a4ee9e; line-height: 0; }
 .detail-evidence-icon .icon { width: 22px; height: 22px; }
@@ -316,4 +317,58 @@ body {
   .detail-evidence-tile { padding: 8px; min-height: 82px; }
   .detail-evidence-tile strong { font-size: 10px; }
   .detail-evidence-tile small { font-size: 7px; }
+}
+
+/* Larger, calmer signal grain and translucent black instrument surfaces. */
+body { background-size: auto, 512px 512px; }
+.rail, .workspace, .inspector { background-size: 512px 512px, auto, auto, auto; }
+.topbar { background-size: auto, 512px 512px; }
+.evidence, .behavior-chip, .firelight-card, .test-card, .ghost-row, .stat, .sanity-event-row,
+.detail-evidence-tile { background-color: #020805dc; }
+.observation-group { background: #030b06dc; }
+.observation-group-toggle { background: #07170bd9; }
+.evidence.yes, .behavior-chip.active, .firelight-card.active { background: #193a20e8; }
+.evidence.no { background: #351715e8; }
+.ghost-row.selected, .ghost-row.expanded { background: #102819e8; }
+.detail-evidence-tile.match { background: #183d20eb; }
+.detail-evidence-tile.ruled-out { background: #271411eb; }
+
+.observation-toolbar {
+  margin: 0 -20px 9px;
+  padding: 8px 20px;
+  border-top: 1px solid #365d40;
+  border-bottom: 1px solid #365d40;
+  background: #06120cee;
+}
+.back-to-evidence { display: none; }
+@media (max-width: 760px) {
+  .observation-toolbar {
+    margin-left: calc(-16px - env(safe-area-inset-left, 0px));
+    margin-right: calc(-16px - env(safe-area-inset-right, 0px));
+    padding-left: calc(16px + env(safe-area-inset-left, 0px));
+    padding-right: calc(16px + env(safe-area-inset-right, 0px));
+  }
+  .back-to-evidence {
+    position: fixed;
+    z-index: 39;
+    left: calc(18px + env(safe-area-inset-left, 0px));
+    bottom: calc(78px + var(--mobile-nav-bottom));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 11px;
+    border: 1px solid #93df94;
+    border-radius: 99px;
+    background: #081b0ded;
+    color: #e7ffe4;
+    box-shadow: 0 7px 25px #0009;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    font: 700 10px 'Space Grotesk', sans-serif;
+    white-space: nowrap;
+  }
+  .back-to-evidence .icon { width: 16px; height: 16px; transform: rotate(180deg); }
+  .back-to-evidence[hidden], body:not(.view-investigation) .back-to-evidence { display: none; }
 }
