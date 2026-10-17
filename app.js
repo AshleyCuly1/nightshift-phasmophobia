@@ -1,12 +1,15 @@
 import {EVIDENCE,GHOSTS} from './data.js?v=mist-form-1';
 import {OBSERVATIONS} from './observations.js?v=mist-form-1';
 import {EVENT_TYPES,SANITY_SOURCES,sanityProfile} from './sanity.js?v=standing-event-1';
+import {OBSERVATION_GROUPS} from './observation-groups.js?v=behavior-groups-1';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
-const defaults=()=>({mode:2,gender:null,evidence:{},observed:[],reviewTells:[],reviewMechanics:[],rulesVersion:5,checkTried:[],excluded:[],expanded:null,filter:'possible',view:'investigation',showGhostLabels:false,showAllObservations:false,openObservationGroups:['events','interactions'],fireBlowouts:0});
+const defaultOpenGroups=()=>OBSERVATION_GROUPS.map(group=>group.id);
+const defaults=()=>({mode:2,gender:null,evidence:{},observed:[],reviewTells:[],reviewMechanics:[],rulesVersion:5,checkTried:[],excluded:[],expanded:null,filter:'possible',view:'investigation',showGhostLabels:false,showAllObservations:false,observationLayoutVersion:2,openObservationGroups:defaultOpenGroups(),fireBlowouts:0});
 let state=defaults();
-try{const saved=localStorage.getItem('nightshift-v1');if(saved)state={...state,...JSON.parse(saved)};if(location.hash.startsWith('#s=')){const shared=JSON.parse(decodeURIComponent(location.hash.slice(3)));state={...defaults(),...shared,view:state.view,showGhostLabels:state.showGhostLabels};if(!Object.hasOwn(shared,'rulesVersion'))state.rulesVersion=0;}}catch{}
+let savedObservationLayoutVersion=2;
+try{const saved=localStorage.getItem('nightshift-v1');if(saved){const previous=JSON.parse(saved);state={...state,...previous};savedObservationLayoutVersion=previous.observationLayoutVersion||0;}if(location.hash.startsWith('#s=')){const shared=JSON.parse(decodeURIComponent(location.hash.slice(3)));state={...defaults(),...shared,view:state.view,showGhostLabels:state.showGhostLabels};savedObservationLayoutVersion=2;if(!Object.hasOwn(shared,'rulesVersion'))state.rulesVersion=0;}}catch{}
 if((state.rulesVersion||0)<2){const hardIds=new Set(OBSERVATIONS.filter(o=>o.kind==='confirmed').map(o=>o.id));state.reviewTells=(Array.isArray(state.observed)?state.observed:[]).filter(id=>hardIds.has(id));state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>!hardIds.has(id));state.rulesVersion=2;}
 if(state.rulesVersion<3){const ambiguous=['yurei_door','onryo_fire'];state.reviewMechanics=(Array.isArray(state.observed)?state.observed:[]).filter(id=>ambiguous.includes(id));state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>!ambiguous.includes(id));state.rulesVersion=3;}
 if(state.rulesVersion<4){state.observed=(Array.isArray(state.observed)?state.observed:[]).filter(id=>id!=='yurei_door');state.reviewMechanics=(Array.isArray(state.reviewMechanics)?state.reviewMechanics:[]).filter(id=>id!=='yurei_door');state.rulesVersion=4;}
@@ -19,7 +22,7 @@ delete state.starred;
 if(!Array.isArray(state.checkTried))state.checkTried=[];
 state.showGhostLabels=state.showGhostLabels===true;
 state.showAllObservations=state.showAllObservations===true;
-if(!Array.isArray(state.openObservationGroups))state.openObservationGroups=['events','interactions'];
+if(savedObservationLayoutVersion<2||!Array.isArray(state.openObservationGroups)){state.openObservationGroups=defaultOpenGroups();state.observationLayoutVersion=2;}
 state.fireBlowouts=Math.max(0,Math.min(3,Number(state.fireBlowouts)||0));
 state.observed=Array.isArray(state.observed)?state.observed:[];
 state.observed=state.fireBlowouts?Array.from(new Set([...state.observed,'fire_blowout'])):state.observed.filter(id=>id!=='fire_blowout');
@@ -71,14 +74,6 @@ function renderEvidence(){const symbols={emf:'activity',dots:'scan-eye',uv:'fing
  document.querySelectorAll('[data-gender]').forEach(b=>{const active=b.dataset.gender===state.gender;b.classList.toggle('active',active);b.setAttribute('aria-pressed',active)});
  const warning=$('#modeConflict'),mode=filteringMode();warning.hidden=mode===state.mode;warning.textContent=mode===state.mode?'':`${found().length} findings exceed ${state.mode} evidence mode. Showing evidence matches; check your game setting or findings.`;
 }
-const OBSERVATION_GROUPS=[
- {id:'events',title:'Ghost events & visuals',ids:['chasing_event','airball_event','phantom_photo','shape_shift','hunting_breath','long_blink','visible_blink','rapid_blink']},
- {id:'interactions',title:'Objects & interactions',ids:['room_light_on','salt_disturbed','fire_lit','fire_blowout','crucifix_burn','breaker_off','object_burst','multi_throw','lights_off','twins_pair','yurei_exit','six_finger','salt_untouched']},
- {id:'equipment',title:'Sound & equipment',ids:['para_scream','box_breath','goryo_camera','moroi_curse']},
- {id:'speed',title:'Hunt speed',ids:['fast_hunt','slow_hunt','speed_jump','deogen_near','revenant_roam','dayan_movement','deildegast_items','aswang_sight','raiju_electronics','hantu_temperature','jinn_breaker','gallu_states','moroi_speed','obambo_short','thaye_aging','twins_speeds','sight_accel']},
- {id:'hunt',title:'Other hunt clues',ids:['kormos_footsteps','demon_incense','spirit_incense','yokai_range','banshee_target','mimic_shift','early_hunt','quiet_hunt']},
- {id:'activity',title:'General activity',ids:['shy','aggressive','activity_cycle']}
-];
 function observationRelevant(o,pool,selected=false){
  if(!pool.length||filteringMode()===0&&o.requiresEvidence)return false;
  if(pool.length===GHOSTS.length)return true;
@@ -92,6 +87,15 @@ function clearIrrelevantObservations(){
  const pool=possible();
  state.observed=state.observed.filter(id=>{const o=OBSERVATIONS.find(item=>item.id===id);return o&&(o.kind==='confirmed'||observationRelevant(o,pool,true));});
  if(!state.observed.includes('fire_blowout'))state.fireBlowouts=0;
+}
+function renderObservationGroup(group,selected,chip){
+ const count=group.sections.flatMap(section=>section.ids).filter(id=>selected.some(item=>item.id===id)).length;
+ const open=state.openObservationGroups.includes(group.id);
+ const sections=group.sections.map(section=>{
+  const cards=section.ids.map(id=>OBSERVATIONS.find(o=>o.id===id)).filter(Boolean).map(chip).join('');
+  return `<section class="observation-subgroup">${section.title?`<h4>${section.title}</h4>`:''}<div class="behavior-grid">${cards}</div></section>`;
+ }).join('');
+ return `<section class="observation-group"><button class="observation-group-toggle" data-observation-group="${group.id}" aria-expanded="${open}" aria-controls="observation-group-${group.id}"><span>${group.title}</span><span class="observation-group-meta">${count?`${count} noted`:''} ${icon(open?'minus':'arrow-down')}</span></button><div class="observation-group-body" id="observation-group-${group.id}" ${open?'':'hidden'}>${sections}</div></section>`;
 }
 function renderObservations(){
  const selected=selectedObservations(),tells=confirmedTells(),clues=diagnosticObservations(),pool=possible(),matches=behaviorMatches(pool),review=OBSERVATIONS.filter(o=>state.reviewTells?.includes(o.id)),reviewMechanics=state.reviewMechanics||[],result=$('#behaviorResult');
@@ -120,7 +124,7 @@ function renderObservations(){
  const ghostNames=o=>o.excludes?.length?`Rules out: ${names(o.excludes)}`:o.fits?.length?`Narrows to: ${names(o.fits)}`:o.leads.length?names(o.leads):'General note · no specific ghost';
  const chip=o=>o.id==='fire_blowout'?`<div class="firelight-card ${state.fireBlowouts?'active':''} ${inactive(o)?'is-inactive':''} ${dimmed(o)?'not-relevant':''}"><div class="firelight-heading"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span></div><div class="firelight-counter" role="group" aria-label="Ghost-caused firelight blowouts"><button data-fire-minus aria-label="Remove one firelight blowout" ${state.fireBlowouts===0||inactive(o)?'disabled':''}>−</button><strong>${state.fireBlowouts} / 3</strong><button data-fire-plus aria-label="Record one firelight blowout" ${state.fireBlowouts===3||inactive(o)?'disabled':''}>+</button></div>${state.fireBlowouts>=3?'<small class="firelight-followup">Three blowouts: watch for a hunt attempt. Blowouts alone do not identify Onryo.</small>':''}</div>`:`<button class="behavior-chip ${selected.includes(o)?'active':''} ${inactive(o)?'is-inactive':''} ${dimmed(o)?'not-relevant':''}" data-observation="${o.id}" aria-pressed="${selected.includes(o)}" ${inactive(o)?'disabled':''} title="${o.tip}"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span><span class="behavior-check">${selected.includes(o)?icon('check'):''}</span></button>`;
  const labelsToggle=$('#ghostLabelsToggle');labelsToggle.setAttribute('aria-pressed',state.showGhostLabels);labelsToggle.setAttribute('aria-label',state.showGhostLabels?'Hide ghost labels':'Show ghost labels');labelsToggle.querySelector('span').textContent=state.showGhostLabels?'Hide ghosts':'Show ghosts';document.body.classList.toggle('show-ghost-labels',state.showGhostLabels);
- $('#behaviorList').innerHTML=`${review.length?`<p class="behavior-review">Previously noted: ${review.map(o=>o.label).join(' · ')}. Select a tell again only if the exact event was observed.</p>`:''}${OBSERVATION_GROUPS.map(group=>{const items=group.ids.map(id=>OBSERVATIONS.find(o=>o.id===id)).filter(Boolean),open=state.openObservationGroups.includes(group.id),count=items.filter(o=>selected.includes(o)).length;return `<section class="observation-group"><button class="observation-group-toggle" data-observation-group="${group.id}" aria-expanded="${open}" aria-controls="observation-group-${group.id}"><span>${group.title}</span><span class="observation-group-meta">${count?`${count} noted`:''} ${icon(open?'minus':'arrow-down')}</span></button><div class="observation-group-body" id="observation-group-${group.id}" ${open?'':'hidden'}><div class="behavior-grid">${items.map(chip).join('')}</div></div></section>`}).join('')}${selected.length?`<details class="behavior-guidance"><summary>Sources & detailed notes</summary>${selected.map(o=>{const source=o.source||(o.leads.length===1?GHOSTS.find(g=>g.name===o.leads[0])?.sourceUrl:'https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts');return `<p><b>${o.label}:</b> ${o.tip} <a href="${source}" target="_blank" rel="noopener">Community source ↗</a></p>`}).join('')}</details>`:''}`;
+ $('#behaviorList').innerHTML=`${review.length?`<p class="behavior-review">Previously noted: ${review.map(o=>o.label).join(' · ')}. Select a tell again only if the exact event was observed.</p>`:''}${OBSERVATION_GROUPS.map(group=>renderObservationGroup(group,selected,chip)).join('')}${selected.length?`<details class="behavior-guidance"><summary>Sources & detailed notes</summary>${selected.map(o=>{const source=o.source||(o.leads.length===1?GHOSTS.find(g=>g.name===o.leads[0])?.sourceUrl:'https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts');return `<p><b>${o.label}:</b> ${o.tip} <a href="${source}" target="_blank" rel="noopener">Community source ↗</a></p>`}).join('')}</details>`:''}`;
 }
 function sanitySection(g){
  const profile=sanityProfile(g.name);
