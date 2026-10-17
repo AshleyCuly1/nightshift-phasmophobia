@@ -251,6 +251,7 @@ body {
 }
 .ghost-name { color: #ebffe9; font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-weight: 700; }
 .ghost-stats { color: #daf3d7; }
+.blink-distinct strong { color: #a4ee9e; }
 .e-tag { background: #193021; color: #c5e5c2; }
 .e-tag.match, .ghost-evidence .e-tag.match, .detail-evidence .e-tag.match { background: #a4ee9e; color: #061707; box-shadow: 0 0 9px #75ed8066; }
 .behavior-match, .observation-tag { background: #1b4225; border-color: #80cd84; color: #d8ffd7; }
