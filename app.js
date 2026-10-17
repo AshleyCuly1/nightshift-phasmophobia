@@ -1,7 +1,7 @@
 import {EVIDENCE,GHOSTS} from './data.js?v=mist-form-1';
 import {OBSERVATIONS} from './observations.js?v=mist-form-1';
 import {EVENT_TYPES,SANITY_SOURCES,sanityProfile} from './sanity.js?v=standing-event-1';
-import {OBSERVATION_GROUPS} from './observation-groups.js?v=behavior-groups-1';
+import {OBSERVATION_GROUPS} from './observation-groups.js?v=haunted-fieldbook-1';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const short=id=>EVIDENCE.find(e=>e.id===id)?.short||id;
@@ -41,9 +41,11 @@ function renderView(){const view=views.includes(state.view)?state.view:'investig
 function switchView(view){if(!views.includes(view))return;state.view=view;persist();if(mobile())pageTrack.scrollTo({left:views.indexOf(view)*pageTrack.clientWidth,behavior:'smooth'});else activeNav(views.indexOf(view));}
 const found=()=>Object.keys(state.evidence).filter(k=>state.evidence[k]===1);
 const excludedEvidence=()=>Object.keys(state.evidence).filter(k=>state.evidence[k]===-1);
+// One calculation pass per committed update. A tap updates its own card first.
+let derived={};
 const selectedObservations=()=>OBSERVATIONS.filter(o=>Array.isArray(state.observed)&&state.observed.includes(o.id));
-const confirmedTells=()=>selectedObservations().filter(o=>o.kind==='confirmed'&&!(filteringMode()===0&&o.requiresEvidence));
-const diagnosticObservations=()=>selectedObservations().filter(o=>o.kind!=='confirmed'&&o.weight>0&&o.leads.length&&!(filteringMode()===0&&o.requiresEvidence));
+const confirmedTells=()=>derived.tells??(derived.tells=selectedObservations().filter(o=>o.kind==='confirmed'&&!(filteringMode()===0&&o.requiresEvidence)));
+const diagnosticObservations=()=>derived.clues??(derived.clues=selectedObservations().filter(o=>o.kind!=='confirmed'&&o.weight>0&&o.leads.length&&!(filteringMode()===0&&o.requiresEvidence)));
 const matchedObservations=ghost=>diagnosticObservations().filter(o=>o.leads.includes(ghost.name));
 const behaviorScore=ghost=>matchedObservations(ghost).reduce((sum,o)=>sum+o.weight,0);
 const leadScore=ghost=>behaviorScore(ghost)||(ghost.name==='The Mimic'&&diagnosticObservations().length?0.5:0);
@@ -59,14 +61,15 @@ function compatibleAtMode(ghost,mode){
  return true;
 }
 function filteringMode(){
- if(GHOSTS.some(g=>compatibleAtMode(g,state.mode)))return state.mode;
- for(let mode=state.mode+1;mode<=3;mode++)if(GHOSTS.some(g=>compatibleAtMode(g,mode)))return mode;
- return state.mode;
+ if(derived.mode!==undefined)return derived.mode;
+ if(GHOSTS.some(g=>compatibleAtMode(g,state.mode)))return derived.mode=state.mode;
+ for(let mode=state.mode+1;mode<=3;mode++)if(GHOSTS.some(g=>compatibleAtMode(g,mode)))return derived.mode=mode;
+ return derived.mode=state.mode;
 }
 const compatible=ghost=>compatibleAtMode(ghost,filteringMode());
-const evidencePossible=()=>{const mode=filteringMode();return GHOSTS.filter(g=>compatibleAtMode(g,mode)&&!state.excluded.includes(g.name)&&!(state.gender==='male'&&['Banshee','Dayan'].includes(g.name)));};
+const evidencePossible=()=>derived.evidencePool??(derived.evidencePool=GHOSTS.filter(g=>compatibleAtMode(g,filteringMode())&&!state.excluded.includes(g.name)&&!(state.gender==='male'&&['Banshee','Dayan'].includes(g.name))));
 const tellAllows=(tell,ghost)=>(tell.fits?tell.fits.includes(ghost.name):!tell.excludes?.includes(ghost.name))&&(filteringMode()!==0||!tell.requiresEvidence);
-const possible=()=>evidencePossible().filter(g=>confirmedTells().every(t=>tellAllows(t,g)));
+const possible=()=>derived.pool??(derived.pool=evidencePossible().filter(g=>confirmedTells().every(t=>tellAllows(t,g))));
 const matchedConfirmed=ghost=>confirmedTells().filter(t=>t.fits?.includes(ghost.name));
 function tag(id,ghost){const match=state.evidence[id]===1?' match':'';const forced=ghost?.forced.includes(id)?' forced':'';return `<span class="e-tag${match}${forced}" title="${forced?'Guaranteed in reduced evidence':''}">${short(id)}${forced?' •':''}</span>`;}
 function renderEvidence(){const symbols={emf:'activity',dots:'scan-eye',uv:'fingerprint',freeze:'snowflake',orbs:'circle-dot',writing:'notebook-pen',box:'radio'};$('#evidenceList').innerHTML=EVIDENCE.map(e=>{const v=state.evidence[e.id]||0;return `<button class="evidence ${v===1?'yes':v===-1?'no':''}" data-evidence="${e.id}" aria-label="${e.name}: ${v===1?'found':v===-1?'ruled out':'unknown'}" aria-pressed="${v!==0}"><span class="glyph">${icon(symbols[e.id])}</span><strong>${e.name}</strong><span class="state">${icon(v===1?'check':v===-1?'x':'minus')}</span></button>`}).join('');
@@ -170,7 +173,16 @@ function renderTests(){
  const leadsHtml=leads.length?`<section class="next-section"><h3>Other leads</h3>${leads.map(lead=>`<article class="test-card"><span class="rank">${lead.name.toUpperCase()}</span><h4>Test for ${lead.name}</h4><p>${lead.description}</p></article>`).join('')}</section>`:'';
  $('#testsPanel').innerHTML=`<p class="test-intro">Next checks for ${pool.length} possible ghost${pool.length===1?'':'s'}. Logged findings leave this list; a missed tell does not rule a ghost out.</p>${quickHtml}${leadsHtml}${!quickHtml&&!leadsHtml?'<div class="empty">No more targeted checks. Review your findings or show all observations in Investigation.</div>':''}`;
 }
-function render(){clearIrrelevantObservations();renderEvidence();renderObservations();renderList();renderTests();renderView();persist();}
+function render(){derived={};clearIrrelevantObservations();renderEvidence();renderObservations();renderList();renderTests();renderView();persist();}
+let renderQueued=false;
+function scheduleRender(){
+ if(renderQueued)return;
+ renderQueued=true;
+ // Let the updated card paint before rebuilding the lists on a later frame.
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{renderQueued=false;render();}));
+}
+function markObservation(button,active){button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));button.querySelector('.behavior-check').innerHTML=active?icon('check'):'';}
+function markEvidence(button,value){button.classList.toggle('yes',value===1);button.classList.toggle('no',value===-1);button.setAttribute('aria-pressed',String(value!==0));button.setAttribute('aria-label',`${EVIDENCE.find(e=>e.id===button.dataset.evidence).name}: ${value===1?'found':value===-1?'ruled out':'unknown'}`);button.querySelector('.state').innerHTML=icon(value===1?'check':value===-1?'x':'minus');}
 function toast(message){const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2500)}
 function toggleGhost(name){state.expanded=state.expanded===name?null:name;renderList();persist();}
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){const row=e.target.closest('.ghost-row');if(row&&!e.target.closest('a'))toggleGhost(row.dataset.ghost);return;}
@@ -180,9 +192,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){
  if(b.dataset.observationScope){state.showAllObservations=b.dataset.observationScope==='all';render();return;}
  if(b.dataset.checkSeen){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkSeen);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.observed=state.observed.includes(check.observation)?state.observed.filter(x=>x!==check.observation):[...state.observed,check.observation];state.reviewTells=state.reviewTells.filter(x=>x!==check.observation);state.checkTried=state.checkTried.filter(x=>x!==check.id);render();return;}
  if(b.dataset.checkTried){const check=QUICK_CHECKS.find(c=>c.id===b.dataset.checkTried);if(!check)return;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==check.observation);state.checkTried=state.checkTried.includes(check.id)?state.checkTried.filter(x=>x!==check.id):[...state.checkTried,check.id];state.observed=state.observed.filter(x=>x!==check.observation);render();return;}
- if(b.dataset.observation){const key=b.dataset.observation;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==key);state.observed=Array.isArray(state.observed)?state.observed:[];state.observed=state.observed.includes(key)?state.observed.filter(x=>x!==key):[...state.observed,key];state.reviewTells=state.reviewTells.filter(x=>x!==key);render();return;}
+ if(b.dataset.observation){const key=b.dataset.observation;state.reviewMechanics=state.reviewMechanics.filter(x=>x!==key);state.observed=Array.isArray(state.observed)?state.observed:[];state.observed=state.observed.includes(key)?state.observed.filter(x=>x!==key):[...state.observed,key];state.reviewTells=state.reviewTells.filter(x=>x!==key);markObservation(b,state.observed.includes(key));scheduleRender();return;}
  if(b.id==='ghostLabelsToggle'){state.showGhostLabels=!state.showGhostLabels;renderObservations();persist();return;}
- if(b.dataset.evidence){const key=b.dataset.evidence;state.evidence[key]=state.evidence[key]===1?-1:state.evidence[key]===-1?0:1;render();return;}
+ if(b.dataset.evidence){const key=b.dataset.evidence;state.evidence[key]=state.evidence[key]===1?-1:state.evidence[key]===-1?0:1;markEvidence(b,state.evidence[key]);scheduleRender();return;}
  if(b.dataset.mode){state.mode=Number(b.dataset.mode);render();return;}
  if(b.dataset.gender){state.gender=state.gender===b.dataset.gender?null:b.dataset.gender;render();return;}
  if(b.dataset.filter){state.filter=b.dataset.filter;render();return;}

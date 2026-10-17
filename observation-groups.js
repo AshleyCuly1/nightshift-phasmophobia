@@ -15,9 +15,7 @@ export const OBSERVATION_GROUPS = [
   {title:'Sound',ids:['para_scream','box_breath','moroi_curse']}
  ]},
  {id:'speed',title:'Hunt speed',sections:[
-  {title:'Overall pace',ids:['fast_hunt','slow_hunt','speed_jump','sight_accel']},
-  {title:'Chase & distance',ids:['deogen_near','revenant_roam','dayan_movement','aswang_sight','raiju_electronics','jinn_breaker','twins_speeds']},
-  {title:'Conditions & changing hunts',ids:['deildegast_items','hantu_temperature','gallu_states','moroi_speed','obambo_short','thaye_aging']}
+  {title:null,ids:['fast_hunt','slow_hunt','speed_jump','sight_accel','deogen_near','revenant_roam','dayan_movement','aswang_sight','thaye_aging','raiju_electronics','jinn_breaker','twins_speeds','deildegast_items','hantu_temperature','gallu_states','moroi_speed','obambo_short']}
  ]},
  {id:'hunt',title:'Other hunt clues',sections:[
   {title:'Hunt timing',ids:['early_hunt','demon_incense','spirit_incense']},
