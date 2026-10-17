@@ -191,8 +191,8 @@ body {
   text-shadow: 0 0 18px #88e98b38;
 }
 .workspace-head h2 span, .period { color: #a4ee9e; }
-.workspace-head p { display: inline-block; padding: 5px 8px; border-radius: 5px; background: #020804b8; color: #c0d2bf; }
-.test-intro, .next-section-note { padding: 9px 10px; border: 1px solid #375b41; border-radius: 7px; background: #020804c9; color: #bdd1ba; }
+.workspace-head p { display: block; padding: 0; color: #c0d2bf; }
+.test-intro, .next-section-note { padding: 0; border: 0; color: #bdd1ba; }
 .section-label { color: #b0d5ad; }
 .section-label::before {
   content: "";
