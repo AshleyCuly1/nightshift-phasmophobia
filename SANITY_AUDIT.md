@@ -4,16 +4,16 @@ Reviewed 17 October 2026 against the [Phasmophobia Wiki sanity page](https://pha
 
 ## What the app means by event loss
 
-The event's target loses sanity when touching the manifested ghost or mist and thereby ending the event early. Merely seeing an event, hearing a hiss, or watching it end does **not** establish that instant loss. Darkness may still cause passive sanity loss, and separate abilities may apply. The listed event types are ordinary singing, standing (including red light and light breaking), chasing, mist/air-ball, and appear. Events forced by cursed possessions have their own costs and are outside this matrix.
+The event's target loses sanity when touching the manifested ghost or mist and thereby ending the event early. Merely seeing an event, hearing a hiss, or watching it end does **not** establish that instant loss. Darkness may still cause passive sanity loss, and separate abilities may apply. The listed event types are ordinary singing, standing (including red light and light breaking), chasing, mist form, and appear. Events forced by cursed possessions have their own costs and are outside this matrix. “Airball” and “mist ball” are community nicknames for mist form.
 
 For most ghosts, each ordinary event type is **−10% on qualifying contact**. The exceptions are:
 
 | Ghost | Event difference | Separate sanity effect |
 | --- | --- | --- |
 | Banshee | Singing contact is **−15%** only when the event target is also its chosen hunt target; otherwise −10%. | Uses its chosen target's sanity for hunting, not team average. |
-| Oni | Qualifying contact is **−20%** for events it can perform; cannot do a mist/air-ball event. | No extra passive drain known. |
+| Oni | Qualifying contact is **−20%** for events it can perform; cannot do a mist form event. | No extra passive drain known. |
 | Phantom | Standard **−10%** contact. | About **0.5%/s** extra while close enough to a manifested Phantom for heartbeats. |
-| Kormos | Cannot do chasing or mist/air-ball events. | Nearby sprinting can raise hunt threshold, without directly lowering sanity. |
+| Kormos | Cannot do chasing or mist form events. | Nearby sprinting can raise hunt threshold, without directly lowering sanity. |
 | Shade | Cannot do singing or appear events. | Lower hunt threshold, without extra sanity drain. |
 | The Mimic | Depends on the ghost it is copying. | Can copy Oni, Banshee, Phantom, and other relevant abilities. |
 

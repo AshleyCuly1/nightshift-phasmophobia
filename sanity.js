@@ -10,7 +10,7 @@ export const EVENT_TYPES = [
   {id:'singing',label:'Singing'},
   {id:'standing',label:'Standing / red light'},
   {id:'chasing',label:'Chasing'},
-  {id:'mist',label:'Mist / air-ball'},
+  {id:'mist',label:'Mist form'},
   {id:'appear',label:'Appear'}
 ];
 

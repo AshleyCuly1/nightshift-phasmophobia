@@ -22,7 +22,7 @@ Reviewed 15 October 2026 against the linked Phasmophobia Wiki ghost pages, [hunt
 | Myling | Hunt footsteps audible only at short range | [Myling](https://phasmophobia.fandom.com/wiki/Myling) |
 | Obake | Six-finger UV print; one-blink model change | [Obake](https://phasmophobia.fandom.com/wiki/Obake) |
 | Obambo | Fast hunt ends early; alternating speed states | [Obambo](https://phasmophobia.fandom.com/wiki/Obambo) |
-| Oni | Mostly visible during hunts; a mist-ball event rules it out | [Oni](https://phasmophobia.fandom.com/wiki/Oni) |
+| Oni | Mostly visible during hunts; a mist form event rules it out | [Oni](https://phasmophobia.fandom.com/wiki/Oni) |
 | Onryo | Hunt attempt after three ghost-caused flame blowouts; a ghost lighting a fire source rules it out | [Onryo](https://phasmophobia.fandom.com/wiki/Onryo) |
 | Phantom | Disappears from a ghost-event photo; long invisible hunt blinks | [Phantom](https://phasmophobia.fandom.com/wiki/Phantom) |
 | Poltergeist | Several objects thrown at once | [Poltergeist](https://phasmophobia.fandom.com/wiki/Poltergeist) |
