@@ -219,6 +219,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .behavior-chip:disabled:hover{border-color:var(--line)}
 
 .observation-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.sanity-section .sanity-ability{color:var(--text);font-size:12px}
+.sanity-event-heading{margin:16px 0 5px;color:var(--teal);font:700 10px 'Space Grotesk';letter-spacing:.12em}
+.sanity-section .sanity-condition,.sanity-section .sanity-exception,.sanity-section .sanity-sources{font-size:11px;color:var(--muted);line-height:1.45}
+.sanity-events{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:11px 0}
+.sanity-event-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;padding:8px 9px;border:1px solid var(--line);border-radius:7px;background:var(--panel2);font-size:11px}
+.sanity-event-row span{color:#c7d2d2}.sanity-event-row strong{flex:none;color:var(--teal);font:700 11px 'Space Grotesk';white-space:nowrap}.sanity-event-row strong.unavailable{color:var(--muted);font-size:10px}
+.sanity-section .sanity-exception{margin-top:7px;color:var(--orange)}.sanity-section .sanity-sources{margin-top:12px}
+@media(max-width:380px){.sanity-events{grid-template-columns:1fr}}
 .observation-tag{display:inline-flex;align-items:center;min-height:26px;padding:5px 9px;border:1px solid #42685a;border-radius:6px;background:#1c352f;color:#d9efe2;font:600 11px/1.25 'DM Sans',sans-serif}
 @media(max-width:760px){
  body{--mobile-nav-bottom:max(8px,calc(env(safe-area-inset-bottom,0px) - 14px))}
