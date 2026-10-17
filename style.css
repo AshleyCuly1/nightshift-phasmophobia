@@ -261,3 +261,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .timing-verdict{margin:12px 0 7px;color:var(--teal);font-size:12px;line-height:1.45}
 .timing-source{margin:0;color:var(--muted);font-size:10px;line-height:1.45}
 @media(min-width:1050px){.hero-stat{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+@media(max-width:1049px){.hero-stat .stat:last-child:nth-child(odd){grid-column:1/-1}}
