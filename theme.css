@@ -135,19 +135,19 @@ body {
 }
 body {
   background-color: #020704;
-  background-image: radial-gradient(ellipse 90% 60% at 50% -10%, #22492a90, transparent 75%), url("signal-static.svg?v=spectral-terminal-2");
+  background-image: radial-gradient(ellipse 90% 60% at 50% -10%, #22492a90, transparent 75%), url("signal-static.svg?v=spectral-terminal-5");
   background-attachment: fixed;
 }
 .rail, .workspace, .inspector {
   background-color: #041008;
-  background-image: url("signal-static.svg?v=spectral-terminal-2"),
-    repeating-linear-gradient(0deg, transparent 0 3px, #0000002d 3px 4px),
+  background-image: url("signal-static.svg?v=spectral-terminal-5"),
+    repeating-linear-gradient(0deg, transparent 0 3px, #00000012 3px 4px),
     radial-gradient(ellipse at 70% -20%, #1b3e20, transparent 62%),
     linear-gradient(160deg, #07130b, #030806);
   background-blend-mode: normal, normal, normal, normal;
 }
 .topbar {
-  background: linear-gradient(90deg, #051009f5, #07130ded), url("signal-static.svg?v=spectral-terminal-2");
+  background: linear-gradient(90deg, #051009f5, #07130ded), url("signal-static.svg?v=spectral-terminal-5");
   border-bottom-color: #558461;
   box-shadow: 0 5px 28px #000c, inset 0 -1px #a5e99f19;
 }
@@ -319,26 +319,71 @@ body {
   .detail-evidence-tile small { font-size: 7px; }
 }
 
-/* Larger, calmer signal grain and translucent black instrument surfaces. */
-body { background-size: auto, 512px 512px; }
-.rail, .workspace, .inspector { background-size: 512px 512px, auto, auto, auto; }
-.topbar { background-size: auto, 512px 512px; }
-.evidence, .behavior-chip, .firelight-card, .test-card, .ghost-row, .stat, .sanity-event-row,
-.detail-evidence-tile { background-color: #020805dc; }
-.observation-group { background: #030b06dc; }
-.observation-group-toggle { background: #07170bd9; }
-.evidence.yes, .behavior-chip.active, .firelight-card.active { background: #193a20e8; }
-.evidence.no { background: #351715e8; }
-.ghost-row.selected, .ghost-row.expanded { background: #102819e8; }
-.detail-evidence-tile.match { background: #183d20eb; }
-.detail-evidence-tile.ruled-out { background: #271411eb; }
+/* Let the larger, quieter static show through the readouts. */
+body { background-size: auto, 640px 640px; }
+.rail, .workspace, .inspector { background-size: 640px 640px, auto, auto, auto; }
+.topbar { background-size: auto, 640px 640px; }
+.evidence, .test-card, .ghost-row, .stat, .sanity-event-row, .detail-evidence-tile {
+  background: #13291bb8;
+  border-color: #60826982;
+  box-shadow: inset 0 1px #c7ffbf09;
+}
+.evidence.yes { background: #2b5735c9; }
+.evidence.no { background: #512926bf; }
+.ghost-row.selected, .ghost-row.expanded { background: #24452cce; }
+.detail-evidence-tile.match { background: #2b5735ce; }
+.detail-evidence-tile.ruled-out { background: #512926c9; }
+
+/* One hierarchy for observations: group title, subgroup label, then a list. */
+.observation-group {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid #71937577;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.observation-group-toggle,
+.observation-group-toggle[aria-expanded="true"] {
+  min-height: 52px;
+  padding: 12px 1px;
+  border: 0;
+  background: transparent;
+}
+.observation-group-body { padding: 0 0 20px; }
+.observation-subgroup h4 { margin: 7px 1px 6px; }
+.observation-subgroup+.observation-subgroup {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-color: #71937555;
+}
+.behavior-grid { column-gap: 14px; row-gap: 0; }
+.behavior-chip, .firelight-card {
+  min-height: 48px;
+  padding: 9px 2px;
+  border: 0;
+  border-bottom: 1px solid #71937555;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.behavior-chip:hover:not(:disabled) { border-color: #a4ee9e; background: #7eec8b10; }
+.behavior-chip.active, .firelight-card.active {
+  border-color: #a4ee9e;
+  background: #76e88718;
+  box-shadow: inset 0 -1px #a4ee9e;
+}
+.behavior-chip:disabled:hover { border-color: #71937555; background: transparent; }
+.firelight-card { padding: 9px 3px 12px; }
+.behavior-chip.not-relevant, .firelight-card.not-relevant { opacity: .26; }
 
 .observation-toolbar {
   margin: 0 -20px 9px;
   padding: 8px 20px;
   border-top: 1px solid #365d40;
   border-bottom: 1px solid #365d40;
-  background: #06120cee;
+  background: #102619e6;
 }
 .back-to-evidence { display: none; }
 @media (max-width: 760px) {
