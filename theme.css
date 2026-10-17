@@ -65,12 +65,11 @@ body {
   background: linear-gradient(135deg, #2c4033, #22342c);
   border-color: #a2c39e;
   color: #f0f5e8;
-  box-shadow: inset 3px 0 #c0dab0, 0 0 0 1px #a2c39e24;
+  box-shadow: 0 0 0 1px #a2c39e24;
 }
 .evidence.no {
   background: #392927;
   border-color: #ae756b;
-  box-shadow: inset 3px 0 #dc8f82;
 }
 .observation-group {
   background: #151d1e;
@@ -87,7 +86,6 @@ body {
 .ghost-row.selected, .ghost-row.expanded {
   background: linear-gradient(120deg, #26382e, #1a2625);
   border-color: #a6c49f;
-  box-shadow: inset 3px 0 #bdd5aa;
 }
 .ghost-name { color: #f2eee3; font-family: Georgia, serif; font-size: 17px; font-weight: 600; }
 .ghost-stats { color: #e0e8dc; }
