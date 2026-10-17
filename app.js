@@ -34,6 +34,7 @@ const mobile=()=>matchMedia('(max-width: 760px)').matches;
 const pageTrack=$('.shell');
 const investigationPanel=$('.rail');
 const backToEvidence=$('#backToEvidence');
+const observationToolbar=$('.observation-toolbar');
 const navButtons=[...document.querySelectorAll('.mobile-nav [data-view]')];
 const navIndicator=$('.nav-indicator');
 let scrollTimer;
@@ -131,6 +132,7 @@ function renderObservations(){
  const chip=o=>o.id==='fire_blowout'?`<div class="firelight-card ${state.fireBlowouts?'active':''} ${inactive(o)?'is-inactive':''} ${dimmed(o)?'not-relevant':''}"><div class="firelight-heading"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span></div><div class="firelight-counter" role="group" aria-label="Ghost-caused firelight blowouts"><button data-fire-minus aria-label="Remove one firelight blowout" ${state.fireBlowouts===0||inactive(o)?'disabled':''}>−</button><strong>${state.fireBlowouts} / 3</strong><button data-fire-plus aria-label="Record one firelight blowout" ${state.fireBlowouts===3||inactive(o)?'disabled':''}>+</button></div>${state.fireBlowouts>=3?'<small class="firelight-followup">Three blowouts: watch for a hunt attempt. Blowouts alone do not identify Onryo.</small>':''}</div>`:`<button class="behavior-chip ${selected.includes(o)?'active':''} ${inactive(o)?'is-inactive':''} ${dimmed(o)?'not-relevant':''}" data-observation="${o.id}" aria-pressed="${selected.includes(o)}" ${inactive(o)?'disabled':''} title="${o.tip}"><span class="behavior-icon">${icon(o.icon)}</span><span class="behavior-copy"><span>${o.label}</span>${state.showGhostLabels?`<small class="behavior-ghosts">${ghostNames(o)}</small>`:''}</span><span class="behavior-check">${selected.includes(o)?icon('check'):''}</span></button>`;
  const labelsToggle=$('#ghostLabelsToggle');labelsToggle.setAttribute('aria-pressed',state.showGhostLabels);labelsToggle.setAttribute('aria-label',state.showGhostLabels?'Hide ghost labels':'Show ghost labels');labelsToggle.querySelector('span').textContent=state.showGhostLabels?'Hide ghosts':'Show ghosts';document.body.classList.toggle('show-ghost-labels',state.showGhostLabels);
  $('#behaviorList').innerHTML=`${review.length?`<p class="behavior-review">Previously noted: ${review.map(o=>o.label).join(' · ')}. Select a tell again only if the exact event was observed.</p>`:''}${OBSERVATION_GROUPS.map(group=>renderObservationGroup(group,selected,chip)).join('')}${selected.length?`<details class="behavior-guidance"><summary>Sources & detailed notes</summary>${selected.map(o=>{const source=o.source||(o.leads.length===1?GHOSTS.find(g=>g.name===o.leads[0])?.sourceUrl:'https://phasmophobia.fandom.com/wiki/Guides/Identifying_ghosts');return `<p><b>${o.label}:</b> ${o.tip} <a href="${source}" target="_blank" rel="noopener">Community source ↗</a></p>`}).join('')}</details>`:''}`;
+ updateObservationToolbar();
 }
 function sanitySection(g){
  const profile=sanityProfile(g.name);
@@ -214,9 +216,13 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b){
  if(b.dataset.view){switchView(b.dataset.view);return;}
 });
 pageTrack.addEventListener('scroll',()=>{if(!mobile())return;cancelAnimationFrame(scrollFrame);scrollFrame=requestAnimationFrame(updateNavPosition);clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{const view=views[Math.max(0,Math.min(views.length-1,Math.round(pageTrack.scrollLeft/pageTrack.clientWidth)))];if(state.view!==view){state.view=view;persist();}updateNavPosition();},160);},{passive:true});
-function updateBackToEvidence(){backToEvidence.hidden=investigationPanel.scrollTop<320;}
+function updateBackToEvidence(){backToEvidence.hidden=investigationPanel.scrollTop<320;updateObservationToolbar();}
+function updateObservationToolbar(){
+ const stuck=mobile()&&observationToolbar.getBoundingClientRect().top<=investigationPanel.getBoundingClientRect().top+1;
+ observationToolbar.classList.toggle('is-stuck',stuck);
+}
 investigationPanel.addEventListener('scroll',updateBackToEvidence,{passive:true});
-window.addEventListener('resize',()=>{if(mobile())renderView();});
+window.addEventListener('resize',()=>{if(mobile())renderView();updateObservationToolbar();});
 $('#search').addEventListener('input',renderList);
 render();
 updateBackToEvidence();
