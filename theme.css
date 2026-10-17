@@ -336,13 +336,25 @@ body { background-size: auto, 640px 640px; }
 
 /* One hierarchy for observations: group title, subgroup label, then a list. */
 .observation-group {
+  --group-gutter-left: 20px;
+  --group-gutter-right: 20px;
+  position: relative;
   margin: 0;
   border: 0;
-  border-top: 1px solid #71937577;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
   overflow: visible;
+}
+.observation-group::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(0px - var(--group-gutter-left));
+  right: calc(0px - var(--group-gutter-right));
+  height: 1px;
+  background: #71937577;
+  pointer-events: none;
 }
 .observation-group-toggle,
 .observation-group-toggle[aria-expanded="true"] {
@@ -393,6 +405,10 @@ body { background-size: auto, 640px 640px; }
 }
 .back-to-evidence { display: none; }
 @media (max-width: 760px) {
+  .observation-group {
+    --group-gutter-left: calc(16px + env(safe-area-inset-left, 0px));
+    --group-gutter-right: calc(16px + env(safe-area-inset-right, 0px));
+  }
   .observation-toolbar {
     margin-left: calc(-16px - env(safe-area-inset-left, 0px));
     margin-right: calc(-16px - env(safe-area-inset-right, 0px));
