@@ -1,7 +1,7 @@
 import {EVIDENCE,GHOSTS} from './data.js?v=blink-cards-1';
-import {OBSERVATIONS} from './observations.js?v=breaker-rules-1';
+import {OBSERVATIONS} from './observations.js?v=mist-form-1';
 import {EVENT_TYPES,SANITY_SOURCES,sanityProfile} from './sanity.js?v=standing-event-1';
-import {OBSERVATION_GROUPS} from './observation-groups.js?v=breaker-rules-1';
+import {OBSERVATION_GROUPS} from './observation-groups.js?v=haunted-fieldbook-1';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const evidenceIcons={emf:'activity',dots:'scan-eye',uv:'fingerprint',freeze:'snowflake',orbs:'circle-dot',writing:'notebook-pen',box:'radio'};
@@ -170,8 +170,6 @@ function ghostDetails(g){const number=String(GHOSTS.indexOf(g)+1).padStart(2,'0'
 const QUICK_CHECKS=[
  {id:'light_switch',observation:'lights_off',name:'Try the light switch',phase:'While gathering evidence',ghosts:['Mare'],description:'Turn on a light in the ghost’s room and watch for an immediate switch-off. Repeat it; another ghost can do this by chance.',signal:'Mare clue',source:'Mare'},
  {id:'room_light_watch',observation:'room_light_on',name:'Watch for a room light turning on',phase:'While gathering evidence',ghosts:['Mare'],description:'If an ordinary powered room light turns on by itself, with no player at its switch, mark “Saw it” to rule out Mare. TVs, computers, motion-activated lights and the breaker do not count.',signal:'Rules out Mare',source:'Mare'},
- {id:'breaker_switch_off',observation:'breaker_direct_off',name:'Check how the breaker went off',phase:'While gathering evidence',ghosts:['Jinn'],description:'If the ghost switched the breaker off directly, room light switches stay on. An overload turns those switches off; a Jinn can cause an overload. Mark “Saw it” only when no player touched the breaker and no hunt just ended.',signal:'Rules out Jinn only for a direct switch-off',source:'Fuse_Box'},
- {id:'breaker_switch_on',observation:'breaker_direct_on',name:'Watch for the breaker switching on',phase:'While gathering evidence',ghosts:['Hantu'],description:'If the ghost turns the breaker on without a player touching it, mark “Saw it” to rule out Hantu. A Mimic remains possible.',signal:'Rules out Hantu',source:'Fuse_Box'},
  {id:'parabolic',observation:'para_scream',name:'Sweep with the parabolic mic',phase:'While gathering evidence',ghosts:['Banshee'],description:'Aim it through the ghost’s area and listen for the distinctive scream. No scream on one pass tells you little.',signal:'Banshee clue',source:'Banshee'},
  {id:'salt_motion',observation:'salt_untouched',name:'Pair salt with a motion sensor',phase:'While gathering evidence',ghosts:['Wraith','Gallu'],description:'If the sensor confirms a crossing but the salt stays untouched, consider Wraith or an enraged Gallu. A Gallu may enter that state after salt, incense or a crucifix.',signal:'Wraith / Gallu clue',source:'Salt'},
  {id:'object_pile',observation:'multi_throw',name:'Set out a few loose objects',phase:'While gathering evidence',ghosts:['Poltergeist'],description:'Spread small piles around the ghost room. Mark “Saw it” only if several items fly in one simultaneous burst, not separate throws.',signal:'Poltergeist / Mimic tell',source:'Poltergeist'},

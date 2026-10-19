@@ -5,7 +5,7 @@ export const OBSERVATION_GROUPS = [
   {title:'During hunts',ids:['shape_shift','hunting_breath','long_blink','visible_blink','rapid_blink']}
  ]},
  {id:'interactions',title:'Objects & interactions',sections:[
-  {title:'Lights & power',ids:['room_light_on','lights_off','breaker_direct_off','breaker_direct_on','breaker_off']},
+  {title:'Lights & power',ids:['room_light_on','lights_off','breaker_off']},
   {title:'Salt',ids:['salt_disturbed','salt_untouched']},
   {title:'Fire & protection',ids:['fire_lit','fire_blowout','crucifix_burn']},
   {title:'Doors, objects & prints',ids:['yurei_exit','object_burst','multi_throw','twins_pair','six_finger']}
