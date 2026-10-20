@@ -49,7 +49,7 @@ The spoken video does not give a dedicated test for Aswang, Deildegast, Revenant
 | 27:13 | Poltergeist frequent throws with available objects | Existing clue; expanded control condition |
 | 27:22 | Dayan speed near moving/still players | Existing clue; expanded condition |
 | 27:47 | Hantu temperature speed and no sight acceleration | Existing clue, expanded distinction |
-| 27:53 | Kormos footsteps versus sight | Existing clue, expanded distinction |
+| 27:53 | Kormos footsteps versus sight | Existing clue; expanded test includes the on-screen 30/15/10 m footstep ranges, 5 m sight limit and close-range danger |
 | 28:12 | Jinn breaker-dependent distance burst | Existing clue, expanded test |
 | 28:26 | Raiju player equipment only, not house switches | Existing clue, expanded test |
 | 29:37 | Myling footstep audibility versus electronics | Existing clue, expanded distance/floor caveat |
