@@ -2,7 +2,7 @@ import {EVIDENCE,GHOSTS} from './data.js?v=pro-field-guide-1';
 import {OBSERVATIONS} from './observations.js?v=pro-field-guide-1';
 import {EVENT_TYPES,SANITY_SOURCES,sanityProfile} from './sanity.js?v=standing-event-1';
 import {OBSERVATION_GROUPS} from './observation-groups.js?v=pro-field-guide-1';
-import {VIDEO_BASICS,VIDEO_TESTS,videoLink} from './video-guide.js?v=pro-field-guide-1';
+import {VIDEO_BASICS,VIDEO_TESTS,videoLink} from './video-guide.js?v=pro-field-guide-2';
 const $=s=>document.querySelector(s);
 const icon=(name,cls='icon')=>`<svg class="${cls}" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><use href="#i-${name}"></use></svg>`;
 const evidenceIcons={emf:'activity',dots:'scan-eye',uv:'fingerprint',freeze:'snowflake',orbs:'circle-dot',writing:'notebook-pen',box:'radio'};

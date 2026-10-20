@@ -2,7 +2,7 @@
 
 Reviewed on 20 October 2026 against [Lisa's Chillin's elimination guide](https://www.youtube.com/watch?v=PNPgkRpEkxw) (39 min), the current Phasmophobia community wiki ghost/mechanics pages, and the app's existing data. This document maps the substantive rules and tests in the video to their app surfaces. The video examples are paraphrased, not transcribed. Rules that depend on player judgment remain field notes; only a clearly defined observed impossibility becomes a hard exclusion.
 
-The 30 ghost profiles and evidence combinations already existed. New guide entries live in `video-guide.js`. New tappable observations and filters live in `observations.js`; placement is in `observation-groups.js`. Each expanded ghost card shows relevant field tests with a direct link to the video moment and its mechanics page. Checks has general testing principles. The app's behavior labels stay short for mobile use; detailed conditions are in the selected observation's “Sources & detailed notes” and the ghost card.
+The 30 ghost profiles and evidence combinations already existed. New guide entries live in `video-guide.js`. New tappable observations and filters live in `observations.js`; placement is in `observation-groups.js`. Each expanded ghost card shows relevant field tests with a direct link to its mechanics page and, where applicable, the video moment. Checks has general testing principles. The app's behavior labels stay short for mobile use; detailed conditions are in the selected observation's “Sources & detailed notes” and the ghost card.
 
 The spoken video does not give a dedicated test for Aswang, Deildegast, Revenant or The Mimic. Their ghost cards include supplemental tests from their mechanics pages, labelled only with a mechanics link.
 
@@ -16,6 +16,7 @@ The spoken video does not give a dedicated test for Aswang, Deildegast, Revenant
 | 02:39 | Poltergeist cannot do certain non-throw interactions | New dirty-water and window-knock hard exclusions; fire-lighting now excludes Poltergeist; other examples in ghost card |
 | 03:21 | Singing event excludes Shade | New hard exclusion |
 | 04:10 | Sanity measurement and Shade/Deogen thresholds | Existing threshold cards, expanded tests and Checks interpretation guide; no automatic rule from a guessed sanity reading |
+| 04:26 | Truck monitor oscillates around actual sanity | Checks guide explains ±2% per-player display wobble and broken-monitor difficulties |
 | 05:05 | Obambo state timing and 10/65% thresholds | Expanded Obambo test, existing threshold card |
 | 05:41 | Gallu normal/enraged/weakened states | Expanded state guide; ability summary clarified |
 | 06:30 | Third firelight blowout/Onryo hunt attempt | Existing 0–3 counter; guide explains conditional nature |
