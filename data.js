@@ -21,9 +21,9 @@ const ABILITIES={
  Deildegast:'Starts hunts very fast. Moving different objects before a hunt progressively lowers its next starting speed.',
  Demon:'Can trigger a hunt above its usual sanity threshold. It has a shorter hunt cooldown and a larger crucifix range.',
  Deogen:'Always knows where players are during hunts. It moves quickly from far away, then slows sharply near a player.',
- Gallu:'Crucifixes, salt and incense can change its state, affecting its hunt speed and hunt threshold.',
- Goryo:'Its D.O.T.S. silhouette appears on camera while no player is in its room. It rarely roams far from that room.',
- Hantu:'Its hunt speed changes with temperature: faster in cold rooms and slower in warm ones. It shows freezing breath during hunts when the breaker is off.',
+ Gallu:'Starts normal. Salt, crucifixes and incense can enrage it; after an enraged hunt it weakens. State changes affect salt, hunt speed, threshold, crucifix reach and incense duration.',
+ Goryo:'Its D.O.T.S. silhouette appears only on camera while no player shares its room. It makes short roams and cannot naturally change its favorite room.',
+ Hantu:'Its hunt speed changes with temperature: faster in cold rooms and slower in warm ones. It shows freezing breath during hunts when the breaker is off and cannot switch the breaker on.',
  Jinn:'With the breaker on, it can burst toward a visible player at a distance. It cannot switch off the breaker directly.',
  Kormos:'Detects player footsteps during hunts despite poor sight. Sprinting near it outside a hunt can raise its hunt threshold.',
  Mare:'Can immediately turn off a light a player switches on. Its hunt threshold is higher in darkness and lower in a lit room.',
@@ -34,17 +34,17 @@ const ABILITIES={
  Oni:'Stays visible longer between hunt blinks and cannot perform the mist form ghost event.',
  Onryo:'Nearby flames can block a hunt. After enough ghost-caused flame blowouts, it may try to hunt early.',
  Phantom:'A ghost photo makes it vanish from the image while the event continues. It also has longer invisible gaps during hunts.',
- Poltergeist:'Can throw several nearby objects at once and throws more frequently during hunts.',
+ Poltergeist:'Can throw several nearby objects at once and throws more frequently during hunts. Current interactions cannot create dirty water, knock windows, turn on radios or light fire sources.',
  Raiju:'Nearby powered electronics can raise its hunt threshold and make it faster during a hunt.',
  Revenant:'Moves slowly until it detects a player, then accelerates dramatically.',
- Shade:'Cannot start a hunt while a player is in its room. Its normal hunt threshold is lower than most ghosts.',
+ Shade:'Cannot interact, event or start a hunt while a player shares its room. It cannot sing during an event or use the levitating targeted object throw.',
  Spirit:'Incense prevents it from hunting for 180 seconds, longer than the usual 90 seconds.',
  Thaye:'Ages while players spend time nearby. Its hunt threshold, hunt speed and activity fall as it ages.',
  'The Mimic':'Copies another ghost’s traits and can change what it mimics. It always produces extra Ghost Orbs, even at zero evidence.',
  'The Twins':'Can interact in two different places almost at once. Its hunts can use one of two base speeds.',
  Wraith:'Can teleport to a player outside hunts and never disturbs salt.',
  Yokai:'Talking near it can enable earlier hunts. During a hunt, it detects voices and electronics only at short range.',
- Yurei:'Can close an open door in its room and drain nearby players’ sanity. This can include the front exit door outside a hunt or ghost event. The door’s closing speed alone does not identify it.'
+ Yurei:'Can smoothly shut an open door in its room and drain nearby players’ sanity, including at the front exit outside a hunt or event. Ordinary room-door interactions fully open or close; incense prevents roaming and D.O.T.S. for 90 seconds.'
 };
 const g=(name,evidence,speed,threshold,tell,test,forced=[],blink='Standard',note='')=>({name,evidence:evidence.split(' '),speed,threshold,ability:ABILITIES[name],tell,test,forced,blink,note,sourceRevision:SOURCE_REVISIONS[name],sourceUrl:`https://phasmophobia.fandom.com/wiki/${encodeURIComponent(name.replaceAll(' ','_'))}`,reviewedAt:'2026-10-14',reviewedPatch:'v0.19.1.0',knownIssue:KNOWN_ISSUES[name]||''});
 export const GHOSTS = [
@@ -55,7 +55,7 @@ export const GHOSTS = [
  g('Demon','uv freeze writing','1.7 m/s','70% or ability','Can hunt at high sanity; has a shorter hunt cooldown and larger crucifix range.','A hunt at high sanity or unusually soon after the last hunt supports Demon; its crucifix range is larger too.'),
  g('Deogen','dots writing box','3.0 far → 0.4 near','40%','Always knows player locations and slows dramatically when close.','During a hunt, keep a large obstacle such as a table between you and the ghost. Listen for fast footsteps that slow to a crawl as it gets close.',['box'],'More visible'),
  g('Gallu','emf uv box','1.36 / 1.7 / 1.955 m/s','40–60%','Protective items change its state; enraged state may avoid disturbing salt.','After a crucifix burns or incense wears off, listen for faster footsteps; an enraged Gallu also leaves salt untouched.'),
- g('Goryo','emf dots uv','1.7 m/s','50%','D.O.T.S. silhouette appears on camera while nobody is in its room; rarely roams far.','Leave the ghost room and watch D.O.T.S. on camera; a silhouette visible on camera but not in person points to Goryo.',['dots']),
+ g('Goryo','emf dots uv','1.7 m/s','50%','D.O.T.S. silhouette appears only on camera; cannot naturally change favorite room.','Compare D.O.T.S. on camera and by eye. If a Haunted Mirror or sustained temperature shift confirms a natural favorite-room change, rule out Goryo.',['dots']),
  g('Hantu','orbs uv freeze','1.4–2.7 m/s by temperature','50%','Faster in cold rooms; emits freezing breath in hunts when breaker is off.','Listen for faster footsteps in cold rooms and slower ones in warm rooms. With the breaker off, look for freezing breath from its head during a hunt.',['freeze']),
  g('Jinn','emf uv freeze','1.7 m/s; burst to 2.5','50%','With breaker on, can rush a distant player it sees; cannot turn breaker off directly.','With the breaker on, listen for a sudden speed burst toward a distant player it sees; that burst should disappear with the breaker off.'),
  g('Kormos','orbs box uv','1.7 m/s; sound-path boost','50% / 70% if sprinting nearby','Nearly blind in hunts; detects player footsteps and can hunt earlier if someone sprints nearby.','From cover, watch whether footsteps draw it toward a moving player while a still, hidden player goes unnoticed.'),
@@ -77,5 +77,5 @@ export const GHOSTS = [
  g('The Twins','emf freeze box','1.5 / 1.9 m/s','50%','Can make two interactions in separate areas within 1–2 seconds; hunts use either a slower or faster base speed.','Listen for two interactions in different spots almost together; across hunts, compare for 1.5 versus 1.9 m/s base footsteps.'),
  g('Wraith','emf dots box','1.7 m/s','50%','Never disturbs salt; can teleport to a player and leave EMF.','Place salt across its path; if it walks through without disturbing the pile, suspect Wraith.'),
  g('Yokai','dots orbs box','1.7 m/s','50% / 80%','Talking nearby can trigger an early hunt; hunt detection range is short.','Talking nearby may trigger an unusually early hunt; from safe cover, notice if it fails to detect voices or electronics beyond a short range.'),
- g('Yurei','dots orbs freeze','1.7 m/s','50%','Can close the front exit door outside a hunt or ghost event; a Mimic copying Yurei can do this too. The closing speed of a room door proves neither.','When the ghost is near an entrance, watch an open front exit door. If it closes with no hunt or ghost event, suspect Yurei or a Mimic copying it. How slowly it closes is not the test; a missed close rules out nothing.')
+ g('Yurei','dots orbs freeze','1.7 m/s','50%','Can smoothly close the front exit door outside a hunt or event; cannot partly move normal room doors. Incense confines it for 90 seconds.','Watch ordinary room-door interactions: a partial move rules Yurei out. After incense affects it, track the ghost with sensors; a genuine roam out of its favorite room within 90 seconds also rules it out.')
 ];

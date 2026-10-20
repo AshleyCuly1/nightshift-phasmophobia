@@ -1,17 +1,18 @@
 // Presentation order only. Observation IDs and their filtering rules stay in observations.js.
 export const OBSERVATION_GROUPS = [
  {id:'events',title:'Ghost events & visuals',sections:[
-  {title:'Ghost events',ids:['chasing_event','airball_event','phantom_photo']},
+  {title:'Ghost events',ids:['chasing_event','airball_event','singing_event','phantom_photo','phantom_visible_photo']},
   {title:'During hunts',ids:['shape_shift','hunting_breath','long_blink','visible_blink','rapid_blink']}
  ]},
  {id:'interactions',title:'Objects & interactions',sections:[
-  {title:'Lights & power',ids:['room_light_on','lights_off','breaker_off']},
-  {title:'Salt',ids:['salt_disturbed','salt_untouched']},
+  {title:'Lights & power',ids:['room_light_on','lights_off','breaker_off','breaker_on']},
+  {title:'Salt',ids:['salt_disturbed','gallu_second_salt','salt_untouched']},
   {title:'Fire & protection',ids:['fire_lit','fire_blowout','crucifix_burn']},
-  {title:'Doors, objects & prints',ids:['yurei_exit','object_burst','multi_throw','twins_pair','six_finger']}
+  {title:'Doors & rooms',ids:['yurei_exit','yurei_partial_door','favorite_room_changed','yurei_roam_incense']},
+  {title:'Objects & prints',ids:['object_burst','multi_throw','shade_throw_player','dirty_water','window_knock','twins_pair','six_finger']}
  ]},
  {id:'equipment',title:'Tools & devices',sections:[
-  {title:'Camera',ids:['goryo_camera']},
+  {title:'Camera',ids:['goryo_camera','dots_direct','yurei_dots_incense']},
   {title:'Sound',ids:['para_scream','box_breath','moroi_curse']}
  ]},
  {id:'speed',title:'Hunt speed',sections:[

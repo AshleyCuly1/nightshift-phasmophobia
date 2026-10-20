@@ -440,3 +440,21 @@ body { background-size: auto, 640px 640px; }
   .back-to-evidence .icon { width: 16px; height: 16px; transform: rotate(180deg); }
   .back-to-evidence[hidden], body:not(.view-investigation) .back-to-evidence { display: none; }
 }
+
+/* The video field guide stays inside an opened ghost card; only tests with a
+   confirmed result become selectable observations on the Investigation page. */
+.pro-guide-intro { margin-bottom: 12px !important; color: #b9cbb5 !important; font-size: 12px; }
+.pro-test { padding: 11px 0; border-top: 1px solid #64866a66; }
+.pro-test-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; }
+.pro-test-heading strong { font: 700 13px/1.3 'Space Grotesk', sans-serif; color: #e9ffdf; }
+.pro-test-heading span { color: #a6e99d; font: 700 10px/1.3 'Space Grotesk', sans-serif; }
+.pro-test p { margin: 6px 0 !important; color: #cbdac8 !important; font-size: 12px; }
+.pro-test-sources { color: #9db69a; font-size: 10px; }
+.pro-test-sources a, .video-basics a { color: #a8eaa1; }
+.video-basics { margin: 16px 0 2px; padding: 11px 13px; border: 1px solid #64866a66; border-radius: 9px; background: #07130ac2; }
+.video-basics summary { color: #d9f5d4; font: 700 12px 'Space Grotesk', sans-serif; cursor: pointer; }
+.video-basics article { padding: 11px 0 7px; border-top: 1px solid #64866a44; }
+.video-basics article:first-of-type { margin-top: 12px; }
+.video-basics strong { color: #e9ffdf; font-size: 12px; }
+.video-basics p { margin: 5px 0; color: #c4d7c1; line-height: 1.5; font-size: 12px; }
+.video-basics small { color: #98ae97; }
